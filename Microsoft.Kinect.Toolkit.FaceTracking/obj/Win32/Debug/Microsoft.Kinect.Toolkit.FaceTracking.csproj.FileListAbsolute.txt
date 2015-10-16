@@ -1,0 +1,9 @@
+C:\Users\Alejandro A\Documents\GitHubVisualStudio\grado_informatica_npi\Microsoft.Kinect.Toolkit.FaceTracking\bin\x86\Debug\FaceTrackData.dll
+C:\Users\Alejandro A\Documents\GitHubVisualStudio\grado_informatica_npi\Microsoft.Kinect.Toolkit.FaceTracking\bin\x86\Debug\FaceTrackLib.dll
+C:\Users\Alejandro A\Documents\GitHubVisualStudio\grado_informatica_npi\Microsoft.Kinect.Toolkit.FaceTracking\bin\x86\Debug\Microsoft.Kinect.Toolkit.FaceTracking.dll
+C:\Users\Alejandro A\Documents\GitHubVisualStudio\grado_informatica_npi\Microsoft.Kinect.Toolkit.FaceTracking\bin\x86\Debug\Microsoft.Kinect.Toolkit.FaceTracking.pdb
+C:\Users\Alejandro A\Documents\GitHubVisualStudio\grado_informatica_npi\Microsoft.Kinect.Toolkit.FaceTracking\bin\x86\Debug\Microsoft.Kinect.dll
+C:\Users\Alejandro A\Documents\GitHubVisualStudio\grado_informatica_npi\Microsoft.Kinect.Toolkit.FaceTracking\bin\x86\Debug\Microsoft.Kinect.xml
+C:\Users\Alejandro A\Documents\GitHubVisualStudio\grado_informatica_npi\Microsoft.Kinect.Toolkit.FaceTracking\obj\Win32\Debug\Microsoft.Kinect.Toolkit.FaceTracking.csprojResolveAssemblyReference.cache
+C:\Users\Alejandro A\Documents\GitHubVisualStudio\grado_informatica_npi\Microsoft.Kinect.Toolkit.FaceTracking\obj\Win32\Debug\Microsoft.Kinect.Toolkit.FaceTracking.dll
+C:\Users\Alejandro A\Documents\GitHubVisualStudio\grado_informatica_npi\Microsoft.Kinect.Toolkit.FaceTracking\obj\Win32\Debug\Microsoft.Kinect.Toolkit.FaceTracking.pdb
