@@ -148,7 +148,7 @@ namespace WindowsFormsKinectTest
                     else if (keycode != VirtualKeyCode.NONAME && _readyGestureDetected)
                     {
                         
-                        rtbMessages.AppendText("Gesture accepted from player " + sd.TrackingId + "\r");
+                        rtbMessages.AppendText("Gesture accepted\r");
                         rtbMessages.ScrollToCaret();
                         rtbMessages.AppendText("Command passed to System: " + keycode + "\r");
                         rtbMessages.ScrollToCaret();

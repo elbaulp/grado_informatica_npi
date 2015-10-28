@@ -8,7 +8,7 @@
     <Gesture Description="Ready Position" MaxExecutionTime="1000" MappedKeyCode="ACCEPT">
         <GestureComponent FirstJoint="WristRight" SecondJoint="ShoulderRight" EndingRelationship="Below" BeginningRelationship="Above" />
     </Gesture>
-    <Gesture Description="Ready Position" MaxExecutionTime="1000" MappedKeyCode="CANCEL">
+    <Gesture Description="Cancel Position" MaxExecutionTime="1000" MappedKeyCode="CANCEL">
         <GestureComponent FirstJoint="WristLeft" SecondJoint="ShoulderLeft" EndingRelationship="Below" BeginningRelationship="Above" />
     </Gesture>
 </Gestures>
