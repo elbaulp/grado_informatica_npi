@@ -299,8 +299,8 @@ namespace GestureFramework
 
                 if (component.Evaluate(sd, xScale, yScale))
                 {
-                    Messages.Add("Gesture " + _gesture.Description + " Component Evaluated Complete for user " +
-                                             sd.TrackingId.ToString());
+                    //Messages.Add("Gesture " + _gesture.Description + " Component Evaluated Complete for user " +
+                                           //  sd.TrackingId.ToString());
                     MessageWaiting = true;
                 }
             }
@@ -319,8 +319,7 @@ namespace GestureFramework
 
             if (completecount >= ComponentStates.Count && IsExecuting)
             {
-                Messages.Add("Gesture " + _gesture.Description + " evaluated complete for user " +
-                              sd.TrackingId);
+                Messages.Add("Gesture " + _gesture.Description + " evaluated complete");
                 MessageWaiting = true;
                 HasError = false;
                 Reset();
@@ -331,7 +330,7 @@ namespace GestureFramework
             {
                 if (!IsExecuting)
                 {
-                    Messages.Add("Gesture " + _gesture.Description + " Has Transitioned To In Flight State for user " + sd.TrackingId.ToString());
+                    //Messages.Add("Gesture " + _gesture.Description + " Has Transitioned To In Flight State for user " + sd.TrackingId.ToString());
                     MessageWaiting = true;
                     IsExecuting = true;
                     HasError = false;
@@ -506,7 +505,7 @@ namespace GestureFramework
                     continue;
 
                 LastGestureCompletionTime = DateTime.Now;
-                Messages.Add(state.Gesture.Description + " gesture completed successfully at " + LastGestureCompletionTime.ToString() + "For Player " + skeleton.TrackingId.ToString());
+                Messages.Add(state.Gesture.Description + " gesture completed successfully");
                 MessagesWaiting = true;
 
                 if (passCommandToSystem)
