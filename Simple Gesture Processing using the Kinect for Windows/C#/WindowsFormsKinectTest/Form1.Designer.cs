@@ -35,28 +35,33 @@
             // 
             // rtbMessages
             // 
-            this.rtbMessages.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbMessages.Location = new System.Drawing.Point(12, 516);
+            this.rtbMessages.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.rtbMessages.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbMessages.Location = new System.Drawing.Point(0, 564);
             this.rtbMessages.Name = "rtbMessages";
-            this.rtbMessages.Size = new System.Drawing.Size(776, 96);
+            this.rtbMessages.Size = new System.Drawing.Size(997, 152);
             this.rtbMessages.TabIndex = 0;
             this.rtbMessages.Text = "";
             this.rtbMessages.TextChanged += new System.EventHandler(this.rtbMessages_TextChanged);
             // 
             // video
             // 
+            this.video.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.video.Location = new System.Drawing.Point(12, 12);
             this.video.Name = "video";
-            this.video.Size = new System.Drawing.Size(640, 480);
+            this.video.Size = new System.Drawing.Size(985, 549);
             this.video.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.video.TabIndex = 1;
             this.video.TabStop = false;
+            this.video.Click += new System.EventHandler(this.video_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 624);
+            this.ClientSize = new System.Drawing.Size(997, 716);
             this.Controls.Add(this.video);
             this.Controls.Add(this.rtbMessages);
             this.Name = "Form1";

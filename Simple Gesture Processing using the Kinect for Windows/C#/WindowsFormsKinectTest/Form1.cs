@@ -312,5 +312,10 @@ namespace WindowsFormsKinectTest
         {
 
         }
+
+        private void video_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
