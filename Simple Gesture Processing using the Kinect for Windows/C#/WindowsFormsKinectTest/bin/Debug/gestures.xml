@@ -5,4 +5,10 @@
     <Gesture Description="Next Bullet" MaxExecutionTime="1000" MappedKeyCode="NEXT">
         <GestureComponent FirstJoint="WristRight" SecondJoint="HipRight" EndingRelationship="BelowAndRight" BeginningRelationship="AboveAndRight" />
     </Gesture>
+    <Gesture Description="Ready Position" MaxExecutionTime="1000" MappedKeyCode="ACCEPT">
+        <GestureComponent FirstJoint="WristRight" SecondJoint="ShoulderRight" EndingRelationship="Below" BeginningRelationship="Above" />
+    </Gesture>
+    <Gesture Description="Ready Position" MaxExecutionTime="1000" MappedKeyCode="CANCEL">
+        <GestureComponent FirstJoint="WristLeft" SecondJoint="ShoulderLeft" EndingRelationship="Below" BeginningRelationship="Above" />
+    </Gesture>
 </Gestures>

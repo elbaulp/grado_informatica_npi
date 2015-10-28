@@ -20,7 +20,7 @@ namespace WindowsFormsKinectTest
         private const string GestureFileName = "gestures.xml";
 
         public int PlayerId;
-
+        private bool _readyGestureDetected = false;
 
         public Form1()
         {
@@ -130,8 +130,24 @@ namespace WindowsFormsKinectTest
                     var keycode = _gestureMaps[sd.TrackingId].Evaluate(sd, false, _bitmap.Width, _bitmap.Height);
                     GetWaitingMessages(_gestureMaps);
 
-                    if (keycode != VirtualKeyCode.NONAME)
+
+                    if (keycode == VirtualKeyCode.ACCEPT)
                     {
+                        rtbMessages.AppendText("READY TO GOOOOOOOO " + sd.TrackingId + "\r");
+                        rtbMessages.ScrollToCaret();
+                        _gestureMaps[sd.TrackingId].ResetAll(sd);
+                        _readyGestureDetected = true;
+                    }
+                    else if (keycode == VirtualKeyCode.CANCEL)
+                    {
+                        rtbMessages.AppendText("DISABLING!! " + sd.TrackingId + "\r");
+                        rtbMessages.ScrollToCaret();
+                        _gestureMaps[sd.TrackingId].ResetAll(sd);
+                        _readyGestureDetected = false;
+                    }
+                    else if (keycode != VirtualKeyCode.NONAME && _readyGestureDetected)
+                    {
+                        
                         rtbMessages.AppendText("Gesture accepted from player " + sd.TrackingId + "\r");
                         rtbMessages.ScrollToCaret();
                         rtbMessages.AppendText("Command passed to System: " + keycode + "\r");
@@ -167,8 +183,12 @@ namespace WindowsFormsKinectTest
 
             var gobject = Graphics.FromImage(bitmap);
 
-            if (isActive)
-                pen = new Pen(Color.Green, 5);
+            if (_readyGestureDetected)
+            {
+                pen = new Pen(Color.Green, 3);
+            }
+            else if (isActive)
+                pen = new Pen(Color.Red, 5);
             else
             {
                 pen = new Pen(Color.DeepSkyBlue, 5);
@@ -288,5 +308,9 @@ namespace WindowsFormsKinectTest
             return null;
         }
 
+        private void rtbMessages_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

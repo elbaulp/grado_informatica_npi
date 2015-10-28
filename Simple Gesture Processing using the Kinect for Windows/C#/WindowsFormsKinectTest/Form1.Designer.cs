@@ -35,11 +35,13 @@
             // 
             // rtbMessages
             // 
+            this.rtbMessages.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbMessages.Location = new System.Drawing.Point(12, 516);
             this.rtbMessages.Name = "rtbMessages";
             this.rtbMessages.Size = new System.Drawing.Size(776, 96);
             this.rtbMessages.TabIndex = 0;
             this.rtbMessages.Text = "";
+            this.rtbMessages.TextChanged += new System.EventHandler(this.rtbMessages_TextChanged);
             // 
             // video
             // 
