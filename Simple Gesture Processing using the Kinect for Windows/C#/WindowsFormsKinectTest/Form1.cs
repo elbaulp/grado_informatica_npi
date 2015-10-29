@@ -62,7 +62,7 @@ namespace WindowsFormsKinectTest
             {
                 newsensor.Start();
                 rtbMessages.Text = "Kinect Started" + "\r";
-                mInstructions.Text = "1. To start, elevate your right wrist above your shoulder, the skeleton should turn on green.\r";
+                mInstructions.Text = "1. To start, pass your right knee to the right of your right shoulder, the skeleton should turn on green.\r";
             }
             catch (System.IO.IOException)
             {
@@ -132,14 +132,15 @@ namespace WindowsFormsKinectTest
                     var keycode = _gestureMaps[sd.TrackingId].Evaluate(sd, false, _bitmap.Width, _bitmap.Height);
                     GetWaitingMessages(_gestureMaps);
 
-
                     if (keycode == VirtualKeyCode.ACCEPT)
                     {
                         rtbMessages.AppendText("READY TO GOOOOOOOO " + sd.TrackingId + "\r");
                         rtbMessages.ScrollToCaret();
                         _gestureMaps[sd.TrackingId].ResetAll(sd);
                         _readyGestureDetected = true;
-                        mInstructions.Text = "2. In order to display the next slide, move your right wrist above your right hip and put it down. To display the previous slide, do the same with your left wrist\r";
+                        mInstructions.Text = "2. In order to display the next slide, move your right wrist above your right hip and put it down." +
+                            "To display the previous slide, do the same with your left wrist\r" +
+                            "3. To disable futher processing, pass your left Knee to the left of your left shoulder\r";
 
                     }
                     else if (keycode == VirtualKeyCode.CANCEL)
@@ -151,11 +152,6 @@ namespace WindowsFormsKinectTest
                     }
                     else if (keycode != VirtualKeyCode.NONAME && _readyGestureDetected)
                     {
-                        if (_doingDemo)
-                        {
-                            mInstructions.Text = "3. To disable futher processing, elevate your left wrist above your left shoulder\r";
-                            _doingDemo = false;
-                        }
                         rtbMessages.AppendText("Gesture accepted\r");
                         rtbMessages.ScrollToCaret();
                         rtbMessages.AppendText("Command passed to System: " + keycode + "\r");
