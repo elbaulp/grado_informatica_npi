@@ -6,9 +6,9 @@
         <GestureComponent FirstJoint="WristRight" SecondJoint="HipRight" EndingRelationship="BelowAndRight" BeginningRelationship="AboveAndRight" />
     </Gesture>
     <Gesture Description="Ready Position" MaxExecutionTime="1000" MappedKeyCode="ACCEPT">
-        <GestureComponent FirstJoint="WristRight" SecondJoint="ShoulderRight" EndingRelationship="Below" BeginningRelationship="Above" />
+        <GestureComponent FirstJoint="KneeRight" SecondJoint="ShoulderRight" EndingRelationship="LeftOf" BeginningRelationship="RightOf" />
     </Gesture>
     <Gesture Description="Cancel Position" MaxExecutionTime="1000" MappedKeyCode="CANCEL">
-        <GestureComponent FirstJoint="WristLeft" SecondJoint="ShoulderLeft" EndingRelationship="Below" BeginningRelationship="Above" />
+        <GestureComponent FirstJoint="KneeLeft" SecondJoint="ShoulderLeft" EndingRelationship="RightOf" BeginningRelationship="LeftOf" />
     </Gesture>
 </Gestures>

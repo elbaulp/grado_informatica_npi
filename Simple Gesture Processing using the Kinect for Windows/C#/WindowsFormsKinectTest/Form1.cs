@@ -21,6 +21,7 @@ namespace WindowsFormsKinectTest
 
         public int PlayerId;
         private bool _readyGestureDetected = false;
+        private bool _doingDemo = true;
 
         public Form1()
         {
@@ -138,6 +139,8 @@ namespace WindowsFormsKinectTest
                         rtbMessages.ScrollToCaret();
                         _gestureMaps[sd.TrackingId].ResetAll(sd);
                         _readyGestureDetected = true;
+                        mInstructions.Text = "2. In order to display the next slide, move your right wrist above your right hip and put it down. To display the previous slide, do the same with your left wrist\r";
+
                     }
                     else if (keycode == VirtualKeyCode.CANCEL)
                     {
@@ -148,7 +151,11 @@ namespace WindowsFormsKinectTest
                     }
                     else if (keycode != VirtualKeyCode.NONAME && _readyGestureDetected)
                     {
-                        
+                        if (_doingDemo)
+                        {
+                            mInstructions.Text = "3. To disable futher processing, elevate your left wrist above your left shoulder\r";
+                            _doingDemo = false;
+                        }
                         rtbMessages.AppendText("Gesture accepted\r");
                         rtbMessages.ScrollToCaret();
                         rtbMessages.AppendText("Command passed to System: " + keycode + "\r");
@@ -194,7 +201,7 @@ namespace WindowsFormsKinectTest
             {
                 pen = new Pen(Color.DeepSkyBlue, 5);
             }
-
+  
             var head = CalculateJointPosition(bitmap, skeleton.Joints[JointType.Head]);
             var neck = CalculateJointPosition(bitmap, skeleton.Joints[JointType.ShoulderCenter]);
             var rightshoulder = CalculateJointPosition(bitmap, skeleton.Joints[JointType.ShoulderRight]);
