@@ -61,6 +61,7 @@ namespace WindowsFormsKinectTest
             {
                 newsensor.Start();
                 rtbMessages.Text = "Kinect Started" + "\r";
+                mInstructions.Text = "1. To start, elevate your right wrist above your shoulder, the skeleton should turn on green.\r";
             }
             catch (System.IO.IOException)
             {
@@ -314,6 +315,11 @@ namespace WindowsFormsKinectTest
         }
 
         private void video_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
