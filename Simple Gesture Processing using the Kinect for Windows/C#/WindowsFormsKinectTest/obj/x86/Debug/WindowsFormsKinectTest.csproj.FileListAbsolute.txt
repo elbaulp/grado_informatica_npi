@@ -25,8 +25,6 @@ C:\Users\guille\Documents\GitHubVisualStudio\Simple Gesture Processing using the
 C:\Users\guille\Documents\GitHubVisualStudio\Simple Gesture Processing using the Kinect for Windows\C#\WindowsFormsKinectTest\obj\x86\Debug\WindowsFormsKinectTest.Form1.resources
 C:\Users\guille\Documents\GitHubVisualStudio\Simple Gesture Processing using the Kinect for Windows\C#\WindowsFormsKinectTest\obj\x86\Debug\WindowsFormsKinectTest.Properties.Resources.resources
 C:\Users\guille\Documents\GitHubVisualStudio\Simple Gesture Processing using the Kinect for Windows\C#\WindowsFormsKinectTest\obj\x86\Debug\WindowsFormsKinectTest.csproj.GenerateResource.Cache
-C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\WindowsFormsKinectTest\obj\x86\Debug\WindowsFormsKinectTest.exe
-C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\WindowsFormsKinectTest\obj\x86\Debug\WindowsFormsKinectTest.pdb
 C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\WindowsFormsKinectTest\bin\Debug\gestures.xml
 C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\WindowsFormsKinectTest\bin\Debug\WindowsFormsKinectTest.exe
 C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\WindowsFormsKinectTest\bin\Debug\WindowsFormsKinectTest.pdb
@@ -39,3 +37,5 @@ C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gestur
 C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\WindowsFormsKinectTest\obj\x86\Debug\WindowsFormsKinectTest.Form1.resources
 C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\WindowsFormsKinectTest\obj\x86\Debug\WindowsFormsKinectTest.Properties.Resources.resources
 C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\WindowsFormsKinectTest\obj\x86\Debug\WindowsFormsKinectTest.csproj.GenerateResource.Cache
+C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\WindowsFormsKinectTest\obj\x86\Debug\WindowsFormsKinectTest.exe
+C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\WindowsFormsKinectTest\obj\x86\Debug\WindowsFormsKinectTest.pdb
