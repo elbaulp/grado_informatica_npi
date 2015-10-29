@@ -102,6 +102,11 @@ namespace WindowsFormsKinectTest
         }
 
 
+        double distance(Joint j1, Joint j2)
+        {
+            return Math.Sqrt(Math.Pow(Math.Abs(j1.Position.X - j2.Position.X), 2) + Math.Pow(Math.Abs(j1.Position.Y - j2.Position.Y), 2) + Math.Pow(Math.Abs(j1.Position.Z - j2.Position.Z), 2));
+        }
+
         void SensorSkeletonFrameReady(AllFramesReadyEventArgs e)
         {
             using (SkeletonFrame skeletonFrameData = e.OpenSkeletonFrame())
@@ -134,13 +139,25 @@ namespace WindowsFormsKinectTest
 
                     if (keycode == VirtualKeyCode.ACCEPT)
                     {
-                        rtbMessages.AppendText("READY TO GOOOOOOOO " + sd.TrackingId + "\r");
-                        rtbMessages.ScrollToCaret();
-                        _gestureMaps[sd.TrackingId].ResetAll(sd);
-                        _readyGestureDetected = true;
-                        mInstructions.Text = "2. In order to display the next slide, move your right wrist above your right hip and put it down." +
-                            "To display the previous slide, do the same with your left wrist\r" +
-                            "3. To disable futher processing, pass your left Knee to the left of your left shoulder\r";
+
+
+                        var kneer = sd.Joints[JointType.KneeRight];
+                        var shoulderr = sd.Joints[JointType.ShoulderRight];
+
+                        var d = distance(kneer, shoulderr);
+                        mInstructions.Text = "d: " + d + "\rd1:" + (d + (d * .1));
+                        
+                        if (d > (d + (d * .1)))
+                        {
+
+                            rtbMessages.AppendText("READY TO GOOOOOOOO " + sd.TrackingId + "\r");
+                            rtbMessages.ScrollToCaret();
+                            _gestureMaps[sd.TrackingId].ResetAll(sd);
+                            _readyGestureDetected = true;
+                            //mInstructions.Text = "2. In order to display the next slide, move your right wrist above your right hip and put it down." +
+                            //    "To display the previous slide, do the same with your left wrist\r" +
+                            //    "3. To disable futher processing, pass your left Knee to the left of your left shoulder\r";
+                        }
 
                     }
                     else if (keycode == VirtualKeyCode.CANCEL)
@@ -172,7 +189,6 @@ namespace WindowsFormsKinectTest
                 }
             }
         }
-
 
         /// <summary>
         /// This method draws the joint dots and skeleton on the depth image of the depth display
