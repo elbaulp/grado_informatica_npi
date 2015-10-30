@@ -1,0 +1,1328 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.6)  30 OCT 2015 13:09
+entering extended mode
+ \write18 enabled.
+ %&-line parsing enabled.
+**Memoria.tex
+(./Memoria.tex
+LaTeX2e <2015/10/01> patch level 1
+Babel <3.9m> and hyphenation patterns for 44 languages loaded.
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/koma-script/scrartcl.cls
+Document Class: scrartcl 2015/10/03 v3.19a KOMA-Script document class (article)
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/koma-script/scrkbase.sty
+Package: scrkbase 2015/10/03 v3.19a KOMA-Script package (KOMA-Script-dependent 
+basics and keyval usage)
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/koma-script/scrbase.sty
+Package: scrbase 2015/10/03 v3.19a KOMA-Script package (KOMA-Script-independent
+ basics and keyval usage)
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/koma-script/scrlfile.sty
+Package: scrlfile 2015/10/03 v3.19a KOMA-Script package (loading files)
+
+Package scrlfile, 2015/10/03 v3.19a KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+))) (/home/hkr/bin/texlive/texmf-dist/tex/latex/koma-script/tocbasic.sty
+Package: tocbasic 2015/10/03 v3.19a KOMA-Script package (handling toc-files)
+)
+Package tocbasic Info: omitting babel extension for `toc'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `toc' on input line 123.
+Package tocbasic Info: omitting babel extension for `lof'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `lof' on input line 124.
+Package tocbasic Info: omitting babel extension for `lot'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `lot' on input line 125.
+Class scrartcl Info: File `scrsize11pt.clo' used to setup font sizes on input l
+ine 2033.
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/koma-script/scrsize11pt.clo
+File: scrsize11pt.clo 2015/10/03 v3.19a KOMA-Script font size class option (11p
+t)
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/koma-script/typearea.sty
+Package: typearea 2015/10/03 v3.19a KOMA-Script package (type area)
+
+Package typearea, 2015/10/03 v3.19a KOMA-Script package (type area)
+                  Copyright (C) Frank Neukam, 1992-1994
+                  Copyright (C) Markus Kohm, 1994-
+
+\ta@bcor=\skip41
+\ta@div=\count79
+\ta@hblk=\skip42
+\ta@vblk=\skip43
+\ta@temp=\skip44
+\footheight=\skip45
+DIV calculation for typearea with good linewidth.
+Package typearea Info: These are the values describing the layout:
+(typearea)             DIV  = 8
+(typearea)             BCOR = 0.0pt
+(typearea)             \paperwidth      = 597.50793pt
+(typearea)              \textwidth      = 373.44246pt
+(typearea)              DIV departure   = 0%
+(typearea)              \evensidemargin = 39.76274pt
+(typearea)              \oddsidemargin  = 39.76274pt
+(typearea)             \paperheight     = 845.04694pt
+(typearea)              \textheight     = 541.40024pt
+(typearea)              \topmargin      = -4.03914pt
+(typearea)              \headheight     = 17.0pt
+(typearea)              \headsep        = 20.40001pt
+(typearea)              \topskip        = 11.0pt
+(typearea)              \footskip       = 47.6pt
+(typearea)              \baselineskip   = 13.6pt
+(typearea)              on input line 1509.
+)
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+LaTeX Info: Redefining \textsubscript on input line 3906.
+\abovecaptionskip=\skip46
+\belowcaptionskip=\skip47
+\c@pti@nb@sid@b@x=\box26
+\c@figure=\count86
+\c@table=\count87
+\bibindent=\dimen102
+) (/home/hkr/bin/texlive/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2015/08/03 3.9m The Babel package
+
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf
+Language: spanish.ldf 2014/04/24 v5.0n Spanish support from the babel system
+
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2015/08/03 3.9m Babel common definitions
+\babel@savecnt=\count88
+\U@D=\dimen103
+)
+\es@quottoks=\toks15
+\es@quotdepth=\count89
+Package babel Info: Making " an active character on input line 516.
+Package babel Info: Making . an active character on input line 617.
+Package babel Info: Making < an active character on input line 662.
+Package babel Info: Making > an active character on input line 662.
+))
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2013/05/23 v2.5a Micro-typographical refinements (RS)
+\MT@toks=\toks16
+\MT@count=\count90
+LaTeX Info: Redefining \textls on input line 766.
+\MT@outer@kern=\dimen104
+LaTeX Info: Redefining \textmicrotypecontext on input line 1285.
+\MT@listname@count=\count91
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+File: microtype-pdftex.def 2013/05/23 v2.5a Definitions specific to pdftex (RS)
+
+LaTeX Info: Redefining \lsstyle on input line 915.
+LaTeX Info: Redefining \lslig on input line 915.
+\MT@outer@space=\skip48
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2013/05/23 v2.5a microtype main configuration file (RS)
+))
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks17
+\ex@=\dimen105
+))
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen106
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count92
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count93
+\leftroot@=\count94
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count95
+\DOTSCASE@=\count96
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box27
+\strutbox@=\box28
+\big@size=\dimen107
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count97
+\c@MaxMatrixCols=\count98
+\dotsspace@=\muskip10
+\c@parentequation=\count99
+\dspbrk@lvl=\count100
+\tag@help=\toks18
+\row@=\count101
+\column@=\count102
+\maxfields@=\count103
+\andhelp@=\toks19
+\eqnshift@=\dimen108
+\alignsep@=\dimen109
+\tagshift@=\dimen110
+\tagwidth@=\dimen111
+\totwidth@=\dimen112
+\lineht@=\dimen113
+\@envbody=\toks20
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2015/03/04 v2.20.2
+\thm@style=\toks22
+\thm@bodyfont=\toks23
+\thm@headfont=\toks24
+\thm@notefont=\toks25
+\thm@headpunct=\toks26
+\thm@preskip=\skip52
+\thm@postskip=\skip53
+\thm@headsep=\skip54
+\dth@everypar=\toks27
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count104
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/xcolor/svgnam.def
+File: svgnam.def 2007/01/21 v2.11 Predefined colors according to SVG 1.1 (UK)
+))
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2015/09/17 v3.3-111 Customizing captions (AR)
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2015/09/20 v1.7-115 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen114
+\captionmargin@=\dimen115
+\captionwidth=\dimen116
+\caption@tempdima=\dimen117
+\caption@indent=\dimen118
+\caption@parindent=\dimen119
+\caption@hangindent=\dimen120
+)
+Package caption Info: KOMA-Script document class.
+\c@ContinuedFloat=\count105
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/oberdiek/epstopdf.sty
+Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+
+Package epstopdf Warning: No graphics package `graphic{s,x}' loaded.
+
+)) (/home/hkr/bin/texlive/texmf-dist/tex/latex/subfig/subfig.sty
+Package: subfig 2005/06/28 ver: 1.3 subfig package
+\c@KVtest=\count106
+\sf@farskip=\skip55
+\sf@captopadj=\dimen121
+\sf@capskip=\skip56
+\sf@nearskip=\skip57
+\c@subfigure=\count107
+\c@subfigure@save=\count108
+\c@lofdepth=\count109
+\c@subtable=\count110
+\c@subtable@save=\count111
+\c@lotdepth=\count112
+\sf@top=\skip58
+\sf@bottom=\skip59
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2005/04/14 v1.61803 publication quality tables
+\heavyrulewidth=\dimen122
+\lightrulewidth=\dimen123
+\cmidrulewidth=\dimen124
+\belowrulesep=\dimen125
+\belowbottomsep=\dimen126
+\aboverulesep=\dimen127
+\abovetopsep=\dimen128
+\cmidrulesep=\dimen129
+\cmidrulekern=\dimen130
+\defaultaddspace=\dimen131
+\@cmidla=\count113
+\@cmidlb=\count114
+\@aboverulesep=\dimen132
+\@belowrulesep=\dimen133
+\@thisruleclass=\count115
+\@lastruleclass=\count116
+\@thisrulewidth=\dimen134
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/base/fix-cm.sty
+Package: fix-cm 2015/01/14 v1.1t fixes to LaTeX
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+))
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
+
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
+
+
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2012/05/28 v1.13 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2012/05/28 v1.13 Construct package bundles (HO)
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package hobsub Info: Skipping package `ifluatex' (already loaded).
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2007/09/27 v1.1 Expandable calculations with integers (HO)
+Package hobsub Info: Skipping package `ifpdf' (already loaded).
+Package hobsub Info: Skipping package `etexcmds' (already loaded).
+Package hobsub Info: Skipping package `kvsetkeys' (already loaded).
+Package hobsub Info: Skipping package `kvdefinekeys' (already loaded).
+Package hobsub Info: Skipping package `pdftexcmds' (already loaded).
+Package: pdfescape 2011/11/25 v1.13 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2012/04/08 v1.3 Expandable calculations on big integers (HO
+)
+Package: bitset 2011/01/30 v1.1 Handle bit-vector datatype (HO)
+Package: uniquecounter 2011/01/30 v1.2 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
+Package: hopatch 2012/05/28 v1.2 Wrapper for package hooks (HO)
+Package: xcolor-patch 2011/01/30 xcolor patch
+Package: atveryend 2011/06/30 v1.8 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
+Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
+Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+)
+\@linkdim=\dimen135
+\Hy@linkcounter=\count117
+\Hy@pagecounter=\count118
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count119
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 4443.
+Package hyperref Info: Link nesting OFF on input line 4448.
+Package hyperref Info: Hyper index ON on input line 4451.
+Package hyperref Info: Plain pages OFF on input line 4458.
+Package hyperref Info: Backreferencing OFF on input line 4463.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4688.
+\c@Hy@tempcnt=\count120
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5041.
+\XeTeXLinkMargin=\dimen136
+\Fld@menulength=\count121
+\Field@Width=\dimen137
+\Fld@charsize=\dimen138
+Package hyperref Info: Hyper figures OFF on input line 6295.
+Package hyperref Info: Link nesting OFF on input line 6300.
+Package hyperref Info: Hyper index ON on input line 6303.
+Package hyperref Info: backreferencing OFF on input line 6310.
+Package hyperref Info: Link coloring OFF on input line 6315.
+Package hyperref Info: Link coloring with OCG OFF on input line 6320.
+Package hyperref Info: PDF/A mode OFF on input line 6325.
+LaTeX Info: Redefining \ref on input line 6365.
+LaTeX Info: Redefining \pageref on input line 6369.
+\Hy@abspage=\count122
+\c@Item=\count123
+\c@Hfootnote=\count124
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
+\Fld@listcount=\count125
+\c@bookmark@seq@number=\count126
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip60
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
+))
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2015/03/17 v1.2c Input encoding file
+\inpenc@prehook=\toks28
+\inpenc@posthook=\toks29
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/09/07 v1.1p UTF-8 support for inputenc
+Now handling font encoding OML ...
+... no UTF-8 mapping file for font encoding OML
+Now handling font encoding T1 ...
+... processing UTF-8 mapping file for font encoding T1
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/base/t1enc.dfu
+File: t1enc.dfu 2015/09/07 v1.1p UTF-8 support for inputenc
+   defining Unicode char U+00A0 (decimal 160)
+   defining Unicode char U+00A1 (decimal 161)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00AB (decimal 171)
+   defining Unicode char U+00AD (decimal 173)
+   defining Unicode char U+00BB (decimal 187)
+   defining Unicode char U+00BF (decimal 191)
+   defining Unicode char U+00C0 (decimal 192)
+   defining Unicode char U+00C1 (decimal 193)
+   defining Unicode char U+00C2 (decimal 194)
+   defining Unicode char U+00C3 (decimal 195)
+   defining Unicode char U+00C4 (decimal 196)
+   defining Unicode char U+00C5 (decimal 197)
+   defining Unicode char U+00C6 (decimal 198)
+   defining Unicode char U+00C7 (decimal 199)
+   defining Unicode char U+00C8 (decimal 200)
+   defining Unicode char U+00C9 (decimal 201)
+   defining Unicode char U+00CA (decimal 202)
+   defining Unicode char U+00CB (decimal 203)
+   defining Unicode char U+00CC (decimal 204)
+   defining Unicode char U+00CD (decimal 205)
+   defining Unicode char U+00CE (decimal 206)
+   defining Unicode char U+00CF (decimal 207)
+   defining Unicode char U+00D0 (decimal 208)
+   defining Unicode char U+00D1 (decimal 209)
+   defining Unicode char U+00D2 (decimal 210)
+   defining Unicode char U+00D3 (decimal 211)
+   defining Unicode char U+00D4 (decimal 212)
+   defining Unicode char U+00D5 (decimal 213)
+   defining Unicode char U+00D6 (decimal 214)
+   defining Unicode char U+00D8 (decimal 216)
+   defining Unicode char U+00D9 (decimal 217)
+   defining Unicode char U+00DA (decimal 218)
+   defining Unicode char U+00DB (decimal 219)
+   defining Unicode char U+00DC (decimal 220)
+   defining Unicode char U+00DD (decimal 221)
+   defining Unicode char U+00DE (decimal 222)
+   defining Unicode char U+00DF (decimal 223)
+   defining Unicode char U+00E0 (decimal 224)
+   defining Unicode char U+00E1 (decimal 225)
+   defining Unicode char U+00E2 (decimal 226)
+   defining Unicode char U+00E3 (decimal 227)
+   defining Unicode char U+00E4 (decimal 228)
+   defining Unicode char U+00E5 (decimal 229)
+   defining Unicode char U+00E6 (decimal 230)
+   defining Unicode char U+00E7 (decimal 231)
+   defining Unicode char U+00E8 (decimal 232)
+   defining Unicode char U+00E9 (decimal 233)
+   defining Unicode char U+00EA (decimal 234)
+   defining Unicode char U+00EB (decimal 235)
+   defining Unicode char U+00EC (decimal 236)
+   defining Unicode char U+00ED (decimal 237)
+   defining Unicode char U+00EE (decimal 238)
+   defining Unicode char U+00EF (decimal 239)
+   defining Unicode char U+00F0 (decimal 240)
+   defining Unicode char U+00F1 (decimal 241)
+   defining Unicode char U+00F2 (decimal 242)
+   defining Unicode char U+00F3 (decimal 243)
+   defining Unicode char U+00F4 (decimal 244)
+   defining Unicode char U+00F5 (decimal 245)
+   defining Unicode char U+00F6 (decimal 246)
+   defining Unicode char U+00F8 (decimal 248)
+   defining Unicode char U+00F9 (decimal 249)
+   defining Unicode char U+00FA (decimal 250)
+   defining Unicode char U+00FB (decimal 251)
+   defining Unicode char U+00FC (decimal 252)
+   defining Unicode char U+00FD (decimal 253)
+   defining Unicode char U+00FE (decimal 254)
+   defining Unicode char U+00FF (decimal 255)
+   defining Unicode char U+0102 (decimal 258)
+   defining Unicode char U+0103 (decimal 259)
+   defining Unicode char U+0104 (decimal 260)
+   defining Unicode char U+0105 (decimal 261)
+   defining Unicode char U+0106 (decimal 262)
+   defining Unicode char U+0107 (decimal 263)
+   defining Unicode char U+010C (decimal 268)
+   defining Unicode char U+010D (decimal 269)
+   defining Unicode char U+010E (decimal 270)
+   defining Unicode char U+010F (decimal 271)
+   defining Unicode char U+0110 (decimal 272)
+   defining Unicode char U+0111 (decimal 273)
+   defining Unicode char U+0118 (decimal 280)
+   defining Unicode char U+0119 (decimal 281)
+   defining Unicode char U+011A (decimal 282)
+   defining Unicode char U+011B (decimal 283)
+   defining Unicode char U+011E (decimal 286)
+   defining Unicode char U+011F (decimal 287)
+   defining Unicode char U+0130 (decimal 304)
+   defining Unicode char U+0131 (decimal 305)
+   defining Unicode char U+0132 (decimal 306)
+   defining Unicode char U+0133 (decimal 307)
+   defining Unicode char U+0139 (decimal 313)
+   defining Unicode char U+013A (decimal 314)
+   defining Unicode char U+013D (decimal 317)
+   defining Unicode char U+013E (decimal 318)
+   defining Unicode char U+0141 (decimal 321)
+   defining Unicode char U+0142 (decimal 322)
+   defining Unicode char U+0143 (decimal 323)
+   defining Unicode char U+0144 (decimal 324)
+   defining Unicode char U+0147 (decimal 327)
+   defining Unicode char U+0148 (decimal 328)
+   defining Unicode char U+014A (decimal 330)
+   defining Unicode char U+014B (decimal 331)
+   defining Unicode char U+0150 (decimal 336)
+   defining Unicode char U+0151 (decimal 337)
+   defining Unicode char U+0152 (decimal 338)
+   defining Unicode char U+0153 (decimal 339)
+   defining Unicode char U+0154 (decimal 340)
+   defining Unicode char U+0155 (decimal 341)
+   defining Unicode char U+0158 (decimal 344)
+   defining Unicode char U+0159 (decimal 345)
+   defining Unicode char U+015A (decimal 346)
+   defining Unicode char U+015B (decimal 347)
+   defining Unicode char U+015E (decimal 350)
+   defining Unicode char U+015F (decimal 351)
+   defining Unicode char U+0160 (decimal 352)
+   defining Unicode char U+0161 (decimal 353)
+   defining Unicode char U+0162 (decimal 354)
+   defining Unicode char U+0163 (decimal 355)
+   defining Unicode char U+0164 (decimal 356)
+   defining Unicode char U+0165 (decimal 357)
+   defining Unicode char U+016E (decimal 366)
+   defining Unicode char U+016F (decimal 367)
+   defining Unicode char U+0170 (decimal 368)
+   defining Unicode char U+0171 (decimal 369)
+   defining Unicode char U+0174 (decimal 372)
+   defining Unicode char U+0175 (decimal 373)
+   defining Unicode char U+0176 (decimal 374)
+   defining Unicode char U+0177 (decimal 375)
+   defining Unicode char U+0178 (decimal 376)
+   defining Unicode char U+0179 (decimal 377)
+   defining Unicode char U+017A (decimal 378)
+   defining Unicode char U+017B (decimal 379)
+   defining Unicode char U+017C (decimal 380)
+   defining Unicode char U+017D (decimal 381)
+   defining Unicode char U+017E (decimal 382)
+   defining Unicode char U+0218 (decimal 536)
+   defining Unicode char U+0219 (decimal 537)
+   defining Unicode char U+021A (decimal 538)
+   defining Unicode char U+021B (decimal 539)
+   defining Unicode char U+200C (decimal 8204)
+   defining Unicode char U+2013 (decimal 8211)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201A (decimal 8218)
+   defining Unicode char U+201C (decimal 8220)
+   defining Unicode char U+201D (decimal 8221)
+   defining Unicode char U+201E (decimal 8222)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+2039 (decimal 8249)
+   defining Unicode char U+203A (decimal 8250)
+   defining Unicode char U+2423 (decimal 9251)
+)
+Now handling font encoding OT1 ...
+... processing UTF-8 mapping file for font encoding OT1
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/base/ot1enc.dfu
+File: ot1enc.dfu 2015/09/07 v1.1p UTF-8 support for inputenc
+   defining Unicode char U+00A0 (decimal 160)
+   defining Unicode char U+00A1 (decimal 161)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00AD (decimal 173)
+   defining Unicode char U+00B8 (decimal 184)
+   defining Unicode char U+00BF (decimal 191)
+   defining Unicode char U+00C5 (decimal 197)
+   defining Unicode char U+00C6 (decimal 198)
+   defining Unicode char U+00D8 (decimal 216)
+   defining Unicode char U+00DF (decimal 223)
+   defining Unicode char U+00E6 (decimal 230)
+   defining Unicode char U+00EC (decimal 236)
+   defining Unicode char U+00ED (decimal 237)
+   defining Unicode char U+00EE (decimal 238)
+   defining Unicode char U+00EF (decimal 239)
+   defining Unicode char U+00F8 (decimal 248)
+   defining Unicode char U+0131 (decimal 305)
+   defining Unicode char U+0141 (decimal 321)
+   defining Unicode char U+0142 (decimal 322)
+   defining Unicode char U+0152 (decimal 338)
+   defining Unicode char U+0153 (decimal 339)
+   defining Unicode char U+0174 (decimal 372)
+   defining Unicode char U+0175 (decimal 373)
+   defining Unicode char U+0176 (decimal 374)
+   defining Unicode char U+0177 (decimal 375)
+   defining Unicode char U+0218 (decimal 536)
+   defining Unicode char U+0219 (decimal 537)
+   defining Unicode char U+021A (decimal 538)
+   defining Unicode char U+021B (decimal 539)
+   defining Unicode char U+2013 (decimal 8211)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201C (decimal 8220)
+   defining Unicode char U+201D (decimal 8221)
+)
+Now handling font encoding OMS ...
+... processing UTF-8 mapping file for font encoding OMS
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/base/omsenc.dfu
+File: omsenc.dfu 2015/09/07 v1.1p UTF-8 support for inputenc
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00B6 (decimal 182)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+2020 (decimal 8224)
+   defining Unicode char U+2021 (decimal 8225)
+   defining Unicode char U+2022 (decimal 8226)
+)
+Now handling font encoding OMX ...
+... no UTF-8 mapping file for font encoding OMX
+Now handling font encoding U ...
+... no UTF-8 mapping file for font encoding U
+Now handling font encoding TS1 ...
+... processing UTF-8 mapping file for font encoding TS1
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/base/ts1enc.dfu
+File: ts1enc.dfu 2015/09/07 v1.1p UTF-8 support for inputenc
+   defining Unicode char U+00A2 (decimal 162)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00A4 (decimal 164)
+   defining Unicode char U+00A5 (decimal 165)
+   defining Unicode char U+00A6 (decimal 166)
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00A8 (decimal 168)
+   defining Unicode char U+00A9 (decimal 169)
+   defining Unicode char U+00AA (decimal 170)
+   defining Unicode char U+00AC (decimal 172)
+   defining Unicode char U+00AE (decimal 174)
+   defining Unicode char U+00AF (decimal 175)
+   defining Unicode char U+00B0 (decimal 176)
+   defining Unicode char U+00B1 (decimal 177)
+   defining Unicode char U+00B2 (decimal 178)
+   defining Unicode char U+00B3 (decimal 179)
+   defining Unicode char U+00B4 (decimal 180)
+   defining Unicode char U+00B5 (decimal 181)
+   defining Unicode char U+00B6 (decimal 182)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+00B9 (decimal 185)
+   defining Unicode char U+00BA (decimal 186)
+   defining Unicode char U+00BC (decimal 188)
+   defining Unicode char U+00BD (decimal 189)
+   defining Unicode char U+00BE (decimal 190)
+   defining Unicode char U+00D7 (decimal 215)
+   defining Unicode char U+00F7 (decimal 247)
+   defining Unicode char U+0192 (decimal 402)
+   defining Unicode char U+02C7 (decimal 711)
+   defining Unicode char U+02D8 (decimal 728)
+   defining Unicode char U+02DD (decimal 733)
+   defining Unicode char U+0E3F (decimal 3647)
+   defining Unicode char U+2016 (decimal 8214)
+   defining Unicode char U+2020 (decimal 8224)
+   defining Unicode char U+2021 (decimal 8225)
+   defining Unicode char U+2022 (decimal 8226)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+203B (decimal 8251)
+   defining Unicode char U+203D (decimal 8253)
+   defining Unicode char U+2044 (decimal 8260)
+   defining Unicode char U+204E (decimal 8270)
+   defining Unicode char U+2052 (decimal 8274)
+   defining Unicode char U+20A1 (decimal 8353)
+   defining Unicode char U+20A4 (decimal 8356)
+   defining Unicode char U+20A6 (decimal 8358)
+   defining Unicode char U+20A9 (decimal 8361)
+   defining Unicode char U+20AB (decimal 8363)
+   defining Unicode char U+20AC (decimal 8364)
+   defining Unicode char U+20B1 (decimal 8369)
+   defining Unicode char U+2103 (decimal 8451)
+   defining Unicode char U+2116 (decimal 8470)
+   defining Unicode char U+2117 (decimal 8471)
+   defining Unicode char U+211E (decimal 8478)
+   defining Unicode char U+2120 (decimal 8480)
+   defining Unicode char U+2122 (decimal 8482)
+   defining Unicode char U+2126 (decimal 8486)
+   defining Unicode char U+2127 (decimal 8487)
+   defining Unicode char U+212E (decimal 8494)
+   defining Unicode char U+2190 (decimal 8592)
+   defining Unicode char U+2191 (decimal 8593)
+   defining Unicode char U+2192 (decimal 8594)
+   defining Unicode char U+2193 (decimal 8595)
+   defining Unicode char U+2329 (decimal 9001)
+   defining Unicode char U+232A (decimal 9002)
+   defining Unicode char U+2422 (decimal 9250)
+   defining Unicode char U+25E6 (decimal 9702)
+   defining Unicode char U+25EF (decimal 9711)
+   defining Unicode char U+266A (decimal 9834)
+)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+   defining Unicode char U+00A9 (decimal 169)
+   defining Unicode char U+00AA (decimal 170)
+   defining Unicode char U+00AE (decimal 174)
+   defining Unicode char U+00BA (decimal 186)
+   defining Unicode char U+02C6 (decimal 710)
+   defining Unicode char U+02DC (decimal 732)
+   defining Unicode char U+200C (decimal 8204)
+   defining Unicode char U+2026 (decimal 8230)
+   defining Unicode char U+2122 (decimal 8482)
+   defining Unicode char U+2423 (decimal 9251)
+))
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/kurier/kurier.sty
+Package: kurier 2005/10/03 v.1.2 Kurier package (MW)
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/sectsty/sectsty.sty
+Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading sty
+les
+)
+
+Class scrartcl Warning: Usage of package `fancyhdr' together
+(scrartcl)              with a KOMA-Script class is not recommended.
+(scrartcl)              I'd suggest to use 
+(scrartcl)              package `scrlayer-scrpage'.
+(scrartcl)              Nevertheless, using requested
+(scrartcl)              package `fancyhdr' on input line 41.
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+\fancy@headwidth=\skip61
+\f@ncyO@elh=\skip62
+\f@ncyO@erh=\skip63
+\f@ncyO@olh=\skip64
+\f@ncyO@orh=\skip65
+\f@ncyO@elf=\skip66
+\f@ncyO@erf=\skip67
+\f@ncyO@olf=\skip68
+\f@ncyO@orf=\skip69
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/lastpage/lastpage.sty
+Package: lastpage 2015/03/29 v1.2m Refers to last page's name (HMM; JPG)
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/lettrine/lettrine.sty
+File: lettrine.sty 2015/08/31 v1.9 (Daniel Flipo)
+\c@DefaultLines=\count127
+\c@DefaultDepth=\count128
+\DefaultFindent=\dimen139
+\DefaultNindent=\dimen140
+\DefaultSlope=\dimen141
+\DiscardVskip=\dimen142
+\L@lbox=\box29
+\L@tbox=\box30
+\c@L@lines=\count129
+\c@L@depth=\count130
+\L@Pindent=\dimen143
+\L@Findent=\dimen144
+\L@Nindent=\dimen145
+\L@lraise=\dimen146
+\L@first=\dimen147
+\L@next=\dimen148
+\L@slope=\dimen149
+\L@height=\dimen150
+\L@novskip=\dimen151
+\LettrineWidth=\dimen152
+\LettrineHeight=\dimen153
+\LettrineDepth=\dimen154
+
+Loading lettrine.cfg
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/lettrine/lettrine.cfg))
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/titling/titling.sty
+Package: titling 2009/09/04 v2.1d maketitle typesetting
+\thanksmarkwidth=\skip70
+\thanksmargin=\skip71
+\droptitle=\skip72
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/tocbibind/tocbibind.sty
+Package: tocbibind 2010/10/13 v1.5k extra ToC listings
+Package tocbibind Info: The document has section divisions on input line 50.
+
+
+Package tocbibind Note: Using section or other style headings.
+
+) (/home/hkr/bin/texlive/texmf-dist/tex/latex/minted/minted.sty
+Package: minted 2015/09/09 v2.1 Yet another Pygments shim for LaTeX
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2008/02/07
+
+Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
+<2008/02/07> (tvz)
+\FV@CodeLineNo=\count131
+\FV@InFile=\read1
+\FV@TabBox=\box31
+\c@FancyVerbLine=\count132
+\FV@StepNumber=\count133
+\FV@OutFile=\write3
+) (/home/hkr/bin/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count134
+\float@exts=\toks30
+\float@box=\box32
+\@float@everytoks=\toks31
+\@floatcapt=\box33
+) (/home/hkr/bin/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count135
+\calc@Bcount=\count136
+\calc@Adimen=\dimen155
+\calc@Bdimen=\dimen156
+\calc@Askip=\skip73
+\calc@Bskip=\skip74
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count137
+\calc@Cskip=\skip75
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/ifplatform/ifplatform.sty
+Package: ifplatform 2010/10/22 v0.4 Testing for the operating system
+
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/oberdiek/catchfile.sty
+Package: catchfile 2011/03/01 v1.6 Catch the contents of a file (HO)
+)
+runsystem(uname -s > "Memoria.w18")...executed.
+
+
+(./Memoria.w18)
+runsystem(rm -- "Memoria.w18")...executed.
+
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2015/08/02 v2.2a e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count138
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/xstring/xstring.sty
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/xstring/xstring.tex
+\@xs@message=\write4
+\integerpart=\count139
+\decimalpart=\count140
+)
+Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/lineno/lineno.sty
+Package: lineno 2005/11/02 line numbers on paragraphs v4.41
+\linenopenalty=\count141
+\output=\toks32
+\linenoprevgraf=\count142
+\linenumbersep=\dimen157
+\linenumberwidth=\dimen158
+\c@linenumber=\count143
+\c@pagewiselinenumber=\count144
+\c@LN@truepage=\count145
+\c@internallinenumber=\count146
+\c@internallinenumbers=\count147
+\quotelinenumbersep=\dimen159
+\bframerule=\dimen160
+\bframesep=\dimen161
+\bframebox=\box34
+LaTeX Info: Redefining \\ on input line 3056.
+)
+\minted@appexistsfile=\read2
+\FV@BreakIndent=\dimen162
+\FV@BreakSymbolSepLeft=\dimen163
+\FV@BreakSymbolSepRight=\dimen164
+\FV@BreakSymbolIndentLeft=\dimen165
+\FV@BreakSymbolIndentRight=\dimen166
+\c@FancyVerbLineBreakLast=\count148
+\FV@LineBox=\box35
+\FV@LineIndentBox=\box36
+\minted@bgbox=\box37
+\minted@code=\write5
+\c@minted@FancyVerbLineTemp=\count149
+\@float@every@listing=\toks33
+\c@listing=\count150
+)
+runsystem(mkdir -p "_minted-Memoria")...executed.
+
+
+(./_minted-Memoria/default.pygstyle)
+runsystem(which "pygmentize" && touch "Memoria.aex")...executed.
+
+runsystem(rm "Memoria.aex")...executed.
+
+ (./Memoria.aux
+LaTeX Info: Redefining \. on input line 24.
+LaTeX Info: Redefining \% on input line 24.
+)
+\openout1 = `Memoria.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 119.
+LaTeX Font Info:    ... okay on input line 119.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 119.
+LaTeX Font Info:    ... okay on input line 119.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 119.
+LaTeX Font Info:    ... okay on input line 119.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 119.
+LaTeX Font Info:    ... okay on input line 119.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 119.
+LaTeX Font Info:    ... okay on input line 119.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 119.
+LaTeX Font Info:    ... okay on input line 119.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 119.
+LaTeX Font Info:    ... okay on input line 119.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 119.
+LaTeX Font Info:    ... okay on input line 119.
+LaTeX Font Info:    Try loading font information for T1+kurierl on input line 1
+19.
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/kurier/t1kurierl.fd
+File: t1kurierl.fd 2008/07/22 v0.995 font definition file for T1/kurierl (MW)
+)
+LaTeX Info: Redefining \. on input line 119.
+LaTeX Info: Redefining \% on input line 119.
+LaTeX Info: Redefining \microtypecontext on input line 119.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `basictext'.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+Package microtype Info: Loading generic settings for font family
+(microtype)             `kurierl' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+(/home/hkr/bin/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count151
+\scratchdimen=\dimen167
+\scratchbox=\box38
+\nofMPsegments=\count152
+\nofMParguments=\count153
+\everyMPshowfont=\toks34
+\MPscratchCnt=\count154
+\MPscratchDim=\dimen168
+\MPnumerator=\count155
+\makeMPintoPDFobject=\count156
+\everyMPtoPDFconversion=\toks35
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: End \AtBeginDocument code.
+\AtBeginShipoutBox=\box39
+Package hyperref Info: Link coloring OFF on input line 119.
+ (/home/hkr/bin/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+
+(/home/hkr/bin/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+)
+\c@section@level=\count157
+)
+LaTeX Info: Redefining \ref on input line 119.
+LaTeX Info: Redefining \pageref on input line 119.
+LaTeX Info: Redefining \nameref on input line 119.
+
+(./Memoria.out) (./Memoria.out)
+\@outlinefile=\write6
+\openout6 = `Memoria.out'.
+
+Package lastpage Info: Please have a look at the pageslts package at
+(lastpage)             https://www.ctan.org/pkg/pageslts
+(lastpage)             ! on input line 119.
+ (./_minted-Memoria/default-pyg-prefix.pygstyle)
+LaTeX Font Info:    Try loading font information for T1+kurier on input line 12
+0.
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/kurier/t1kurier.fd
+File: t1kurier.fd 2008/07/22 v0.995 font definition file for T1/kurier (MW)
+)
+Package microtype Info: Loading generic settings for font family
+(microtype)             `kurier' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Try loading font information for T1+mdugm on input line 120
+.
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/mathdesign/mdugm/t1mdugm.fd
+File: t1mdugm.fd 2013/08/29 Fontinst v1.933 font definitions for T1/mdugm.
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/microtype/mt-ugm.cfg
+File: mt-ugm.cfg 2006/01/26 v1.0 microtype config. file: URW Garamond (RS)
+)
+LaTeX Font Info:    Try loading font information for OT1+mdugm on input line 12
+0.
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/mathdesign/mdugm/ot1mdugm.fd
+File: ot1mdugm.fd 2013/08/29 Fontinst v1.933 font definitions for OT1/mdugm.
+)
+LaTeX Font Info:    Font shape `T1/mdugm/b/it' in size <12> not available
+(Font)              Font shape `T1/mdugm/bx/it' tried instead on input line 120
+.
+LaTeX Font Info:    Font shape `T1/mdugm/bx/it' in size <12> not available
+(Font)              Font shape `T1/mdugm/mb/it' tried instead on input line 120
+.
+
+
+Class scrartcl Warning: incompatible usage of \@ssect detected.
+(scrartcl)              You've used the KOMA-Script implementation of \@ssect
+(scrartcl)              from within a non compatible caller, that does not
+(scrartcl)              \scr@s@ct@@nn@m@ locally.
+(scrartcl)              This could result in several error messages on input li
+ne 121.
+
+Package microtype Info: Loading generic settings for font family
+(microtype)             `cmss' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Font shape `T1/cmss/b/n' in size <14.4> not available
+(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 121.
+LaTeX Font Info:    Font shape `T1/mdugm/b/it' in size <14.4> not available
+(Font)              Font shape `T1/mdugm/bx/it' tried instead on input line 121
+.
+LaTeX Font Info:    Font shape `T1/mdugm/bx/it' in size <14.4> not available
+(Font)              Font shape `T1/mdugm/mb/it' tried instead on input line 121
+.
+Package tocbasic Info: character protrusion at toc deactivated on input line 12
+1.
+(./Memoria.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+LaTeX Font Info:    Font shape `T1/cmss/b/n' in size <10.95> not available
+(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 2.
+)
+\tf@toc=\write7
+\openout7 = `Memoria.toc'.
+
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 126.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 126.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 126.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 126.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 126.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 126.
+\openout3 = `Memoria.pyg'.
+
+
+(./_minted-Memoria/77E27B03C9F06BD2EFE731634CB6B2A13F58AFC70C0CBC5D7F476DEF67B5
+C235.pygtex
+LaTeX Font Info:    Try loading font information for T1+DejaVuSansMono-TLF on i
+nput line 1.
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/dejavu/T1DejaVuSansMono-TLF.fd
+File: T1DejaVuSansMono-TLF.fd 2011/06/01 Font definitions for T1/DejaVuSansMono
+-TLF.
+)
+Package microtype Info: Loading generic settings for font family
+(microtype)             `DejaVuSansMono-TLF' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Try loading font information for OMS+kurierl on input line 
+7.
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/kurier/omskurierl.fd
+File: omskurierl.fd 2008/07/22 v0.995 font definition file for OMS/kurierl (MW)
+
+)
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 7.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 7.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 7.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 7.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 7.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 7.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 7.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 7.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 7.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 7.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 7.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 7.
+ [1
+
+{/home/hkr/.texlive2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
+\openout3 = `Memoria.pyg'.
+
+
+(./_minted-Memoria/5D6B672940F2CA45D14459D31E273B550AA8B35C13EC46B1C354EA3C8EA8
+3061.pygtex (/home/hkr/bin/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
+(RS)
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 3.
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 3.
+
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+(/home/hkr/bin/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+))
+\openout5 = `Memoria.pyg'.
+
+
+(./_minted-Memoria/A0492DA33DB2C239102E73D4EA084DF1A34FA2899D10495932C51F4069AF
+259F.pygtex)
+\openout3 = `Memoria.pyg'.
+
+
+(./_minted-Memoria/D7E34DE6428924DCADAC72A60ED80A130AA8B35C13EC46B1C354EA3C8EA8
+3061.pygtex)
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 168.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 168.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 168.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 168.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 168.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 168.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 168.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 168.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 168.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 168.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 168.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 168.
+ [2]
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 175.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 175.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 175.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 175.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 175.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 175.
+ (./Memoria.bbl
+
+Class scrartcl Warning: incompatible usage of \@ssect detected.
+(scrartcl)              You've used the KOMA-Script implementation of \@ssect
+(scrartcl)              from within a non compatible caller, that does not
+(scrartcl)              \scr@s@ct@@nn@m@ locally.
+(scrartcl)              This could result in several error messages on input li
+ne 2.
+
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 2.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 2.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 2.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 2.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 2.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 2.
+) 
+AED: lastpage setting LastPage
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 186.
+[3]
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 186.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 186.
+runsystem(rm "Memoria.pyg")...executed.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 186.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 186.
+ (./Memoria.aux
+LaTeX Info: Redefining \. on input line 24.
+LaTeX Info: Redefining \% on input line 24.
+)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 186.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 186.
+Package rerunfilecheck Info: File `Memoria.out' has not changed.
+(rerunfilecheck)             Checksum: E9D9A111EA4E7FB25B510475322D79AC;166.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 186.
+ ) 
+Here is how much of TeX's memory you used:
+ 15587 strings out of 494254
+ 256581 string characters out of 6160154
+ 469083 words of memory out of 5000000
+ 18551 multiletter control sequences out of 15000+600000
+ 64036 words of font info for 93 fonts, out of 8000000 for 9000
+ 398 hyphenation exceptions out of 8191
+ 55i,11n,47p,913b,649s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/home/hkr/bin/texlive/texmf-dist/fonts/enc/dvips/dejavu/dejavumono_t1-type1.
+enc}{/home/hkr/bin/texlive/texmf-dist/fonts/enc/dvips/kurier/sy-kurier.enc}{/ho
+me/hkr/bin/texlive/texmf-dist/fonts/enc/dvips/kurier/ec-kurier.enc}{/home/hkr/b
+in/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/home/hkr/bin/t
+exlive/texmf-dist/fonts/enc/dvips/ly1/texnansi.enc}</home/hkr/bin/texlive/texmf
+-dist/fonts/type1/public/dejavu/DejaVuSansMono-Bold.pfb></home/hkr/bin/texlive/
+texmf-dist/fonts/type1/public/dejavu/DejaVuSansMono.pfb></home/hkr/bin/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/hkr/bin/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/hkr/bin/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></home/hkr/bin/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/hkr/bin/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr8.pfb></home/hkr/bin/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmsy10.pfb></home/hkr/bin/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmsy6.pfb></home/hkr/bin/texlive/texmf-dist/fonts/type1/now
+acki/kurier/kurierl.pfb></home/hkr/bin/texlive/texmf-dist/fonts/type1/nowacki/k
+urier/kurierli.pfb></home/hkr/bin/texlive/texmf-dist/fonts/type1/public/cm-supe
+r/sfsx1000.pfb></home/hkr/texmf/fonts/type1/urw/garamond/ugmmi8a.pfb></home/hkr
+/texmf/fonts/type1/urw/garamond/ugmri8a.pfb>
+Output written on Memoria.pdf (3 pages, 171420 bytes).
+PDF statistics:
+ 110 PDF objects out of 1000 (max. 8388607)
+ 90 compressed objects within 1 object stream
+ 9 named destinations out of 1000 (max. 500000)
+ 19481 words of extra memory for PDF output out of 20736 (max. 10000000)
+

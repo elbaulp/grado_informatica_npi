@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nt}{\PYGZlt{}Gestures} \PYG{n+na}{GestureResetTimeout=}\PYG{l+s}{\PYGZdq{}500\PYGZdq{}}\PYG{n+nt}{\PYGZgt{}}
+	\PYG{n+nt}{\PYGZlt{}Gesture} \PYG{n+na}{Description=}\PYG{l+s}{\PYGZdq{}Previous Bullet\PYGZdq{}} \PYG{n+na}{MaxExecutionTime=}\PYG{l+s}{\PYGZdq{}1000\PYGZdq{}} \PYG{n+na}{MappedKeyCode=}\PYG{l+s}{\PYGZdq{}PRIOR\PYGZdq{}}\PYG{n+nt}{\PYGZgt{}}
+		\PYG{n+nt}{\PYGZlt{}GestureComponent} \PYG{n+na}{FirstJoint=}\PYG{l+s}{\PYGZdq{}WristLeft\PYGZdq{}} \PYG{n+na}{SecondJoint=}\PYG{l+s}{\PYGZdq{}HipLeft\PYGZdq{}} \PYG{n+na}{EndingRelationship=}\PYG{l+s}{\PYGZdq{}BelowAndLeft\PYGZdq{}} \PYG{n+na}{BeginningRelationship=}\PYG{l+s}{\PYGZdq{}AboveAndLeft\PYGZdq{}} \PYG{n+nt}{/\PYGZgt{}}
+	\PYG{n+nt}{\PYGZlt{}/Gesture\PYGZgt{}}
+	\PYG{n+nt}{\PYGZlt{}Gesture} \PYG{n+na}{Description=}\PYG{l+s}{\PYGZdq{}Next Bullet\PYGZdq{}} \PYG{n+na}{MaxExecutionTime=}\PYG{l+s}{\PYGZdq{}1000\PYGZdq{}} \PYG{n+na}{MappedKeyCode=}\PYG{l+s}{\PYGZdq{}NEXT\PYGZdq{}}\PYG{n+nt}{\PYGZgt{}}
+			\PYG{n+nt}{\PYGZlt{}GestureComponent} \PYG{n+na}{FirstJoint=}\PYG{l+s}{\PYGZdq{}WristRight\PYGZdq{}} \PYG{n+na}{SecondJoint=}\PYG{l+s}{\PYGZdq{}HipRight\PYGZdq{}} \PYG{n+na}{EndingRelationship=}\PYG{l+s}{\PYGZdq{}BelowAndRight\PYGZdq{}} \PYG{n+na}{BeginningRelationship=}\PYG{l+s}{\PYGZdq{}AboveAndRight\PYGZdq{}} \PYG{n+nt}{/\PYGZgt{}}
+	\PYG{n+nt}{\PYGZlt{}/Gesture\PYGZgt{}}
+\PYG{n+nt}{\PYGZlt{}/Gestures\PYGZgt{}}
+\end{Verbatim}

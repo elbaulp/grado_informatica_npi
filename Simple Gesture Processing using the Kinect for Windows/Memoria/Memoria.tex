@@ -1,0 +1,186 @@
+%%% LaTeX Template: Two column article
+%%%
+%%% Source: http://www.howtotex.com/
+%%% Feel free to distribute this template, but please keep to referal to http://www.howtotex.com/ here.
+%%% Date: February 2011
+
+%%% Preamble
+\documentclass[	DIV=calc,%
+							paper=a4,%
+							fontsize=11pt]{scrartcl}	 					% KOMA-article class
+
+\usepackage[spanish]{babel}										% English language/hyphenation
+\usepackage[protrusion=true,expansion=true]{microtype}				% Better typography
+\usepackage{amsmath,amsfonts,amsthm}					% Math packages
+%\usepackage[pdftex]{graphicx}									% Enable pdflatex
+\usepackage[svgnames]{xcolor}									% Enabling colors by their 'svgnames'
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption}	% Custom captions under/above floats
+\usepackage{epstopdf}												% Converts .eps to .pdf
+\usepackage{subfig}													% Subfigures
+\usepackage{booktabs}												% Nicer tables
+\usepackage{fix-cm}													% Custom fontsizes
+\usepackage{hyperref}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[light]{kurier}
+
+
+%%% Custom sectioning (sectsty package)
+\usepackage{sectsty}													% Custom sectioning (see below)
+\allsectionsfont{%															% Change font of al section commands
+	\usefont{T1}{mdugm}{b}{it}%										% bch-b-n: CharterBT-Bold font
+	}
+
+\sectionfont{%																% Change font of \section command
+	\usefont{T1}{mdugm}{b}{it}%										% bch-b-n: CharterBT-Bold font
+	}
+
+%%% Headers and footers
+\usepackage{fancyhdr}												% Needed to define custom headers/footers
+	\pagestyle{fancy}														% Enabling the custom headers/footers
+\usepackage{lastpage}
+
+% Header (empty)
+\lhead{}
+\chead{}
+\rhead{}
+% Footer (you may change this to your own needs)
+\lfoot{\footnotesize \miit{Alejandro Alcalde Barros} \textbullet ~}
+\cfoot{}
+\rfoot{\footnotesize Página \thepage\ de \pageref{LastPage}}	% "Page 1 of 2"
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+
+%%% Creating an initial of the very first character of the content
+\usepackage{lettrine}
+\newcommand{\initial}[1]{%
+     \lettrine[lines=3,lhang=0.3,nindent=0em]{
+     				\color{DarkGoldenrod}
+     				{\textsf{#1}}}{}}
+
+
+
+%%% Title, author and date metadata
+\usepackage{titling}															% For custom titles
+
+\newcommand{\HorRule}{\color{DarkGoldenrod}%			% Creating a horizontal rule
+									  	\rule{\linewidth}{1pt}%
+										}
+
+\pretitle{\vspace{-30pt} \begin{flushleft} \HorRule
+				\fontsize{50}{50} \usefont{T1}{kurier}{l}{it} \color{DarkRed} \selectfont
+				}
+\title{NPI P1: Kinect}					% Title of your article goes here
+\posttitle{\par\end{flushleft}\vskip 0.5em}
+
+\preauthor{\begin{flushleft}
+					\large \lineskip 0.5em \usefont{T1}{mdugm}{m}{it} \color{DarkRed}}
+\author{Cristina Heredia, Alejandro Alcalde,\;}											% Author name goes here
+\postauthor{\footnotesize \usefont{OT1}{mdugm}{m}{it} \color{Black}
+					Universidad de Granada 								% Institution of author
+					\par\end{flushleft}\HorRule}
+
+\date{\usefont{T1}{mdugm}{b}{it}\selectfont\today}																				% No date
+
+\newcommand{\miit}[1]{{\usefont{T1}{mdugm}{m}{it}\selectfont #1}}
+
+\usepackage[nottoc]{tocbibind}
+
+\usepackage{minted}
+
+\newminted{csharp}{
+		numbersep=5pt,
+		autogobble=true,
+		frame=lines,
+		framesep=2mm,
+		fontsize=\scriptsize,
+		tabsize=2,
+		fontfamily=DejaVuSansMono-TLF,
+		breaklines,
+}
+\newminted{xml}{
+		numbersep=5pt,
+		autogobble=true,
+		frame=lines,
+		framesep=2mm,
+		fontsize=\scriptsize,
+		tabsize=2,
+		fontfamily=DejaVuSansMono-TLF,
+		breaklines,
+}
+
+\newmintinline{csharp}{fontsize=\scriptsize, fontfamily=DejaVuSansMono-TLF}
+\newmintinline{xml}{fontsize=\scriptsize, fontfamily=DejaVuSansMono-TLF}
+
+%%% Begin document
+\begin{document}
+\maketitle
+\tableofcontents
+\thispagestyle{fancy} 			% Enabling the custom headers/footers for the first page
+% The first character should be within \initial{}
+%
+
+\section{Descripción del código}
+
+Para esta primera práctica consistente en familiarizarse con \textit{Kinect}, nos hemos basado en un ejemplo de \textit{Microsoft} \cite{Walt} en el que se permite controlar una presentación \textit{Power Point} mediante gestos. El proyecto original avanza o retrocede las diapositivas como sigue:
+
+Estando de frente en la \textit{kinect}, con los brazos en posición normal, hay que subir la muñeca de forma que sobrepase la cadera, y luego volver a bajarla. El brazo derecho se usa para avanzar una diapositiva, mientras que el izquierdo retrocede. Para ello se hace uso de un \textit{framework} simple que declara una relación entre una o varias articulaciones, el ejemplo que pusimos al principio implica la relación de dos articulaciones (muñeca y cadera) y la relación arriba y abajo. Los posibles tipos de relaciones entre articulaciones se definen en la siguiente enumeración:
+\begin{csharpcode}
+	public enum JointRelationship
+    {
+        None,
+        Above,
+        Below,
+        LeftOf,
+        RightOf,
+        AboveAndRight,
+        BelowAndRight,
+        AboveAndLeft,
+        BelowAndLeft
+    }
+\end{csharpcode}
+La relación por defecto usada en el ejemplo se define en el siguiente fichero \textit{XML}
+\begin{xmlcode}
+<Gestures GestureResetTimeout="500">
+	<Gesture Description="Previous Bullet" MaxExecutionTime="1000" MappedKeyCode="PRIOR">
+		<GestureComponent FirstJoint="WristLeft" SecondJoint="HipLeft" EndingRelationship="BelowAndLeft" BeginningRelationship="AboveAndLeft" />
+	</Gesture>
+	<Gesture Description="Next Bullet" MaxExecutionTime="1000" MappedKeyCode="NEXT">
+			<GestureComponent FirstJoint="WristRight" SecondJoint="HipRight" EndingRelationship="BelowAndRight" BeginningRelationship="AboveAndRight" />
+	</Gesture>
+</Gestures>
+\end{xmlcode}
+Jugando con los atributos de la etiqueta \xmlinline/<GestureComponent>/ es posible cambiar el tipo de gesto que reconocerá el programa, tanto articulaciones como la relación entre ellas, o usar solo una única articulación.
+
+Antes de comenzar una presentación en Power Point, o un PDF, hay que realizar un gesto que active el procesamiento. Para ello se ha definido un nuevo gesto consistente en desplzar la rodilla a la derecha del hombro derecho. Y su homólogo izquierdo para desactivar el procesamiento. Esto se define en el xml:
+\begin{xmlcode}
+	<Gesture Description="Ready Position" MaxExecutionTime="1000" MappedKeyCode="ACCEPT">
+			<GestureComponent FirstJoint="KneeRight" SecondJoint="ShoulderRight" EndingRelationship="LeftOf" BeginningRelationship="RightOf" />
+	</Gesture>
+	<Gesture Description="Cancel Position" MaxExecutionTime="1000" MappedKeyCode="CANCEL">
+			<GestureComponent FirstJoint="KneeLeft" SecondJoint="ShoulderLeft" EndingRelationship="RightOf" BeginningRelationship="LeftOf" />
+	</Gesture>
+\end{xmlcode}
+Para proporcionar \textit{feedback} al usuario, inicialmente el esqueleto está de color rojo. Se proporcionan una serie de instrucciones para que se active el procesamiento. Una vez activado, el esqueleto se pone de color verde. Cuando se detectan los gestos para avanzar o retroceder también cambia de color.
+
+También se ha hecho uso de la distancia enclídea para establecer umbrales de tal forma que cuando la distancia entre dos articulaciones supera dicho umbral, el movimiento se procesa
+
+\[
+	d = \sqrt{(p1-q1)^2 + (p2-q2)^2 + (p3-q3)^2}
+\]
+
+\section{Problemas encontrados}
+
+\begin{itemize}
+	\item El principal problema encontrado ha sido a la hora de establecer umbrales, porque al usar la distacia Euclídea, ésta depende de la altura de la persona, y la distancia entre cada articulación varia en función de la persona. Considerando así en ocasiones el umbral como válido, siendo éste el mismo numéricamente.
+	\item Se intentó que dos esqueletos participaran de forma independiente en la escena, pero no fue posible. Los gestos se procesaban independientemente de qué persona los realizara.
+\end{itemize}
+
+
+
+\bibliography{biblio}{}
+\bibliographystyle{IEEEtran}
+\end{document}

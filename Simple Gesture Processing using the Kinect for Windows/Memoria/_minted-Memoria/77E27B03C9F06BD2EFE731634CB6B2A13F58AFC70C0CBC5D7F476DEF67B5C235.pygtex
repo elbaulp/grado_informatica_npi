@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{k}{public} \PYG{k}{enum} \PYG{n}{JointRelationship}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n}{None}\PYG{p}{,}
+        \PYG{n}{Above}\PYG{p}{,}
+        \PYG{n}{Below}\PYG{p}{,}
+        \PYG{n}{LeftOf}\PYG{p}{,}
+        \PYG{n}{RightOf}\PYG{p}{,}
+        \PYG{n}{AboveAndRight}\PYG{p}{,}
+        \PYG{n}{BelowAndRight}\PYG{p}{,}
+        \PYG{n}{AboveAndLeft}\PYG{p}{,}
+        \PYG{n}{BelowAndLeft}
+    \PYG{p}{\PYGZcb{}}
+\end{Verbatim}

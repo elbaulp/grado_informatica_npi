@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nt}{\PYGZlt{}Gesture} \PYG{n+na}{Description=}\PYG{l+s}{\PYGZdq{}Ready Position\PYGZdq{}} \PYG{n+na}{MaxExecutionTime=}\PYG{l+s}{\PYGZdq{}1000\PYGZdq{}} \PYG{n+na}{MappedKeyCode=}\PYG{l+s}{\PYGZdq{}ACCEPT\PYGZdq{}}\PYG{n+nt}{\PYGZgt{}}
+		\PYG{n+nt}{\PYGZlt{}GestureComponent} \PYG{n+na}{FirstJoint=}\PYG{l+s}{\PYGZdq{}KneeRight\PYGZdq{}} \PYG{n+na}{SecondJoint=}\PYG{l+s}{\PYGZdq{}ShoulderRight\PYGZdq{}} \PYG{n+na}{EndingRelationship=}\PYG{l+s}{\PYGZdq{}LeftOf\PYGZdq{}} \PYG{n+na}{BeginningRelationship=}\PYG{l+s}{\PYGZdq{}RightOf\PYGZdq{}} \PYG{n+nt}{/\PYGZgt{}}
+\PYG{n+nt}{\PYGZlt{}/Gesture\PYGZgt{}}
+\PYG{n+nt}{\PYGZlt{}Gesture} \PYG{n+na}{Description=}\PYG{l+s}{\PYGZdq{}Cancel Position\PYGZdq{}} \PYG{n+na}{MaxExecutionTime=}\PYG{l+s}{\PYGZdq{}1000\PYGZdq{}} \PYG{n+na}{MappedKeyCode=}\PYG{l+s}{\PYGZdq{}CANCEL\PYGZdq{}}\PYG{n+nt}{\PYGZgt{}}
+		\PYG{n+nt}{\PYGZlt{}GestureComponent} \PYG{n+na}{FirstJoint=}\PYG{l+s}{\PYGZdq{}KneeLeft\PYGZdq{}} \PYG{n+na}{SecondJoint=}\PYG{l+s}{\PYGZdq{}ShoulderLeft\PYGZdq{}} \PYG{n+na}{EndingRelationship=}\PYG{l+s}{\PYGZdq{}RightOf\PYGZdq{}} \PYG{n+na}{BeginningRelationship=}\PYG{l+s}{\PYGZdq{}LeftOf\PYGZdq{}} \PYG{n+nt}{/\PYGZgt{}}
+\PYG{n+nt}{\PYGZlt{}/Gesture\PYGZgt{}}
+\end{Verbatim}
