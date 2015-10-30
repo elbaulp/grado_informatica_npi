@@ -21,7 +21,8 @@ namespace WindowsFormsKinectTest
 
         public int PlayerId;
         private bool _readyGestureDetected = false;
-        private bool _doingDemo = true;
+        private Pen _arml = new Pen(Color.Red, 5);
+        private Pen _armr = new Pen(Color.Red, 5);
 
         public Form1()
         {
@@ -54,6 +55,7 @@ namespace WindowsFormsKinectTest
             }
 
             newsensor.SkeletonStream.Enable();
+
             newsensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
             newsensor.DepthStream.Enable(DepthImageFormat.Resolution640x480Fps30);
             newsensor.AllFramesReady += SensorAllFramesReady;
@@ -139,26 +141,25 @@ namespace WindowsFormsKinectTest
 
                     if (keycode == VirtualKeyCode.ACCEPT)
                     {
-
-
                         var kneer = sd.Joints[JointType.KneeRight];
                         var shoulderr = sd.Joints[JointType.ShoulderRight];
 
                         var d = distance(kneer, shoulderr);
                         mInstructions.Text = "d: " + d + "\rd1:" + (d + (d * .1));
                         
-                        if (d > (d + (d * .1)))
-                        {
+                        //if (d > (d + (d * .1)))
+                        //{
 
                             rtbMessages.AppendText("READY TO GOOOOOOOO " + sd.TrackingId + "\r");
                             rtbMessages.ScrollToCaret();
                             _gestureMaps[sd.TrackingId].ResetAll(sd);
                             _readyGestureDetected = true;
-                            //mInstructions.Text = "2. In order to display the next slide, move your right wrist above your right hip and put it down." +
-                            //    "To display the previous slide, do the same with your left wrist\r" +
-                            //    "3. To disable futher processing, pass your left Knee to the left of your left shoulder\r";
-                        }
-
+                            mInstructions.Text = "2. In order to display the next slide, move your right wrist above your right hip and put it down." +
+                                "To display the previous slide, do the same with your left wrist\r" +
+                                "3. To disable futher processing, pass your left Knee to the left of your left shoulder\r";
+                        //}
+                        _armr = new Pen(Color.Green, 5);
+                        _arml = new Pen(Color.Green, 5);
                     }
                     else if (keycode == VirtualKeyCode.CANCEL)
                     {
@@ -166,7 +167,11 @@ namespace WindowsFormsKinectTest
                         rtbMessages.ScrollToCaret();
                         _gestureMaps[sd.TrackingId].ResetAll(sd);
                         _readyGestureDetected = false;
+
+                        _armr = new Pen(Color.Red, 5);
+                        _arml = new Pen(Color.Red, 5);
                     }
+
                     else if (keycode != VirtualKeyCode.NONAME && _readyGestureDetected)
                     {
                         rtbMessages.AppendText("Gesture accepted\r");
@@ -175,6 +180,16 @@ namespace WindowsFormsKinectTest
                         rtbMessages.ScrollToCaret();
                         InputSimulator.SimulateKeyPress(keycode);
                         _gestureMaps[sd.TrackingId].ResetAll(sd);
+
+                        if (keycode == VirtualKeyCode.NEXT)
+                        {
+                            _armr = new Pen(Color.DeepSkyBlue, 10);
+                            _arml = new Pen(Color.Green, 5);
+                        } else if (keycode == VirtualKeyCode.PRIOR)
+                        {
+                            _arml = new Pen(Color.DeepPink, 10);
+                            _armr = new Pen(Color.Green, 5);
+                        }
                     }
 
                     // This break prevents multiple player data from being confused during evaluation.
@@ -199,7 +214,7 @@ namespace WindowsFormsKinectTest
         /// <returns></returns>
         private Bitmap AddSkeletonToDepthBitmap(Skeleton skeleton, Bitmap bitmap, bool isActive)
         {
-            Pen pen;
+            Pen pen = new Pen(Color.Red, 5);
 
             var gobject = Graphics.FromImage(bitmap);
 
@@ -208,12 +223,10 @@ namespace WindowsFormsKinectTest
                 pen = new Pen(Color.Green, 3);
             }
             else if (isActive)
-                pen = new Pen(Color.Red, 5);
-            else
             {
-                pen = new Pen(Color.DeepSkyBlue, 5);
+                pen = new Pen(Color.Red, 5);
             }
-  
+
             var head = CalculateJointPosition(bitmap, skeleton.Joints[JointType.Head]);
             var neck = CalculateJointPosition(bitmap, skeleton.Joints[JointType.ShoulderCenter]);
             var rightshoulder = CalculateJointPosition(bitmap, skeleton.Joints[JointType.ShoulderRight]);
@@ -238,16 +251,16 @@ namespace WindowsFormsKinectTest
 
             gobject.DrawLine(pen, neck.X, neck.Y, rightshoulder.X, rightshoulder.Y);
             gobject.DrawLine(pen, neck.X, neck.Y, leftshoulder.X, leftshoulder.Y);
-            gobject.DrawLine(pen, rightshoulder.X, rightshoulder.Y, rightelbow.X, rightelbow.Y);
-            gobject.DrawLine(pen, leftshoulder.X, leftshoulder.Y, leftelbow.X, leftelbow.Y);
+            gobject.DrawLine(_armr, rightshoulder.X, rightshoulder.Y, rightelbow.X, rightelbow.Y);
+            gobject.DrawLine(_arml, leftshoulder.X, leftshoulder.Y, leftelbow.X, leftelbow.Y);
 
             gobject.DrawLine(pen, rightshoulder.X, rightshoulder.Y, hipcenter.X, hipcenter.Y);
             gobject.DrawLine(pen, leftshoulder.X, leftshoulder.Y, hipcenter.X, hipcenter.Y);
 
             gobject.DrawEllipse(pen, new Rectangle((int)rightwrist.X - 10, (int)rightwrist.Y - 10, 20, 20));
-            gobject.DrawLine(pen, rightelbow.X, rightelbow.Y, rightwrist.X, rightwrist.Y);
+            gobject.DrawLine(_armr, rightelbow.X, rightelbow.Y, rightwrist.X, rightwrist.Y);
             gobject.DrawEllipse(pen, new Rectangle((int)leftwrist.X - 10, (int)leftwrist.Y - 10, 20, 20));
-            gobject.DrawLine(pen, leftelbow.X, leftelbow.Y, leftwrist.X, leftwrist.Y);
+            gobject.DrawLine(_arml, leftelbow.X, leftelbow.Y, leftwrist.X, leftwrist.Y);
 
             gobject.DrawLine(pen, hipcenter.X, hipcenter.Y, hipleft.X, hipleft.Y);
             gobject.DrawLine(pen, hipcenter.X, hipcenter.Y, hipright.X, hipright.Y);

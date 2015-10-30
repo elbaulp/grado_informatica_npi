@@ -4,17 +4,10 @@ C:\Users\wsmith\Documents\Visual Studio 2010\Projects\Kinect\WindowsFormsKinectT
 C:\Users\wsmith\Documents\Visual Studio 2010\Projects\Kinect\WindowsFormsKinectTest\GestureFramework\bin\Debug\InputSimulator.dll
 C:\Users\wsmith\Documents\Visual Studio 2010\Projects\Kinect\WindowsFormsKinectTest\GestureFramework\obj\Debug\GestureFramework.dll
 C:\Users\wsmith\Documents\Visual Studio 2010\Projects\Kinect\WindowsFormsKinectTest\GestureFramework\obj\Debug\GestureFramework.pdb
-C:\Users\guille\Documents\GitHubVisualStudio\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\bin\Debug\GestureFramework.dll
-C:\Users\guille\Documents\GitHubVisualStudio\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\bin\Debug\GestureFramework.pdb
-C:\Users\guille\Documents\GitHubVisualStudio\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\bin\Debug\Microsoft.Kinect.dll
-C:\Users\guille\Documents\GitHubVisualStudio\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\bin\Debug\Microsoft.Kinect.xml
-C:\Users\guille\Documents\GitHubVisualStudio\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\obj\Debug\GestureFramework.csprojResolveAssemblyReference.cache
-C:\Users\guille\Documents\GitHubVisualStudio\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\obj\Debug\GestureFramework.dll
-C:\Users\guille\Documents\GitHubVisualStudio\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\obj\Debug\GestureFramework.pdb
+C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\obj\Debug\GestureFramework.csprojResolveAssemblyReference.cache
+C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\obj\Debug\GestureFramework.dll
+C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\obj\Debug\GestureFramework.pdb
 C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\bin\Debug\GestureFramework.dll
 C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\bin\Debug\GestureFramework.pdb
 C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\bin\Debug\Microsoft.Kinect.dll
 C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\bin\Debug\Microsoft.Kinect.xml
-C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\obj\Debug\GestureFramework.csprojResolveAssemblyReference.cache
-C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\obj\Debug\GestureFramework.dll
-C:\Users\guille\Documents\GitHubVisualStudio\grado_informatica_npi\Simple Gesture Processing using the Kinect for Windows\C#\GestureFramework\obj\Debug\GestureFramework.pdb
