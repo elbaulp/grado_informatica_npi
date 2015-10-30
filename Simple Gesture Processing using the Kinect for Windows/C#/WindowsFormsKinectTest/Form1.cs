@@ -145,9 +145,10 @@ namespace WindowsFormsKinectTest
                         var shoulderr = sd.Joints[JointType.ShoulderRight];
 
                         var d = distance(kneer, shoulderr);
-                        mInstructions.Text = "d: " + d + "\rd1:" + (d + (d * .1));
-                        
+                        mInstructions.Text = "d: " + d ;
+
                         //if (d > (d + (d * .1)))
+                        //if (d > 0.66)
                         //{
 
                             rtbMessages.AppendText("READY TO GOOOOOOOO " + sd.TrackingId + "\r");
@@ -157,9 +158,11 @@ namespace WindowsFormsKinectTest
                             mInstructions.Text = "2. In order to display the next slide, move your right wrist above your right hip and put it down." +
                                 "To display the previous slide, do the same with your left wrist\r" +
                                 "3. To disable futher processing, pass your left Knee to the left of your left shoulder\r";
+                            _armr = new Pen(Color.Green, 5);
+                            _arml = new Pen(Color.Green, 5);
                         //}
-                        _armr = new Pen(Color.Green, 5);
-                        _arml = new Pen(Color.Green, 5);
+
+                        
                     }
                     else if (keycode == VirtualKeyCode.CANCEL)
                     {
