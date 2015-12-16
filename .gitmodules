@@ -1,0 +1,3 @@
+[submodule "Compass"]
+	path = Compass
+	url = git@github.com:algui91/Compass.git
