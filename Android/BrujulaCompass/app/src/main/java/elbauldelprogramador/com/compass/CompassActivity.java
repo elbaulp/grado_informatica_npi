@@ -19,7 +19,9 @@ package elbauldelprogramador.com.compass;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -29,38 +31,95 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
-public class CompassActivity extends Activity {
+public class CompassActivity extends Activity implements RecognitionListener {
 
-    private final float MAX_ROATE_DEGREE = 1.0f;
-    private SensorManager mSensorManager;
-    private Sensor mOrientationSensor;
-    private LocationManager mLocationManager;
-    private String mLocationProvider;
-    private float mDirection;
-    private float mTargetDirection;
-    private AccelerateInterpolator mInterpolator;
     protected final Handler mHandler = new Handler();
-    private boolean mStopDrawing;
-    private boolean mChinease;
-
+    private final float MAX_ROATE_DEGREE = 1.0f;
     View mCompassView;
     CompassView mPointer;
     TextView mLocationTextView;
     LinearLayout mDirectionLayout;
     LinearLayout mAngleLayout;
+    private Context mCtx;
+    private SensorManager mSensorManager;
+    private Sensor mOrientationSensor;
+    private LocationManager mLocationManager;
+    private String mLocationProvider;
+    LocationListener mLocationListener = new LocationListener() {
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            if (status != LocationProvider.OUT_OF_SERVICE) {
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                updateLocation(mLocationManager.getLastKnownLocation(mLocationProvider));
+            } else {
+                mLocationTextView.setText(R.string.cannot_get_location);
+            }
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+        }
+
+        @Override
+        public void onLocationChanged(Location location) {
+            updateLocation(location);
+        }
+
+    };
+    private float mDirection;
+    private float mTargetDirection;
+    private AccelerateInterpolator mInterpolator;
+    private boolean mStopDrawing;
+    private boolean mChinease;
+
+    @Override
+    public String[] fileList() {
+        return super.fileList();
+    }
+
+    public CompassActivity() {
+        super();
+    }
+
+    @Override
+    public void setIntent(Intent newIntent) {
+        super.setIntent(newIntent);
+    }
 
     protected Runnable mCompassViewUpdater = new Runnable() {
         @Override
@@ -93,6 +152,19 @@ public class CompassActivity extends Activity {
 
                 mHandler.postDelayed(mCompassViewUpdater, 20);
             }
+        }
+    };
+    private SpeechRecognizer myASR;
+    private SensorEventListener mOrientationSensorEventListener = new SensorEventListener() {
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            float direction = event.values[0] * -1.0f;
+            mTargetDirection = normalizeDegree(direction);
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
         }
     };
 
@@ -167,6 +239,8 @@ public class CompassActivity extends Activity {
         mAngleLayout = (LinearLayout) findViewById(R.id.layout_angle);
 
         mPointer.setImageResource(mChinease ? R.drawable.compass_cn : R.drawable.compass);
+
+        mCtx = this;
     }
 
     private void initServices() {
@@ -184,6 +258,17 @@ public class CompassActivity extends Activity {
         criteria.setPowerRequirement(Criteria.POWER_LOW);
         mLocationProvider = mLocationManager.getBestProvider(criteria, true);
 
+        // ASR
+        // find out whether speech recognition is supported
+        List<ResolveInfo> intActivities = getPackageManager().queryIntentActivities(
+                new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+        if (intActivities.size() != 0) {
+            myASR = SpeechRecognizer.createSpeechRecognizer(mCtx);
+            myASR.setRecognitionListener(this);
+        } else
+            myASR = null;
+
+        startListening();
     }
 
     private void updateDirection() {
@@ -342,56 +427,204 @@ public class CompassActivity extends Activity {
         return String.valueOf(du) + "°" + String.valueOf(fen) + "'" + String.valueOf(miao) + "\"";
     }
 
-    private SensorEventListener mOrientationSensorEventListener = new SensorEventListener() {
-
-        @Override
-        public void onSensorChanged(SensorEvent event) {
-            float direction = event.values[0] * -1.0f;
-            mTargetDirection = normalizeDegree(direction);
-        }
-
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        }
-    };
-
     private float normalizeDegree(float degree) {
         return (degree + 720) % 360;
     }
 
-    LocationListener mLocationListener = new LocationListener() {
+    /**
+     * Starts speech recognition after checking the ASR parameters
+     *
+     * @param language      Language used for speech recognition (e.g. Locale.ENGLISH)
+     * @param languageModel Type of language model used (free form or web search)
+     * @param maxResults    Maximum number of recognition results
+     * @throws An exception is raised if the language specified is not available or the other parameters are not valid
+     */
+    public void listen(final Locale language, final String languageModel, final int maxResults) throws Exception {
+        if ((languageModel.equals(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM) || languageModel.equals(RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH)) && (maxResults >= 0)) {
+            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-            if (status != LocationProvider.OUT_OF_SERVICE) {
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
+            // Specify the calling package to identify the application
+            intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, mCtx.getPackageName());
+            //Caution: be careful not to use: getClass().getPackage().getName());
+
+            // Specify language model
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, languageModel);
+
+            // Specify how many results to receive. Results listed in order of confidence
+            intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, maxResults);
+
+            // Specify recognition language
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, language);
+
+            myASR.startListening(intent);
+
+        } else {
+            Log.e(this.getLocalClassName(), "Invalid params to listen method");
+            throw new Exception("Invalid params to listen method"); //If the input parameters are not valid, it throws an exception
+        }
+
+    }
+
+    /**
+     * Starts listening for any user input.
+     * When it recognizes something, the <code>processAsrResult</code> method is invoked.
+     * If there is any error, the <code>processAsrError</code> method is invoked.
+     */
+    private void startListening() {
+
+//        if(deviceConnectedToInternet()){
+        try {
+
+        /*Start listening, with the following default parameters:
+            * Language = English
+            * Recognition model = Free form,
+            * Number of results = 1 (we will use the best result to perform the search)
+            */
+            listen(Locale.ENGLISH, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM, 1); //Start listening
+            Toast.makeText(getApplicationContext(), "ASR STARTED and LISTENING", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            this.runOnUiThread(new Runnable() {  //Toasts must be in the main thread
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "ASR could not be started", Toast.LENGTH_SHORT).show();
+//                        changeButtonAppearanceToDefault();
                 }
-                updateLocation(mLocationManager.getLastKnownLocation(mLocationProvider));
+            });
+
+            Log.e(this.getLocalClassName(), "ASR could not be started");
+//                e.printStackTrace(); //TODO: remove later
+//                try { speak("Speech recognition could not be started", "EN", ID_PROMPT_INFO); } catch (Exception ex) { Log.e(LOGTAG, "TTS not accessible"); }
+
+        }
+//        } else {
+//
+//            this.runOnUiThread(new Runnable() { //Toasts must be in the main thread
+//                public void run() {
+//                    Toast.makeText(getApplicationContext(),"Please check your Internet connection", Toast.LENGTH_SHORT).show();
+////                    changeButtonAppearanceToDefault();
+//                }
+//            });
+////            try { speak("Please check your Internet connection", "EN", ID_PROMPT_INFO); } catch (Exception ex) { Log.e(LOGTAG, "TTS not accessible"); }
+//            Log.e(this.getLocalClassName(), "Device not connected to Internet");
+//
+//        }
+    }
+
+
+    @Override
+    public void onReadyForSpeech(Bundle params) {
+
+    }
+
+    @Override
+    public void onBeginningOfSpeech() {
+
+    }
+
+    @Override
+    public void onRmsChanged(float rmsdB) {
+
+    }
+
+    @Override
+    public void onBufferReceived(byte[] buffer) {
+
+    }
+
+    @Override
+    public void onEndOfSpeech() {
+
+    }
+
+    @Override
+    public void onError(int error) {
+        processAsrError(error);
+    }
+
+    @Override
+    public void onResults(Bundle results) {
+        if (results != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {  //Checks the API level because the confidence scores are supported only from API level 14:
+                //http://developer.android.com/reference/android/speech/SpeechRecognizer.html#CONFIDENCE_SCORES
+                //Processes the recognition results and their confidences
+                processAsrResults(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION), results.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES));
+                //											Attention: It is not RecognizerIntent.EXTRA_RESULTS, that is for intents (see the ASRWithIntent app)
             } else {
-                mLocationTextView.setText(R.string.cannot_get_location);
+                //Processes the recognition results and their confidences
+                processAsrResults(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION), null);
+            }
+        } else
+            //Processes recognition errors
+            processAsrError(SpeechRecognizer.ERROR_NO_MATCH);
+    }
+
+    @Override
+    public void onPartialResults(Bundle partialResults) {
+
+    }
+
+    @Override
+    public void onEvent(int eventType, Bundle params) {
+
+    }
+
+    /**
+     * Initiates a Google search intent with the results of the recognition
+     */
+    public void processAsrResults(ArrayList<String> nBestList, float[] nBestConfidences) {
+
+        if (nBestList != null) {
+
+            Log.d(CompassActivity.class.getSimpleName(), "ASR found " + nBestList.size() + " results");
+
+            if (nBestList.size() > 0) {
+                String bestResult = nBestList.get(0); //We will use the best result
+                Log.e(CompassActivity.class.getSimpleName(), "Said: " + bestResult);
             }
         }
+    }
 
-        @Override
-        public void onProviderEnabled(String provider) {
+    /**
+     * Provides feedback to the user (by means of a Toast and a synthesized message) when the ASR encounters an error
+     */
+    public void processAsrError(int errorCode) {
+
+        String errorMessage;
+        switch (errorCode) {
+            case SpeechRecognizer.ERROR_AUDIO:
+                errorMessage = "Audio recording error";
+                break;
+            case SpeechRecognizer.ERROR_CLIENT:
+                errorMessage = "Client side error";
+                break;
+            case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
+                errorMessage = "Insufficient permissions";
+                break;
+            case SpeechRecognizer.ERROR_NETWORK:
+                errorMessage = "Network related error";
+                break;
+            case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
+                errorMessage = "Network operation timeout";
+                break;
+            case SpeechRecognizer.ERROR_NO_MATCH:
+                errorMessage = "No recognition result matched";
+                break;
+            case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
+                errorMessage = "RecognitionServiceBusy";
+                break;
+            case SpeechRecognizer.ERROR_SERVER:
+                errorMessage = "Server sends error status";
+                break;
+            case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
+                errorMessage = "No speech input";
+                break;
+            default:
+                errorMessage = "ASR error";
+                break;
         }
 
-        @Override
-        public void onProviderDisabled(String provider) {
-        }
+        Toast.makeText(getApplicationContext(), "Speech recognition error", Toast.LENGTH_LONG).show();
 
-        @Override
-        public void onLocationChanged(Location location) {
-            updateLocation(location);
-        }
+        Log.e(CompassActivity.class.getSimpleName(), "Error when attempting to listen: " + errorMessage);
+    }
 
-    };
 }
