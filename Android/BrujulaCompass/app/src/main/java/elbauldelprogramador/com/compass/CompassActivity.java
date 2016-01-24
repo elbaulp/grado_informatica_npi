@@ -47,6 +47,7 @@ public class CompassActivity extends Activity {
     protected final Handler mHandler = new Handler();
     View mCompassView;
     CompassView mPointer;
+    UserDirectionView mUserHint;
     TextView mLocationTextView;
     LinearLayout mDirectionLayout;
     LinearLayout mAngleLayout;
@@ -57,6 +58,7 @@ public class CompassActivity extends Activity {
     private float mTargetDirection;
     private AccelerateInterpolator mInterpolator;
     private boolean mStopDrawing;
+    protected Runnable mUserHintViewUpdater ;
     protected Runnable mCompassViewUpdater = new Runnable() {
         @Override
         public void run() {
@@ -154,6 +156,7 @@ public class CompassActivity extends Activity {
 
         mCompassView = findViewById(R.id.view_compass);
         mPointer = (CompassView) findViewById(R.id.compass_pointer);
+        mUserHint = (UserDirectionView) findViewById(R.id.user_direction);
         mLocationTextView = (TextView) findViewById(R.id.textview_location);
         mDirectionLayout = (LinearLayout) findViewById(R.id.layout_direction);
         mAngleLayout = (LinearLayout) findViewById(R.id.layout_angle);
@@ -178,16 +181,10 @@ public class CompassActivity extends Activity {
         mDirectionLayout.removeAllViews();
         mAngleLayout.removeAllViews();
 
-        ImageView hintLeft = null;
-        ImageView hintRight = null;
         ImageView east = null;
         ImageView west = null;
         ImageView south = null;
         ImageView north = null;
-
-        hintLeft = new ImageView(this);
-        hintLeft.setImageResource(android.R.drawable.arrow_down_float);
-        hintLeft.setLayoutParams(lp);
 
         float direction = normalizeDegree(mTargetDirection * -1.0f);
         if (direction > 22.5f && direction < 157.5f) {
@@ -221,7 +218,6 @@ public class CompassActivity extends Activity {
         }
         if (north != null) {
             mDirectionLayout.addView(north);
-            mDirectionLayout.addView(hintLeft);
         }
         if (east != null) {
             mDirectionLayout.addView(east);
@@ -342,6 +338,8 @@ public class CompassActivity extends Activity {
                     data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
             mLocationTextView.setText(String.format(getString(R.string.heading_text), matches.get(0)));
+
+            mUserHint.updateDirection(45);
 
             StringBuilder sb = new StringBuilder();
             for (String piece : matches) {
