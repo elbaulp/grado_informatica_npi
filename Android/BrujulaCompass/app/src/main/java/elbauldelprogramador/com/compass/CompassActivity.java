@@ -51,9 +51,16 @@ public class CompassActivity extends Activity {
     TextView mLocationTextView;
     LinearLayout mDirectionLayout;
     LinearLayout mAngleLayout;
+    private float[] mLastAccelerometer = new float[3];
+    private float[] mLastMagnetometer = new float[3];
+    private boolean mLastAccelerometerSet = false;
+    private boolean mLastMagnetometerSet = false;
+    private float[] mR = new float[9];
+    private float[] mOrientation = new float[3];
     private Context mCtx;
     private SensorManager mSensorManager;
-    private Sensor mOrientationSensor;
+    private Sensor mMagneticSensor;
+    private Sensor mAccelerometer;
     private float mDirection;
     private float mHeadedDirection = -1;
     private float mTargetDirection;
@@ -94,12 +101,31 @@ public class CompassActivity extends Activity {
         }
     };
 
-    private SensorEventListener mOrientationSensorEventListener = new SensorEventListener() {
+    private SensorEventListener mMagneticSensorEventListener = new SensorEventListener() {
 
         @Override
         public void onSensorChanged(SensorEvent event) {
-            float direction = event.values[0] * -1.0f;
-            mTargetDirection = normalizeDegree(direction);
+
+            if (event.sensor == mMagneticSensor) {
+                System.arraycopy(event.values, 0, mLastMagnetometer, 0, event.values.length);
+                mLastMagnetometerSet = true;
+            } else if (event.sensor == mAccelerometer){
+                System.arraycopy(event.values, 0, mLastAccelerometer, 0, event.values.length);
+                mLastAccelerometerSet = true;
+            }
+
+            if (mLastAccelerometerSet && mLastMagnetometerSet) {
+                SensorManager.getRotationMatrix(mR, null, mLastAccelerometer, mLastMagnetometer);
+                SensorManager.getOrientation(mR, mOrientation);
+                float azimuthInRadians = mOrientation[0];
+                float azimuthInDegress = (float)(Math.toDegrees(azimuthInRadians)+360)%360;
+
+                mTargetDirection = -azimuthInDegress;
+
+//                float direction = event.values[0] * -1.0f;
+//                mTargetDirection = normalizeDegree(direction);
+            }
+
         }
 
         @Override
@@ -132,8 +158,12 @@ public class CompassActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mOrientationSensor != null) {
-            mSensorManager.registerListener(mOrientationSensorEventListener, mOrientationSensor,
+        if (mMagneticSensor != null) {
+            mSensorManager.registerListener(mMagneticSensorEventListener, mMagneticSensor,
+                    SensorManager.SENSOR_DELAY_GAME);
+        }
+        if (mAccelerometer != null) {
+            mSensorManager.registerListener(mMagneticSensorEventListener, mAccelerometer,
                     SensorManager.SENSOR_DELAY_GAME);
         }
         mStopDrawing = false;
@@ -144,8 +174,11 @@ public class CompassActivity extends Activity {
     protected void onPause() {
         super.onPause();
         mStopDrawing = true;
-        if (mOrientationSensor != null) {
-            mSensorManager.unregisterListener(mOrientationSensorEventListener);
+        if (mMagneticSensor != null) {
+            mSensorManager.unregisterListener(mMagneticSensorEventListener);
+        }
+        if (mAccelerometer != null){
+            mSensorManager.unregisterListener(mMagneticSensorEventListener);
         }
     }
 
@@ -171,7 +204,8 @@ public class CompassActivity extends Activity {
     private void initServices() {
         // sensor manager
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mOrientationSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        mMagneticSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         startListening();
     }
