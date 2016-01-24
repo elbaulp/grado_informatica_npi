@@ -44,7 +44,7 @@ public class CompassActivity extends Activity {
 
     private static final int REQUEST_RECOGNIZE = 100;
 
-    protected final Handler mHandler = new Handler();
+    protected final Handler mHandlerCompass = new Handler();
     View mCompassView;
     CompassView mPointer;
     UserDirectionView mUserHint;
@@ -55,10 +55,10 @@ public class CompassActivity extends Activity {
     private SensorManager mSensorManager;
     private Sensor mOrientationSensor;
     private float mDirection;
+    private float mHeadedDirection = -1;
     private float mTargetDirection;
     private AccelerateInterpolator mInterpolator;
     private boolean mStopDrawing;
-    protected Runnable mUserHintViewUpdater ;
     protected Runnable mCompassViewUpdater = new Runnable() {
         @Override
         public void run() {
@@ -89,10 +89,11 @@ public class CompassActivity extends Activity {
 
                 updateDirection();
 
-                mHandler.postDelayed(mCompassViewUpdater, 20);
+                mHandlerCompass.postDelayed(mCompassViewUpdater, 20);
             }
         }
     };
+
     private SensorEventListener mOrientationSensorEventListener = new SensorEventListener() {
 
         @Override
@@ -136,7 +137,7 @@ public class CompassActivity extends Activity {
                     SensorManager.SENSOR_DELAY_GAME);
         }
         mStopDrawing = false;
-        mHandler.postDelayed(mCompassViewUpdater, 20);
+        mHandlerCompass.postDelayed(mCompassViewUpdater, 20);
     }
 
     @Override
@@ -337,9 +338,11 @@ public class CompassActivity extends Activity {
             ArrayList<String> matches =
                     data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
+
+            mHeadedDirection = Float.parseFloat(matches.get(0));
             mLocationTextView.setText(String.format(getString(R.string.heading_text), matches.get(0)));
 
-            mUserHint.updateDirection(45);
+            mUserHint.updateDirection(mHeadedDirection);
 
             StringBuilder sb = new StringBuilder();
             for (String piece : matches) {
