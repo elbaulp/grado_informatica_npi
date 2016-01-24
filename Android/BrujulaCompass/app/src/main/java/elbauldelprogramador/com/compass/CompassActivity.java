@@ -109,7 +109,7 @@ public class CompassActivity extends Activity {
             if (event.sensor == mMagneticSensor) {
                 System.arraycopy(event.values, 0, mLastMagnetometer, 0, event.values.length);
                 mLastMagnetometerSet = true;
-            } else if (event.sensor == mAccelerometer){
+            } else if (event.sensor == mAccelerometer) {
                 System.arraycopy(event.values, 0, mLastAccelerometer, 0, event.values.length);
                 mLastAccelerometerSet = true;
             }
@@ -118,34 +118,18 @@ public class CompassActivity extends Activity {
                 SensorManager.getRotationMatrix(mR, null, mLastAccelerometer, mLastMagnetometer);
                 SensorManager.getOrientation(mR, mOrientation);
                 float azimuthInRadians = mOrientation[0];
-                float azimuthInDegress = (float)(Math.toDegrees(azimuthInRadians)+360)%360;
+                float azimuthInDegress = (float) (Math.toDegrees(azimuthInRadians) + 360) % 360;
 
                 mTargetDirection = -azimuthInDegress;
 
-//                float direction = event.values[0] * -1.0f;
-//                mTargetDirection = normalizeDegree(direction);
             }
-
         }
 
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
         }
     };
-
-    public CompassActivity() {
-        super();
-    }
-
-    @Override
-    public String[] fileList() {
-        return super.fileList();
-    }
-
-    @Override
-    public void setIntent(Intent newIntent) {
-        super.setIntent(newIntent);
-    }
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,7 +161,7 @@ public class CompassActivity extends Activity {
         if (mMagneticSensor != null) {
             mSensorManager.unregisterListener(mMagneticSensorEventListener);
         }
-        if (mAccelerometer != null){
+        if (mAccelerometer != null) {
             mSensorManager.unregisterListener(mMagneticSensorEventListener);
         }
     }
@@ -371,7 +355,6 @@ public class CompassActivity extends Activity {
                 resultCode == Activity.RESULT_OK) {
             ArrayList<String> matches =
                     data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-
 
             mHeadedDirection = Float.parseFloat(matches.get(0));
             mLocationTextView.setText(String.format(getString(R.string.heading_text), matches.get(0)));
