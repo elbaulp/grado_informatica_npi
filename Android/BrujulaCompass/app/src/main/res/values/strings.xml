@@ -19,8 +19,8 @@
 
     <string name="app_label">Brújula/Compass</string>
     <string name="app_name">Brújula/Compass</string>
-    <string name="getting_location">Getting location...</string>
-    <string name="cannot_get_location">Cannot get your location</string>
+    <string name="default_direction">You are heading...</string>
+    <string name="heading_text">You are heading %s</string>
     <string name="asr_prompt">Where Do you want to head</string>
     <string name="asr_download_title">Not Available</string>
     <string name="asr_download_msg">There is no recognition application installed. Would you like to download one?</string>

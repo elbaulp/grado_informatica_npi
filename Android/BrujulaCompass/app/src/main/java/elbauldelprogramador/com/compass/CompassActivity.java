@@ -165,6 +165,7 @@ public class CompassActivity extends Activity {
         mPointer.setImageResource(mChinease ? R.drawable.compass_cn : R.drawable.compass);
 
         mCtx = this;
+        mLocationTextView.setText(R.string.default_direction);
     }
 
     private void initServices() {
@@ -349,6 +350,9 @@ public class CompassActivity extends Activity {
                 resultCode == Activity.RESULT_OK) {
             ArrayList<String> matches =
                     data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+            mLocationTextView.setText(String.format(getString(R.string.heading_text), matches.get(0)));
+
             StringBuilder sb = new StringBuilder();
             for (String piece : matches) {
                 sb.append(piece);
