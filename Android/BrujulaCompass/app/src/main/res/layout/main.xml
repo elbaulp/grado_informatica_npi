@@ -124,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/getting_location"
+                    android:text="@string/default_direction"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#7FFFFFFF" />
             </FrameLayout>

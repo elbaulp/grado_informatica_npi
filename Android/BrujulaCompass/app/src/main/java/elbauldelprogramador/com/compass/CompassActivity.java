@@ -30,7 +30,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateInterpolator;
@@ -40,7 +39,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class CompassActivity extends Activity {
 
@@ -59,7 +57,6 @@ public class CompassActivity extends Activity {
     private float mTargetDirection;
     private AccelerateInterpolator mInterpolator;
     private boolean mStopDrawing;
-    private boolean mChinease;
     protected Runnable mCompassViewUpdater = new Runnable() {
         @Override
         public void run() {
@@ -154,7 +151,6 @@ public class CompassActivity extends Activity {
         mTargetDirection = 0.0f;
         mInterpolator = new AccelerateInterpolator();
         mStopDrawing = true;
-        mChinease = TextUtils.equals(Locale.getDefault().getLanguage(), "zh");
 
         mCompassView = findViewById(R.id.view_compass);
         mPointer = (CompassView) findViewById(R.id.compass_pointer);
@@ -162,7 +158,7 @@ public class CompassActivity extends Activity {
         mDirectionLayout = (LinearLayout) findViewById(R.id.layout_direction);
         mAngleLayout = (LinearLayout) findViewById(R.id.layout_angle);
 
-        mPointer.setImageResource(mChinease ? R.drawable.compass_cn : R.drawable.compass);
+        mPointer.setImageResource(R.drawable.compass);
 
         mCtx = this;
         mLocationTextView.setText(R.string.default_direction);
@@ -182,64 +178,58 @@ public class CompassActivity extends Activity {
         mDirectionLayout.removeAllViews();
         mAngleLayout.removeAllViews();
 
+        ImageView hintLeft = null;
+        ImageView hintRight = null;
         ImageView east = null;
         ImageView west = null;
         ImageView south = null;
         ImageView north = null;
+
+        hintLeft = new ImageView(this);
+        hintLeft.setImageResource(android.R.drawable.arrow_down_float);
+        hintLeft.setLayoutParams(lp);
+
         float direction = normalizeDegree(mTargetDirection * -1.0f);
         if (direction > 22.5f && direction < 157.5f) {
             // east
             east = new ImageView(this);
-            east.setImageResource(mChinease ? R.drawable.e_cn : R.drawable.e);
+            east.setImageResource(R.drawable.e);
             east.setLayoutParams(lp);
         } else if (direction > 202.5f && direction < 337.5f) {
             // west
             west = new ImageView(this);
-            west.setImageResource(mChinease ? R.drawable.w_cn : R.drawable.w);
+            west.setImageResource(R.drawable.w);
             west.setLayoutParams(lp);
         }
 
         if (direction > 112.5f && direction < 247.5f) {
             // south
             south = new ImageView(this);
-            south.setImageResource(mChinease ? R.drawable.s_cn : R.drawable.s);
+            south.setImageResource(R.drawable.s);
             south.setLayoutParams(lp);
         } else if (direction < 67.5 || direction > 292.5f) {
             // north
             north = new ImageView(this);
-            north.setImageResource(mChinease ? R.drawable.n_cn : R.drawable.n);
+            north.setImageResource(R.drawable.n);
             north.setLayoutParams(lp);
         }
 
-        if (mChinease) {
-            // east/west should be before north/south
-            if (east != null) {
-                mDirectionLayout.addView(east);
-            }
-            if (west != null) {
-                mDirectionLayout.addView(west);
-            }
-            if (south != null) {
-                mDirectionLayout.addView(south);
-            }
-            if (north != null) {
-                mDirectionLayout.addView(north);
-            }
-        } else {
-            // north/south should be before east/west
-            if (south != null) {
-                mDirectionLayout.addView(south);
-            }
-            if (north != null) {
-                mDirectionLayout.addView(north);
-            }
-            if (east != null) {
-                mDirectionLayout.addView(east);
-            }
-            if (west != null) {
-                mDirectionLayout.addView(west);
-            }
+
+        // north/south should be before east/west
+        if (south != null) {
+            mDirectionLayout.addView(south);
         }
+        if (north != null) {
+            mDirectionLayout.addView(north);
+            mDirectionLayout.addView(hintLeft);
+        }
+        if (east != null) {
+            mDirectionLayout.addView(east);
+        }
+        if (west != null) {
+            mDirectionLayout.addView(west);
+        }
+
 
         int direction2 = (int) direction;
         boolean show = false;
@@ -332,7 +322,7 @@ public class CompassActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog,
                                         int which) {
-        //Download, for example, Google Voice Search
+                        //Download, for example, Google Voice Search
                         Intent marketIntent =
                                 new Intent(Intent.ACTION_VIEW);
                         marketIntent.setData(
