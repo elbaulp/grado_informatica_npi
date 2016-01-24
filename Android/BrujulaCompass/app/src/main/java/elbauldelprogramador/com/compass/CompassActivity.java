@@ -37,10 +37,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
-import android.speech.SpeechRecognizer;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateInterpolator;
@@ -57,7 +55,6 @@ public class CompassActivity extends Activity {
     private static final int REQUEST_RECOGNIZE = 100;
 
     protected final Handler mHandler = new Handler();
-    private final float MAX_ROATE_DEGREE = 1.0f;
     View mCompassView;
     CompassView mPointer;
     TextView mLocationTextView;
@@ -125,6 +122,7 @@ public class CompassActivity extends Activity {
 
                     // limit the max speed to MAX_ROTATE_DEGREE
                     float distance = to - mDirection;
+                    float MAX_ROATE_DEGREE = 1.0f;
                     if (Math.abs(distance) > MAX_ROATE_DEGREE) {
                         distance = distance > 0 ? MAX_ROATE_DEGREE : (-1.0f * MAX_ROATE_DEGREE);
                     }
@@ -422,38 +420,6 @@ public class CompassActivity extends Activity {
     }
 
     /**
-     * Starts speech recognition after checking the ASR parameters
-     *
-     * @param language      Language used for speech recognition (e.g. Locale.ENGLISH)
-     * @param languageModel Type of language model used (free form or web search)
-     * @param maxResults    Maximum number of recognition results
-     * @throws An exception is raised if the language specified is not available or the other parameters are not valid
-     */
-    public void listen(final Locale language, final String languageModel, final int maxResults) throws Exception {
-        if ((languageModel.equals(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM) || languageModel.equals(RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH)) && (maxResults >= 0)) {
-            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-
-            // Specify the calling package to identify the application
-            intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, mCtx.getPackageName());
-            //Caution: be careful not to use: getClass().getPackage().getName());
-
-            // Specify language model
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, languageModel);
-
-            // Specify how many results to receive. Results listed in order of confidence
-            intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, maxResults);
-
-            // Specify recognition language
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, language);
-
-        } else {
-            Log.e(this.getLocalClassName(), "Invalid params to listen method");
-            throw new Exception("Invalid params to listen method"); //If the input parameters are not valid, it throws an exception
-        }
-
-    }
-
-    /**
      * Starts listening for any user input.
      * When it recognizes something, the <code>processAsrResult</code> method is invoked.
      * If there is any error, the <code>processAsrError</code> method is invoked.
@@ -509,50 +475,4 @@ public class CompassActivity extends Activity {
                     Toast.LENGTH_LONG).show();
         }
     }
-
-
-    /**
-     * Provides feedback to the user (by means of a Toast and a synthesized message) when the ASR encounters an error
-     */
-    public void processAsrError(int errorCode) {
-
-        String errorMessage;
-        switch (errorCode) {
-            case SpeechRecognizer.ERROR_AUDIO:
-                errorMessage = "Audio recording error";
-                break;
-            case SpeechRecognizer.ERROR_CLIENT:
-                errorMessage = "Client side error";
-                break;
-            case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
-                errorMessage = "Insufficient permissions";
-                break;
-            case SpeechRecognizer.ERROR_NETWORK:
-                errorMessage = "Network related error";
-                break;
-            case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-                errorMessage = "Network operation timeout";
-                break;
-            case SpeechRecognizer.ERROR_NO_MATCH:
-                errorMessage = "No recognition result matched";
-                break;
-            case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
-                errorMessage = "RecognitionServiceBusy";
-                break;
-            case SpeechRecognizer.ERROR_SERVER:
-                errorMessage = "Server sends error status";
-                break;
-            case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-                errorMessage = "No speech input";
-                break;
-            default:
-                errorMessage = "ASR error";
-                break;
-        }
-
-        Toast.makeText(getApplicationContext(), "Speech recognition error", Toast.LENGTH_LONG).show();
-
-        Log.e(CompassActivity.class.getSimpleName(), "Error when attempting to listen: " + errorMessage);
-    }
-
 }
