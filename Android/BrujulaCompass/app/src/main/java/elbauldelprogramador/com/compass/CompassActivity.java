@@ -18,10 +18,12 @@ package elbauldelprogramador.com.compass;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -31,10 +33,9 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
-import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.v4.app.ActivityCompat;
@@ -49,10 +50,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
-public class CompassActivity extends Activity implements RecognitionListener {
+public class CompassActivity extends Activity {
+
+    private static final int REQUEST_RECOGNIZE = 100;
 
     protected final Handler mHandler = new Handler();
     private final float MAX_ROATE_DEGREE = 1.0f;
@@ -66,6 +68,7 @@ public class CompassActivity extends Activity implements RecognitionListener {
     private Sensor mOrientationSensor;
     private LocationManager mLocationManager;
     private String mLocationProvider;
+
     LocationListener mLocationListener = new LocationListener() {
 
         @Override
@@ -106,21 +109,6 @@ public class CompassActivity extends Activity implements RecognitionListener {
     private AccelerateInterpolator mInterpolator;
     private boolean mStopDrawing;
     private boolean mChinease;
-
-    @Override
-    public String[] fileList() {
-        return super.fileList();
-    }
-
-    public CompassActivity() {
-        super();
-    }
-
-    @Override
-    public void setIntent(Intent newIntent) {
-        super.setIntent(newIntent);
-    }
-
     protected Runnable mCompassViewUpdater = new Runnable() {
         @Override
         public void run() {
@@ -154,7 +142,6 @@ public class CompassActivity extends Activity implements RecognitionListener {
             }
         }
     };
-    private SpeechRecognizer myASR;
     private SensorEventListener mOrientationSensorEventListener = new SensorEventListener() {
 
         @Override
@@ -167,6 +154,20 @@ public class CompassActivity extends Activity implements RecognitionListener {
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
         }
     };
+
+    public CompassActivity() {
+        super();
+    }
+
+    @Override
+    public String[] fileList() {
+        return super.fileList();
+    }
+
+    @Override
+    public void setIntent(Intent newIntent) {
+        super.setIntent(newIntent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,17 +258,6 @@ public class CompassActivity extends Activity implements RecognitionListener {
         criteria.setCostAllowed(true);
         criteria.setPowerRequirement(Criteria.POWER_LOW);
         mLocationProvider = mLocationManager.getBestProvider(criteria, true);
-
-        // ASR
-        // find out whether speech recognition is supported
-        List<ResolveInfo> intActivities = getPackageManager().queryIntentActivities(
-                new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
-        if (intActivities.size() != 0) {
-            myASR = SpeechRecognizer.createSpeechRecognizer(mCtx);
-            myASR.setRecognitionListener(this);
-        } else
-            myASR = null;
-
         startListening();
     }
 
@@ -456,8 +446,6 @@ public class CompassActivity extends Activity implements RecognitionListener {
             // Specify recognition language
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, language);
 
-            myASR.startListening(intent);
-
         } else {
             Log.e(this.getLocalClassName(), "Invalid params to listen method");
             throw new Exception("Invalid params to listen method"); //If the input parameters are not valid, it throws an exception
@@ -471,117 +459,57 @@ public class CompassActivity extends Activity implements RecognitionListener {
      * If there is any error, the <code>processAsrError</code> method is invoked.
      */
     private void startListening() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.asr_prompt));
+        intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 2);
 
-//        if(deviceConnectedToInternet()){
         try {
-
-        /*Start listening, with the following default parameters:
-            * Language = English
-            * Recognition model = Free form,
-            * Number of results = 1 (we will use the best result to perform the search)
-            */
-            listen(Locale.ENGLISH, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM, 1); //Start listening
-            Toast.makeText(getApplicationContext(), "ASR STARTED and LISTENING", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            this.runOnUiThread(new Runnable() {  //Toasts must be in the main thread
-                public void run() {
-                    Toast.makeText(getApplicationContext(), "ASR could not be started", Toast.LENGTH_SHORT).show();
-//                        changeButtonAppearanceToDefault();
-                }
-            });
-
-            Log.e(this.getLocalClassName(), "ASR could not be started");
-//                e.printStackTrace(); //TODO: remove later
-//                try { speak("Speech recognition could not be started", "EN", ID_PROMPT_INFO); } catch (Exception ex) { Log.e(LOGTAG, "TTS not accessible"); }
-
-        }
-//        } else {
-//
-//            this.runOnUiThread(new Runnable() { //Toasts must be in the main thread
-//                public void run() {
-//                    Toast.makeText(getApplicationContext(),"Please check your Internet connection", Toast.LENGTH_SHORT).show();
-////                    changeButtonAppearanceToDefault();
-//                }
-//            });
-////            try { speak("Please check your Internet connection", "EN", ID_PROMPT_INFO); } catch (Exception ex) { Log.e(LOGTAG, "TTS not accessible"); }
-//            Log.e(this.getLocalClassName(), "Device not connected to Internet");
-//
-//        }
-    }
-
-
-    @Override
-    public void onReadyForSpeech(Bundle params) {
-
-    }
-
-    @Override
-    public void onBeginningOfSpeech() {
-
-    }
-
-    @Override
-    public void onRmsChanged(float rmsdB) {
-
-    }
-
-    @Override
-    public void onBufferReceived(byte[] buffer) {
-
-    }
-
-    @Override
-    public void onEndOfSpeech() {
-
-    }
-
-    @Override
-    public void onError(int error) {
-        processAsrError(error);
-    }
-
-    @Override
-    public void onResults(Bundle results) {
-        if (results != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {  //Checks the API level because the confidence scores are supported only from API level 14:
-                //http://developer.android.com/reference/android/speech/SpeechRecognizer.html#CONFIDENCE_SCORES
-                //Processes the recognition results and their confidences
-                processAsrResults(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION), results.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES));
-                //											Attention: It is not RecognizerIntent.EXTRA_RESULTS, that is for intents (see the ASRWithIntent app)
-            } else {
-                //Processes the recognition results and their confidences
-                processAsrResults(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION), null);
-            }
-        } else
-            //Processes recognition errors
-            processAsrError(SpeechRecognizer.ERROR_NO_MATCH);
-    }
-
-    @Override
-    public void onPartialResults(Bundle partialResults) {
-
-    }
-
-    @Override
-    public void onEvent(int eventType, Bundle params) {
-
-    }
-
-    /**
-     * Initiates a Google search intent with the results of the recognition
-     */
-    public void processAsrResults(ArrayList<String> nBestList, float[] nBestConfidences) {
-
-        if (nBestList != null) {
-
-            Log.d(CompassActivity.class.getSimpleName(), "ASR found " + nBestList.size() + " results");
-
-            if (nBestList.size() > 0) {
-                String bestResult = nBestList.get(0); //We will use the best result
-                Log.e(CompassActivity.class.getSimpleName(), "Said: " + bestResult);
-            }
+            startActivityForResult(intent, REQUEST_RECOGNIZE);
+        } catch (ActivityNotFoundException e) {
+            //If no recognizer exists, download from Google Play
+            showDownloadDialog();
         }
     }
+
+    private void showDownloadDialog() {
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(this);
+        builder.setTitle(R.string.asr_download_title);
+        builder.setMessage(R.string.asr_download_msg);
+        builder.setPositiveButton(android.R.string.yes,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+//Download, for example, Google Voice Search
+                        Intent marketIntent =
+                                new Intent(Intent.ACTION_VIEW);
+                        marketIntent.setData(
+                                Uri.parse("market://details?"
+                                        + "id=com.google.android.voicesearch"));
+                    }
+                });
+        builder.setNegativeButton(android.R.string.no, null);
+        builder.create().show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_RECOGNIZE &&
+                resultCode == Activity.RESULT_OK) {
+            ArrayList<String> matches =
+                    data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            StringBuilder sb = new StringBuilder();
+            for (String piece : matches) {
+                sb.append(piece);
+                sb.append('\n');
+            }
+            Toast.makeText(this, sb.toString(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
 
     /**
      * Provides feedback to the user (by means of a Toast and a synthesized message) when the ASR encounters an error
