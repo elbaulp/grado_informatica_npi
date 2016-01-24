@@ -26,7 +26,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -297,39 +296,6 @@ public class CompassActivity extends Activity {
         }
         image.setLayoutParams(lp);
         return image;
-    }
-
-    private void updateLocation(Location location) {
-        if (location == null) {
-            mLocationTextView.setText(R.string.getting_location);
-        } else {
-            StringBuilder sb = new StringBuilder();
-            double latitude = location.getLatitude();
-            double longitude = location.getLongitude();
-
-            if (latitude >= 0.0f) {
-                sb.append(getString(R.string.location_north, getLocationString(latitude)));
-            } else {
-                sb.append(getString(R.string.location_south, getLocationString(-1.0 * latitude)));
-            }
-
-            sb.append("    ");
-
-            if (longitude >= 0.0f) {
-                sb.append(getString(R.string.location_east, getLocationString(longitude)));
-            } else {
-                sb.append(getString(R.string.location_west, getLocationString(-1.0 * longitude)));
-            }
-
-            mLocationTextView.setText(sb.toString());
-        }
-    }
-
-    private String getLocationString(double input) {
-        int du = (int) input;
-        int fen = (((int) ((input - du) * 3600))) / 60;
-        int miao = (((int) ((input - du) * 3600))) % 60;
-        return String.valueOf(du) + "°" + String.valueOf(fen) + "'" + String.valueOf(miao) + "\"";
     }
 
     private float normalizeDegree(float degree) {
