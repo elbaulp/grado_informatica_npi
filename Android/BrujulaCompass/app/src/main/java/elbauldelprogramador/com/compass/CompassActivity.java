@@ -16,28 +16,21 @@
 
 package elbauldelprogramador.com.compass;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
-import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -63,44 +56,6 @@ public class CompassActivity extends Activity {
     private Context mCtx;
     private SensorManager mSensorManager;
     private Sensor mOrientationSensor;
-    private LocationManager mLocationManager;
-    private String mLocationProvider;
-
-    LocationListener mLocationListener = new LocationListener() {
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-            if (status != LocationProvider.OUT_OF_SERVICE) {
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
-                }
-                updateLocation(mLocationManager.getLastKnownLocation(mLocationProvider));
-            } else {
-                mLocationTextView.setText(R.string.cannot_get_location);
-            }
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-        }
-
-        @Override
-        public void onLocationChanged(Location location) {
-            updateLocation(location);
-        }
-
-    };
     private float mDirection;
     private float mTargetDirection;
     private AccelerateInterpolator mInterpolator;
@@ -178,22 +133,6 @@ public class CompassActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mLocationProvider != null) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            updateLocation(mLocationManager.getLastKnownLocation(mLocationProvider));
-            mLocationManager.requestLocationUpdates(mLocationProvider, 2000, 10, mLocationListener);
-        } else {
-            mLocationTextView.setText(R.string.cannot_get_location);
-        }
         if (mOrientationSensor != null) {
             mSensorManager.registerListener(mOrientationSensorEventListener, mOrientationSensor,
                     SensorManager.SENSOR_DELAY_GAME);
@@ -208,19 +147,6 @@ public class CompassActivity extends Activity {
         mStopDrawing = true;
         if (mOrientationSensor != null) {
             mSensorManager.unregisterListener(mOrientationSensorEventListener);
-        }
-        if (mLocationProvider != null) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            mLocationManager.removeUpdates(mLocationListener);
         }
     }
 
@@ -245,17 +171,8 @@ public class CompassActivity extends Activity {
     private void initServices() {
         // sensor manager
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mOrientationSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        mOrientationSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
-        // location manager
-        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        criteria.setAltitudeRequired(false);
-        criteria.setBearingRequired(false);
-        criteria.setCostAllowed(true);
-        criteria.setPowerRequirement(Criteria.POWER_LOW);
-        mLocationProvider = mLocationManager.getBestProvider(criteria, true);
         startListening();
     }
 
@@ -448,7 +365,7 @@ public class CompassActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog,
                                         int which) {
-//Download, for example, Google Voice Search
+        //Download, for example, Google Voice Search
                         Intent marketIntent =
                                 new Intent(Intent.ACTION_VIEW);
                         marketIntent.setData(
