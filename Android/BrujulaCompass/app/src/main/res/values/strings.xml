@@ -22,6 +22,7 @@
     <string name="default_direction">You are heading...</string>
     <string name="heading_text">You are heading %s</string>
     <string name="asr_prompt">Where Do you want to head</string>
+    <string name="asr_error">You need to say CARDINAL_POINT DEGREES, example “Norte 10”</string>
     <string name="asr_download_title">Not Available</string>
     <string name="asr_download_msg">There is no recognition application installed. Would you like to download one?</string>
     <string name="location_north">%s N</string>

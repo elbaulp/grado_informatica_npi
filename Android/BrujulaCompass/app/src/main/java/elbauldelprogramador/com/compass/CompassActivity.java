@@ -92,6 +92,10 @@ public class CompassActivity extends Activity {
                             + ((to - mDirection) * mInterpolator.getInterpolation(Math
                             .abs(distance) > MAX_ROATE_DEGREE ? 0.4f : 0.3f)));
                     mPointer.updateDirection(mDirection);
+
+                    if (mHeadedDirection != -1) {
+                        mUserHint.updateDirection(mDirection + mHeadedDirection);
+                    }
                 }
 
                 updateDirection();
@@ -100,7 +104,6 @@ public class CompassActivity extends Activity {
             }
         }
     };
-
     private SensorEventListener mMagneticSensorEventListener = new SensorEventListener() {
 
         @Override
@@ -121,7 +124,6 @@ public class CompassActivity extends Activity {
                 float azimuthInDegress = (float) (Math.toDegrees(azimuthInRadians) + 360) % 360;
 
                 mTargetDirection = -azimuthInDegress;
-
             }
         }
 
@@ -129,7 +131,7 @@ public class CompassActivity extends Activity {
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
         }
     };
-    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +154,7 @@ public class CompassActivity extends Activity {
         }
         mStopDrawing = false;
         mHandlerCompass.postDelayed(mCompassViewUpdater, 20);
+
     }
 
     @Override
@@ -244,7 +247,6 @@ public class CompassActivity extends Activity {
         if (west != null) {
             mDirectionLayout.addView(west);
         }
-
 
         int direction2 = (int) direction;
         boolean show = false;
@@ -356,10 +358,30 @@ public class CompassActivity extends Activity {
             ArrayList<String> matches =
                     data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-            mHeadedDirection = Float.parseFloat(matches.get(0));
-            mLocationTextView.setText(String.format(getString(R.string.heading_text), matches.get(0)));
+            String[] tokens = matches.get(0).split(" ");
 
-            mUserHint.updateDirection(mHeadedDirection);
+            if (tokens.length == 2) {
+                mHeadedDirection = Float.parseFloat(tokens[1]);
+                mLocationTextView.setText(String.format(getString(R.string.heading_text), matches.get(0)));
+
+                switch (tokens[0].toLowerCase()) {
+                    case "este":
+                        mHeadedDirection += 90;
+                        break;
+                    case "sur":
+                    case "surf":
+                        mHeadedDirection += 180;
+                        break;
+                    case "oeste":
+                        mHeadedDirection += 270;
+                        break;
+                }
+
+            } else {
+                Toast.makeText(this, R.string.asr_error,
+                        Toast.LENGTH_LONG).show();
+            }
+
 
             StringBuilder sb = new StringBuilder();
             for (String piece : matches) {
