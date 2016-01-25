@@ -97,9 +97,7 @@ public class CompassActivity extends Activity {
                         mUserHint.updateDirection(mDirection + mHeadedDirection);
                     }
                 }
-
                 updateDirection();
-
                 mHandlerCompass.postDelayed(mCompassViewUpdater, 20);
             }
         }
@@ -186,6 +184,13 @@ public class CompassActivity extends Activity {
 
         mCtx = this;
         mLocationTextView.setText(R.string.default_direction);
+
+        mUserHint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startListening();
+            }
+        });
     }
 
     private void initServices() {
@@ -377,19 +382,13 @@ public class CompassActivity extends Activity {
                         break;
                 }
 
+                Toast.makeText(this, R.string.asr_ask_again,
+                        Toast.LENGTH_LONG).show();
+
             } else {
                 Toast.makeText(this, R.string.asr_error,
                         Toast.LENGTH_LONG).show();
             }
-
-
-            StringBuilder sb = new StringBuilder();
-            for (String piece : matches) {
-                sb.append(piece);
-                sb.append('\n');
-            }
-            Toast.makeText(this, sb.toString(),
-                    Toast.LENGTH_LONG).show();
         }
     }
 }
