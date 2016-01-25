@@ -49,4 +49,5 @@ public class UserDirectionView extends ImageView {
         mDirection = direction;
         invalidate();
     }
+
 }

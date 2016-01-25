@@ -22,6 +22,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -30,6 +32,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateInterpolator;
@@ -43,6 +46,7 @@ import java.util.ArrayList;
 public class CompassActivity extends Activity {
 
     private static final int REQUEST_RECOGNIZE = 100;
+    private static final int REQUEST_TTS = 101;
 
     protected final Handler mHandlerCompass = new Handler();
     View mCompassView;
@@ -66,6 +70,8 @@ public class CompassActivity extends Activity {
     private float mTargetDirection;
     private AccelerateInterpolator mInterpolator;
     private boolean mStopDrawing;
+    private TextToSpeech mTts;
+    private boolean mKeepStraight = false;
     protected Runnable mCompassViewUpdater = new Runnable() {
         @Override
         public void run() {
@@ -167,6 +173,15 @@ public class CompassActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mTts != null) {
+            mTts.stop();
+            mTts.shutdown();
+        }
+    }
+
     private void initResources() {
         mDirection = 0.0f;
         mTargetDirection = 0.0f;
@@ -198,6 +213,9 @@ public class CompassActivity extends Activity {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mMagneticSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        Intent checkIntent = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(checkIntent, REQUEST_TTS);
 
         startListening();
     }
@@ -254,6 +272,23 @@ public class CompassActivity extends Activity {
         }
 
         int direction2 = (int) direction;
+
+        float thresholdlow = -.1f * mHeadedDirection + mHeadedDirection;
+        float thresholdup = .1f * mHeadedDirection + mHeadedDirection;
+
+        if (thresholdlow <= direction && direction <= thresholdup) {
+            if (!mTts.isSpeaking() && !mKeepStraight) {
+                mTts.speak("Sigue en esta dirección", TextToSpeech.QUEUE_FLUSH, null);
+                mKeepStraight = true;
+            }
+        } else if (thresholdlow <= direction && !mTts.isSpeaking()) {
+            mTts.speak("Gira a la derecha", TextToSpeech.QUEUE_FLUSH, null);
+            mKeepStraight = false;
+        } else if (direction <= thresholdup && !mTts.isSpeaking()) {
+            mTts.speak("Gira a la izquierda", TextToSpeech.QUEUE_FLUSH, null);
+            mKeepStraight = false;
+        }
+
         boolean show = false;
         if (direction2 >= 100) {
             mAngleLayout.addView(getNumberImage(direction2 / 100));
@@ -389,6 +424,36 @@ public class CompassActivity extends Activity {
                 Toast.makeText(this, R.string.asr_error,
                         Toast.LENGTH_LONG).show();
             }
+        } else if (requestCode == REQUEST_TTS) {
+            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+
+                // Create a TextToSpeech instance
+                mTts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+                    public void onInit(int status) {
+                        if (status == TextToSpeech.SUCCESS) {
+                            // Display Toast
+                            Toast.makeText(getApplicationContext(), "TTS initialized", Toast.LENGTH_LONG).show();
+//
+//                            // Set language to US English if it is available
+//                            if (mTts.isLanguageAvailable(Locale.US) >= 0)
+//                                mTts.setLanguage(Locale.US);
+                        }
+                    }
+                });
+            } else {
+                // Install missing data
+                PackageManager pm = getPackageManager();
+                Intent installIntent = new Intent();
+                installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                ResolveInfo resolveInfo = pm.resolveActivity(installIntent, PackageManager.MATCH_DEFAULT_ONLY);
+
+                if (resolveInfo == null) {
+                    Toast.makeText(this, "There is no TTS installed, please download it from Google Play", Toast.LENGTH_LONG).show();
+                } else {
+                    startActivity(installIntent);
+                }
+            }
         }
+
     }
 }
