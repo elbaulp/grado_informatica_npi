@@ -273,8 +273,8 @@ public class CompassActivity extends Activity {
 
         int direction2 = (int) direction;
 
-        float thresholdlow = -.1f * mHeadedDirection + mHeadedDirection;
-        float thresholdup = .1f * mHeadedDirection + mHeadedDirection;
+        float thresholdlow = -.20f * mHeadedDirection + mHeadedDirection;
+        float thresholdup = .20f * mHeadedDirection + mHeadedDirection;
 
         if (thresholdlow <= direction && direction <= thresholdup) {
             if (!mTts.isSpeaking() && !mKeepStraight) {
