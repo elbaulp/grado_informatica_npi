@@ -282,10 +282,10 @@ public class CompassActivity extends Activity {
                 mKeepStraight = true;
             }
         } else if (thresholdlow <= direction && !mTts.isSpeaking()) {
-            mTts.speak("Gira a la derecha", TextToSpeech.QUEUE_FLUSH, null);
+            mTts.speak("Gira a la izquierda", TextToSpeech.QUEUE_FLUSH, null);
             mKeepStraight = false;
         } else if (direction <= thresholdup && !mTts.isSpeaking()) {
-            mTts.speak("Gira a la izquierda", TextToSpeech.QUEUE_FLUSH, null);
+            mTts.speak("Gira a la derecha", TextToSpeech.QUEUE_FLUSH, null);
             mKeepStraight = false;
         }
 
