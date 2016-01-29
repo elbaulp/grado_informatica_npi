@@ -107,7 +107,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .add(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()))
                     .add(new LatLng(mPreviousLocation.getLatitude(), mPreviousLocation.getLongitude()))
                     .color(Color.RED)
-                    .width(2);
+                    .width(5);
             mMap.addPolyline(polylineOptions);
         }
 
