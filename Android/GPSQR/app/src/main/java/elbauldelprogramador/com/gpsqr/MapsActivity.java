@@ -254,7 +254,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12.0f));
 
                 GoogleDirection.withServerKey(getString(R.string.google_maps_server_key))
-                        .from(new LatLng(37.2011816, -3.6167042))
+                        .from(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()))
                         .to(new LatLng(mCoord[0], mCoord[1]))
                         .transportMode(TransportMode.WALKING)
                         .execute(new DirectionCallback() {
