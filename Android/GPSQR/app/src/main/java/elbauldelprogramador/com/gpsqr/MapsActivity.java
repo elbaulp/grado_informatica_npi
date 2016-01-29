@@ -110,7 +110,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .width(5);
             mMap.addPolyline(polylineOptions);
         }
-
         LatLng sydney = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
         mMap.addMarker(new MarkerOptions().position(sydney).title(mLastUpdateTime));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
@@ -263,7 +262,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 if (direction.isOK()) {
                                     Toast.makeText(getApplicationContext(), "DIRECTION KOK", Toast.LENGTH_LONG).show();
                                     ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
-                                    PolylineOptions polylineOptions = DirectionConverter.createPolyline(getApplicationContext(), directionPositionList, 5, Color.RED);
+                                    PolylineOptions polylineOptions = DirectionConverter.createPolyline(getApplicationContext(), directionPositionList, 5, Color.BLUE);
                                     mMap.addPolyline(polylineOptions);
                                 } else {
                                     Toast.makeText(getApplicationContext(), "NOT OK" + direction.getStatus(), Toast.LENGTH_LONG).show();
