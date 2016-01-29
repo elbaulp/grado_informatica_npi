@@ -78,6 +78,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     protected Location mCurrentLocation;
     /**
+     * Last known location, used for drawing path between two Locations
+     */
+    protected Location mPreviousLocation;
+    /**
      * Tracks the status of the location updates request. Value changes when the user presses the
      * Start Updates and Stop Updates buttons.
      */
@@ -95,6 +99,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * The coordinates readed from the QR code
      */
     private double[] mCoord = new double[2]; // 0:lat,1:lng
+
+    private void updateMap() {
+
+        if (mPreviousLocation != null) {
+            PolylineOptions polylineOptions = new PolylineOptions()
+                    .add(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()))
+                    .add(new LatLng(mPreviousLocation.getLatitude(), mPreviousLocation.getLongitude()))
+                    .color(Color.RED)
+                    .width(2);
+            mMap.addPolyline(polylineOptions);
+        }
+
+        LatLng sydney = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+        mMap.addMarker(new MarkerOptions().position(sydney).title(mLastUpdateTime));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +177,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (savedInstanceState.keySet().contains(LOCATION_KEY)) {
                 // Since LOCATION_KEY was found in the Bundle, we can be sure that mCurrentLocation
                 // is not null.
+                mPreviousLocation = mCurrentLocation;
                 mCurrentLocation = savedInstanceState.getParcelable(LOCATION_KEY);
             }
 
@@ -164,8 +185,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (savedInstanceState.keySet().contains(LAST_UPDATED_TIME_STRING_KEY)) {
                 mLastUpdateTime = savedInstanceState.getString(LAST_UPDATED_TIME_STRING_KEY);
             }
-//          TODO:  updateUI();
-            Log.e(TAG, mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
+            updateMap();
         }
     }
 
@@ -308,6 +328,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-1, -1), 12.0f));
     }
 
     @Override
@@ -379,9 +401,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // for ActivityCompat#requestPermissions for more details.
                 return;
             }
+            mPreviousLocation = mCurrentLocation;
             mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-            // TODO: updateUI();
+            updateMap();
             Log.e(TAG, mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
         }
 
@@ -403,9 +426,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
+        mPreviousLocation = mCurrentLocation;
         mCurrentLocation = location;
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-        // TODO: updateUI();
+        updateMap();
         Log.e(TAG, mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
         Toast.makeText(this, "LOCATION UPDATED!",
                 Toast.LENGTH_SHORT).show();
