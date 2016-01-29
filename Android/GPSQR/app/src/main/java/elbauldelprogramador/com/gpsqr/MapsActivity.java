@@ -9,17 +9,29 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.software.shell.fab.ActionButton;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    /**
+     * Regex to extract Lat, Lng from strings like this: LATITUD_37.19735641547103_LONGITUD_-3.623774830675075
+     */
+    private static final Pattern pat = Pattern.compile("[A-Z]+_(-?\\d+\\.\\d+)");
     private Activity mAct;
     private GoogleMap mMap;
+
+    private double[] mCoord = new double[2]; // 0:lat,1:lng
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +65,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }, 1000);
             }
         });
-
 
 
 //        GoogleDirection.withServerKey(getString(R.string.google_maps_key))
@@ -90,6 +101,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             } else {
                 Log.d("MainActivity", "Scanned");
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                Matcher m = pat.matcher(result.getContents());
+                int i = 0;
+                while (m.find()) {
+                    mCoord[i++] = Double.parseDouble(m.group(1));
+                }
+                // Add a marker in Sydney and move the camera
+                LatLng sydney = new LatLng(mCoord[0], mCoord[1]);
+                mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
             }
         } else {
             // This is important, otherwise the result will not be passed to the fragment
@@ -109,10 +129,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-//        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
