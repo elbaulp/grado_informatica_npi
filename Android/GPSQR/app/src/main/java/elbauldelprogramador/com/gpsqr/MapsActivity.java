@@ -2,6 +2,7 @@ package elbauldelprogramador.com.gpsqr;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
@@ -9,16 +10,25 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.akexorcist.googledirection.DirectionCallback;
+import com.akexorcist.googledirection.GoogleDirection;
+import com.akexorcist.googledirection.constant.TransportMode;
+import com.akexorcist.googledirection.model.Direction;
+import com.akexorcist.googledirection.model.Step;
+import com.akexorcist.googledirection.util.DirectionConverter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.software.shell.fab.ActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,30 +75,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }, 1000);
             }
         });
-
-
-//        GoogleDirection.withServerKey(getString(R.string.google_maps_key))
-//                .from(new LatLng(40.2085, -3.7136))
-//                .to(new LatLng(37.1839719, -3.6017634))
-//                .avoid(AvoidType.FERRIES)
-//                .avoid(AvoidType.HIGHWAYS)
-//                .execute(new DirectionCallback() {
-//                    @Override
-//                    public void onDirectionSuccess(Direction direction) {
-//                        if (direction.isOK()) {
-//                            Toast.makeText(getApplicationContext(), "DIRECTION KOK", Toast.LENGTH_LONG).show();
-////                            direction.
-//                        } else {
-//                            Toast.makeText(getApplicationContext(), direction.getStatus(), Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onDirectionFailure(Throwable t) {
-//                        Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
-//                    }
-//                });
-
     }
 
     @Override
@@ -110,6 +96,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng sydney = new LatLng(mCoord[0], mCoord[1]);
                 mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12.0f));
+
+                GoogleDirection.withServerKey("AIzaSyD_Wu7pbCpRESJaSBij1LJpg2Bwf6frnVA")
+                        .from(new LatLng(37.2011816, -3.6167042))
+                        .to(new LatLng(mCoord[0], mCoord[1]))
+                        .transportMode(TransportMode.WALKING)
+                        .execute(new DirectionCallback() {
+                            @Override
+                            public void onDirectionSuccess(Direction direction) {
+                                if (direction.isOK()) {
+                                    Toast.makeText(getApplicationContext(), "DIRECTION KOK", Toast.LENGTH_LONG).show();
+                                    ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
+                                    PolylineOptions polylineOptions = DirectionConverter.createPolyline(getApplicationContext(), directionPositionList, 5, Color.RED);
+                                    mMap.addPolyline(polylineOptions);
+
+
+                                    List<Step> stepList = direction.getRouteList().get(0).getLegList().get(0).getStepList();
+                                    ArrayList<PolylineOptions> polylineOptionList = DirectionConverter.createTransitPolyline(getApplicationContext(), stepList, 5, Color.CYAN, 3, Color.BLUE);
+                                    for (PolylineOptions polylineOption : polylineOptionList) {
+                                        mMap.addPolyline(polylineOption);
+                                    }
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "NOT OK" + direction.getStatus(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+
+                            @Override
+                            public void onDirectionFailure(Throwable t) {
+                                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
+                            }
+                        });
+
             }
         } else {
             // This is important, otherwise the result will not be passed to the fragment
@@ -129,5 +147,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
     }
 }
