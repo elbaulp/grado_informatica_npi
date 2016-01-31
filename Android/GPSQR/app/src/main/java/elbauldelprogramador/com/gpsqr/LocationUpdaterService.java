@@ -91,7 +91,14 @@ public class LocationUpdaterService extends Service implements
     @Override
     public void onDestroy() {
         Log.e(TAG, "Stopping Service");
-        mGoogleApiClient.disconnect();
+
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.unregisterConnectionCallbacks(this);
+            mGoogleApiClient.unregisterConnectionFailedListener(this);
+            mGoogleApiClient.disconnect();
+        }
+        stopLocationUpdates();
+
         super.onDestroy();
     }
 
@@ -171,8 +178,6 @@ public class LocationUpdaterService extends Service implements
 
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
                 mLocationRequest, this);
-
-//        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, );
     }
 
     /**
