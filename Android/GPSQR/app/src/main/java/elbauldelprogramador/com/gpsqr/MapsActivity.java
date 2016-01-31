@@ -4,12 +4,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import com.akexorcist.googledirection.DirectionCallback;
+import com.akexorcist.googledirection.GoogleDirection;
+import com.akexorcist.googledirection.constant.TransportMode;
+import com.akexorcist.googledirection.model.Direction;
+import com.akexorcist.googledirection.util.DirectionConverter;
 import com.software.shell.fab.ActionButton;
 
 import android.app.Activity;
@@ -27,6 +33,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -60,15 +67,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * Last known location, used for drawing path between two Locations
      */
     protected Location mPreviousLocation;
+
     /**
      * UI things
      */
     private Activity mAct;
     private GoogleMap mMap;
+
     /**
      * The coordinates readed from the QR code
      */
     private double[] mCoord = new double[2]; // 0:lat,1:lng
+
     /**
      * Broadcast Receiver to receive location updates
      */
@@ -77,7 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Intent for launch the Service
      */
-    private Intent mRequestLoctionIntent;
+    private Intent mRequestLocationIntent;
 
     public void updateMap() {
         if (mPreviousLocation != null) {
@@ -88,9 +98,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .width(5);
             mMap.addPolyline(polylineOptions);
         }
-        LatLng sydney = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(sydney).title("TITLE"));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 21f));
+        LatLng ll = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+        mMap.addMarker(new MarkerOptions().position(ll).title("TITLE"));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ll, 21f));
     }
 
     @Override
@@ -107,7 +117,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final ActionButton ab = (ActionButton) findViewById(R.id.action_button);
 
-        ab.setImageResource(R.drawable.fab_plus_icon);
+        ab.setImageResource(R.drawable.ic_qr);
         ab.setShowAnimation(ActionButton.Animations.JUMP_FROM_DOWN);
         ab.setHideAnimation(ActionButton.Animations.JUMP_TO_DOWN);
         ab.setButtonColor(getResources().getColor(R.color.fab_material_amber_500));
@@ -137,8 +147,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         };
 
-        mRequestLoctionIntent = new Intent(this, LocationUpdaterService.class);
-        startService(mRequestLoctionIntent);
+        mRequestLocationIntent = new Intent(this, LocationUpdaterService.class);
+        startService(mRequestLocationIntent);
 
         // Update values using data stored in the Bundle.
 //        updateValuesFromBundle(savedInstanceState);
@@ -193,34 +203,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 while (m.find()) {
                     mCoord[i++] = Double.parseDouble(m.group(1));
                 }
-                // Add a marker in Sydney and move the camera
-                LatLng sydney = new LatLng(mCoord[0], mCoord[1]);
-                mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 21.0f));
+                // Add a marker and move the camera
+                LatLng firstLocation = new LatLng(mCoord[0], mCoord[1]);
+                mMap.addMarker(new MarkerOptions().position(firstLocation).title("Marker in Sydney"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(firstLocation));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(firstLocation, 21.0f));
 
-//                GoogleDirection.withServerKey(getString(R.string.google_maps_server_key))
-//                        .from(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()))
-//                        .to(new LatLng(mCoord[0], mCoord[1]))
-//                        .transportMode(TransportMode.WALKING)
-//                        .execute(new DirectionCallback() {
-//                            @Override
-//                            public void onDirectionSuccess(Direction direction) {
-//                                if (direction.isOK()) {
-//                                    Toast.makeText(getApplicationContext(), "DIRECTION KOK", Toast.LENGTH_LONG).show();
-//                                    ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
-//                                    PolylineOptions polylineOptions = DirectionConverter.createPolyline(getApplicationContext(), directionPositionList, 5, Color.BLUE);
-//                                    mMap.addPolyline(polylineOptions);
-//                                } else {
-//                                    Toast.makeText(getApplicationContext(), "NOT OK" + direction.getStatus(), Toast.LENGTH_LONG).show();
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onDirectionFailure(Throwable t) {
-//                                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
-//                            }
-//                        });
+                GoogleDirection.withServerKey(getString(R.string.google_maps_server_key))
+                        .from(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()))
+                        .to(new LatLng(mCoord[0], mCoord[1]))
+                        .transportMode(TransportMode.WALKING)
+                        .execute(new DirectionCallback() {
+                            @Override
+                            public void onDirectionSuccess(Direction direction) {
+                                if (direction.isOK()) {
+                                    Toast.makeText(getApplicationContext(), "DIRECTION KOK", Toast.LENGTH_LONG).show();
+                                    ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
+                                    PolylineOptions polylineOptions = DirectionConverter.createPolyline(getApplicationContext(), directionPositionList, 5, Color.BLUE);
+                                    mMap.addPolyline(polylineOptions);
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "NOT OK" + direction.getStatus(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+
+                            @Override
+                            public void onDirectionFailure(Throwable t) {
+                                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
+                            }
+                        });
 
             }
         } else {
@@ -242,7 +252,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-
+        UiSettings uiSettings = mMap.getUiSettings();
+        uiSettings.setMapToolbarEnabled(true);
+        uiSettings.setZoomControlsEnabled(true);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-1, -1), 12.0f));
     }
 
@@ -271,7 +283,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     protected void onDestroy() {
-        stopService(mRequestLoctionIntent);
+        stopService(mRequestLocationIntent);
 
         super.onDestroy();
     }
