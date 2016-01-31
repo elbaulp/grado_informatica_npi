@@ -26,11 +26,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".LocationUpdaterService" />
-
-
-        <!--<receiver android:name=".LocationReceiver" android:exported="false" android:enabled="false"/>-->
-
+        <service android:name=".LocationUpdaterService"/>
     </application>
 
 </manifest>
