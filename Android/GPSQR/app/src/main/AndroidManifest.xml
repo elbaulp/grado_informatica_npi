@@ -25,6 +25,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <service android:name=".LocationUpdaterService" />
+
+
+        <!--<receiver android:name=".LocationReceiver" android:exported="false" android:enabled="false"/>-->
+
     </application>
 
 </manifest>
