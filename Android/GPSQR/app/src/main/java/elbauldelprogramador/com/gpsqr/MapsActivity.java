@@ -201,12 +201,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mPreviousLocation = mLocationsList.get(mLocationsList.size() - 2);
                 }
             }
-
-            // Update the value of mLastUpdateTime from the Bundle and update the UI.
-//            if (savedInstanceState.keySet().contains(LAST_UPDATED_TIME_STRING_KEY)) {
-//                mLastUpdateTime = savedInstanceState.getString(LAST_UPDATED_TIME_STRING_KEY);
-//            }
-
         } else {
             mLocationsList = new ArrayList<>(2);
         }
