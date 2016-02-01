@@ -18,7 +18,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -91,7 +90,9 @@ public class LocationUpdaterService extends Service implements
      */
     @Override
     public void onDestroy() {
-        Log.e(TAG, "Stopping Service");
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "Stopping Service");
+        }
 
         stopLocationUpdates();
 
@@ -107,7 +108,9 @@ public class LocationUpdaterService extends Service implements
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        Log.e(TAG, "OnStartCommand");
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "OnStartCommand");
+        }
 
         if (mGoogleApiClient.isConnected() /*&& mRequestingLocationUpdates*/) { // TODO
             startLocationUpdates();
@@ -123,7 +126,9 @@ public class LocationUpdaterService extends Service implements
      * LocationServices API.
      */
     protected synchronized void buildGoogleApiClient() {
-        Log.e(TAG, "Building GoogleApiClient");
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "Building GoogleApiClient");
+        }
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -204,7 +209,9 @@ public class LocationUpdaterService extends Service implements
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Log.e(TAG, "Connected to GoogleApiClient");
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "Connected to GoogleApiClient");
+        }
 
         // If the initial location was never previously requested, we use
         // FusedLocationApi.getLastLocation() to get it. If it was previously requested, we store
@@ -231,7 +238,9 @@ public class LocationUpdaterService extends Service implements
             mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
             if (mCurrentLocation != null) {
                 sendResult(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
-                Log.e(TAG, mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
+                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                    Log.d(TAG, mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
+                }
             }
         }
 
@@ -247,7 +256,7 @@ public class LocationUpdaterService extends Service implements
     public void onConnectionSuspended(int i) {
         // The connection to Google Play services was lost for some reason. We call connect() to
         // attempt to re-establish the connection.
-        Log.e(TAG, "Connection suspended");
+        Log.i(TAG, "Connection  to Google Api Client suspended");
         mGoogleApiClient.connect();
     }
 
@@ -256,15 +265,16 @@ public class LocationUpdaterService extends Service implements
         mCurrentLocation = location;
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
         sendResult(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
-        Log.e(TAG, mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
-        Toast.makeText(this, "LOCATION UPDATED!",
-                Toast.LENGTH_SHORT).show();
+
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
+        }
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         // Refer to the javadoc for ConnectionResult to see what error codes might be returned in
         // onConnectionFailed.
-        Log.e(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + connectionResult.getErrorCode());
+        Log.w(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + connectionResult.getErrorCode());
     }
 }

@@ -179,7 +179,10 @@ public class MapsActivity extends FragmentActivity implements
                 mCurrentLocation = intent.getParcelableExtra(LocationUpdaterService.COPA_MESSAGE);
                 updateMap();
                 mLocationsList.add(mCurrentLocation);
-                Log.e(TAG, "LocationList size: " + mLocationsList.size());
+
+                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                    Log.d(TAG, "LocationList size: " + mLocationsList.size());
+                }
             }
         };
 
@@ -196,7 +199,9 @@ public class MapsActivity extends FragmentActivity implements
      * @param savedInstanceState The activity state saved in the Bundle.
      */
     private void updateValuesFromBundle(Bundle savedInstanceState) {
-        Log.i(TAG, "Updating values from bundle");
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "Updating values from bundle");
+        }
         if (savedInstanceState != null) {
             // Update the value of mLocationsList from the Bundle and update the UI to show the
             // correct latitude and longitude.
@@ -219,10 +224,14 @@ public class MapsActivity extends FragmentActivity implements
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
             if (result.getContents() == null) {
-                Log.d(TAG, "Cancelled scan");
+                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                    Log.d(TAG, "Cancelled scan");
+                }
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
-                Log.d(TAG, "Scanned");
+                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                    Log.d(TAG, "Scanned");
+                }
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 Matcher m = pat.matcher(result.getContents());
                 int i = 0;
