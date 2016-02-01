@@ -57,38 +57,45 @@ public class MapsActivity extends FragmentActivity implements
      * Regex to extract Lat, Lng from strings like this: LATITUD_37.19735641547103_LONGITUD_-3.623774830675075
      */
     private static final Pattern pat = Pattern.compile("[A-Z]+_(-?\\d+\\.\\d+)");
-    private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
+
     /**
      * Tracks the status of the location updates request. Value changes when the user presses the
      * Start Updates and Stop Updates buttons.
      */
     protected Boolean mRequestingLocationUpdates;
+
     /**
      * Represents a geographical location.
      */
     private LatLng mCurrentLocation;
+
     /**
      * Last known location, used for drawing path between two Locations
      */
     private LatLng mPreviousLocation;
+
     /**
      * Used to restore the map state when restoring from a configuration change
      */
     private ArrayList<LatLng> mLocationsList;
+
     /**
      * UI things
      */
     private Activity mAct;
     private GoogleMap mMap;
     private StreetViewPanorama mStreetViewPanorama;
+
     /**
      * The coordinates readed from the QR code
      */
     private double[] mCoord = new double[2]; // 0:lat,1:lng
+
     /**
      * Broadcast Receiver to receive location updates
      */
     private BroadcastReceiver mLocationReceiver;
+
     /**
      * Intent for launch the Service
      */

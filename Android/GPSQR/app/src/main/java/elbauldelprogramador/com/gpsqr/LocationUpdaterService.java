@@ -34,23 +34,30 @@ public class LocationUpdaterService extends Service implements
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
      */
     public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
+
     /**
      * The fastest rate for active location updates. Exact. Updates will never be more frequent
      * than this value.
      */
     public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             UPDATE_INTERVAL_IN_MILLISECONDS / 2;
+
     public static final String COPA_RESULT = "elbauldelprogramador.com.gpsqr.REQUEST_PROCESSED";
+
     public static final String COPA_MESSAGE = "elbauldelprogramador.com.gpsqr.COPA_MSG";
+
     protected static final String TAG = LocationUpdaterService.class.getSimpleName();
+
     /**
      * Provides the entry point to Google Play services.
      */
     protected GoogleApiClient mGoogleApiClient;
+
     /**
      * Stores parameters for requests to the FusedLocationProviderApi.
      */
     protected LocationRequest mLocationRequest;
+
     /**
      * Represents a geographical location.
      */
@@ -60,6 +67,7 @@ public class LocationUpdaterService extends Service implements
      * Time when the location was updated represented as a String.
      */
     protected String mLastUpdateTime;
+
     /**
      * For notifying the UI when new locations arrive
      */
