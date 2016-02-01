@@ -5,6 +5,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 
 import android.Manifest;
 import android.app.Service;
@@ -194,7 +195,7 @@ public class LocationUpdaterService extends Service implements
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
-    private void sendResult(Location message) {
+    private void sendResult(LatLng message) {
         Intent intent = new Intent(COPA_RESULT);
         if (message != null)
             intent.putExtra(COPA_MESSAGE, message);
@@ -228,7 +229,7 @@ public class LocationUpdaterService extends Service implements
             }
             mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-            sendResult(mCurrentLocation);
+            sendResult(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
             Log.e(TAG, mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
         }
 
@@ -252,7 +253,7 @@ public class LocationUpdaterService extends Service implements
     public void onLocationChanged(Location location) {
         mCurrentLocation = location;
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-        sendResult(mCurrentLocation);
+        sendResult(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
         Log.e(TAG, mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
         Toast.makeText(this, "LOCATION UPDATED!",
                 Toast.LENGTH_SHORT).show();

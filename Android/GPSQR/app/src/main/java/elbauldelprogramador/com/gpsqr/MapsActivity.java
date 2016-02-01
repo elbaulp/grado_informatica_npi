@@ -3,11 +3,15 @@ package elbauldelprogramador.com.gpsqr;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.OnStreetViewPanoramaReadyCallback;
+import com.google.android.gms.maps.StreetViewPanorama;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.SupportStreetViewPanoramaFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.StreetViewPanoramaLocation;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -24,7 +28,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
@@ -37,7 +40,10 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements
+        OnMapReadyCallback,
+        StreetViewPanorama.OnStreetViewPanoramaChangeListener,
+        OnStreetViewPanoramaReadyCallback {
 
 
     protected static final String TAG = MapsActivity.class.getSimpleName();
@@ -51,44 +57,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * Regex to extract Lat, Lng from strings like this: LATITUD_37.19735641547103_LONGITUD_-3.623774830675075
      */
     private static final Pattern pat = Pattern.compile("[A-Z]+_(-?\\d+\\.\\d+)");
-
+    private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
     /**
      * Tracks the status of the location updates request. Value changes when the user presses the
      * Start Updates and Stop Updates buttons.
      */
     protected Boolean mRequestingLocationUpdates;
-
     /**
      * Represents a geographical location.
      */
-    private Location mCurrentLocation;
-
+    private LatLng mCurrentLocation;
     /**
      * Last known location, used for drawing path between two Locations
      */
-    private Location mPreviousLocation;
-
+    private LatLng mPreviousLocation;
     /**
      * Used to restore the map state when restoring from a configuration change
      */
-    private ArrayList<Location> mLocationsList;
-
+    private ArrayList<LatLng> mLocationsList;
     /**
      * UI things
      */
     private Activity mAct;
     private GoogleMap mMap;
-
+    private StreetViewPanorama mStreetViewPanorama;
     /**
      * The coordinates readed from the QR code
      */
     private double[] mCoord = new double[2]; // 0:lat,1:lng
-
     /**
      * Broadcast Receiver to receive location updates
      */
     private BroadcastReceiver mLocationReceiver;
-
     /**
      * Intent for launch the Service
      */
@@ -97,47 +97,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void updateMap() {
         if (mPreviousLocation != null) {
             PolylineOptions polylineOptions = new PolylineOptions()
-                    .add(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()))
-                    .add(new LatLng(mPreviousLocation.getLatitude(), mPreviousLocation.getLongitude()))
+                    .add(mCurrentLocation)
+                    .add(mPreviousLocation)
                     .color(Color.RED)
                     .width(5);
             mMap.addPolyline(polylineOptions);
         }
-        LatLng ll = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(ll).title("TITLE"));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ll, 21f));
+        mMap.addMarker(new MarkerOptions().position(mCurrentLocation).title("TITLE"));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, 21f));
     }
 
-    private void updateMap(ArrayList<Location> loc) {
+    private void updateMap(ArrayList<LatLng> loc) {
 
-        Location current;
-        Location previous;
+        LatLng current;
+        LatLng previous;
 
         for (int i = 0; i < loc.size() - 1; i++) {
             current = loc.get(i);
             previous = loc.get(i + 1);
 
             PolylineOptions polylineOptions = new PolylineOptions()
-                    .add(new LatLng(current.getLatitude(), current.getLongitude()))
-                    .add(new LatLng(previous.getLatitude(), previous.getLongitude()))
+                    .add(current)
+                    .add(previous)
                     .color(Color.RED)
                     .width(5);
             mMap.addPolyline(polylineOptions);
 
-            LatLng ll = new LatLng(current.getLatitude(), current.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(ll).title("TITLE"));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ll, 21f));
+            mMap.addMarker(new MarkerOptions().position(current).title("TITLE"));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 21f));
         }
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        SupportStreetViewPanoramaFragment streetViewPanoramaFragment =
+                (SupportStreetViewPanoramaFragment)
+                        getSupportFragmentManager().findFragmentById(R.id.streetviewpanorama);
+        streetViewPanoramaFragment.getStreetViewPanoramaAsync(this);
 
         mAct = this;
         mRequestingLocationUpdates = true;
@@ -170,6 +173,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mPreviousLocation = mCurrentLocation;
                 mCurrentLocation = intent.getParcelableExtra(LocationUpdaterService.COPA_MESSAGE);
                 updateMap();
+                mStreetViewPanorama.setPosition(mCurrentLocation);
                 mLocationsList.add(mCurrentLocation);
                 Log.e(TAG, "LocationList size: " + mLocationsList.size());
             }
@@ -228,7 +232,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(firstLocation, 21.0f));
 
                 GoogleDirection.withServerKey(getString(R.string.google_maps_server_key))
-                        .from(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()))
+                        .from(mCurrentLocation)
                         .to(new LatLng(mCoord[0], mCoord[1]))
                         .transportMode(TransportMode.WALKING)
                         .execute(new DirectionCallback() {
@@ -280,6 +284,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
+    public void onStreetViewPanoramaReady(StreetViewPanorama panorama) {
+        mStreetViewPanorama = panorama;
+        mStreetViewPanorama.setOnStreetViewPanoramaChangeListener(this);
+        // Only need to set the position once as the streetview fragment will maintain
+        // its state.
+        mStreetViewPanorama.setPosition(SYDNEY/*new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude())*/);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         // Within {@code onPause()}, we pause location updates, but leave the
@@ -312,4 +325,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onSaveInstanceState(savedInstanceState);
     }
 
+    @Override
+    public void onStreetViewPanoramaChange(StreetViewPanoramaLocation location) {
+        if (mCurrentLocation != null) {
+            mStreetViewPanorama.setPosition(mCurrentLocation);
+        }
+    }
 }
