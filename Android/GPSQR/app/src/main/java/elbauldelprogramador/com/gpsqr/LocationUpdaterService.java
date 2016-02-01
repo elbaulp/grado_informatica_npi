@@ -229,8 +229,10 @@ public class LocationUpdaterService extends Service implements
             }
             mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-            sendResult(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
-            Log.e(TAG, mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
+            if (mCurrentLocation != null) {
+                sendResult(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
+                Log.e(TAG, mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
+            }
         }
 
         // If the user presses the Start Updates button before GoogleApiClient connects, we set

@@ -105,6 +105,7 @@ public class MapsActivity extends FragmentActivity implements
         }
         mMap.addMarker(new MarkerOptions().position(mCurrentLocation).title("TITLE"));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, 21f));
+        mStreetViewPanorama.setPosition(mCurrentLocation);
     }
 
     private void updateMap(ArrayList<LatLng> loc) {
@@ -125,6 +126,10 @@ public class MapsActivity extends FragmentActivity implements
 
             mMap.addMarker(new MarkerOptions().position(current).title("TITLE"));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 21f));
+        }
+
+        if (loc.size() != 0) {
+            mStreetViewPanorama.setPosition(loc.get(loc.size() - 1));
         }
     }
 
@@ -173,7 +178,6 @@ public class MapsActivity extends FragmentActivity implements
                 mPreviousLocation = mCurrentLocation;
                 mCurrentLocation = intent.getParcelableExtra(LocationUpdaterService.COPA_MESSAGE);
                 updateMap();
-                mStreetViewPanorama.setPosition(mCurrentLocation);
                 mLocationsList.add(mCurrentLocation);
                 Log.e(TAG, "LocationList size: " + mLocationsList.size());
             }
@@ -287,9 +291,13 @@ public class MapsActivity extends FragmentActivity implements
     public void onStreetViewPanoramaReady(StreetViewPanorama panorama) {
         mStreetViewPanorama = panorama;
         mStreetViewPanorama.setOnStreetViewPanoramaChangeListener(this);
+        mStreetViewPanorama.setStreetNamesEnabled(true);
+
         // Only need to set the position once as the streetview fragment will maintain
         // its state.
-        mStreetViewPanorama.setPosition(SYDNEY/*new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude())*/);
+        if (mCurrentLocation != null) {
+            mStreetViewPanorama.setPosition(mCurrentLocation);
+        }
     }
 
     @Override
