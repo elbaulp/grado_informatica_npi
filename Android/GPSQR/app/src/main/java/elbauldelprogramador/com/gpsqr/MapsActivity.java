@@ -105,7 +105,9 @@ public class MapsActivity extends FragmentActivity implements
         }
         mMap.addMarker(new MarkerOptions().position(mCurrentLocation).title("TITLE"));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, 21f));
-        mStreetViewPanorama.setPosition(mCurrentLocation);
+        if (mStreetViewPanorama != null) {
+            mStreetViewPanorama.setPosition(mCurrentLocation);
+        }
     }
 
     private void updateMap(ArrayList<LatLng> loc) {
@@ -128,7 +130,7 @@ public class MapsActivity extends FragmentActivity implements
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 21f));
         }
 
-        if (loc.size() != 0) {
+        if (loc.size() != 0 && mStreetViewPanorama != null) {
             mStreetViewPanorama.setPosition(loc.get(loc.size() - 1));
         }
     }
