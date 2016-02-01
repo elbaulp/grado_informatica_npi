@@ -103,7 +103,6 @@ public class MapsActivity extends FragmentActivity implements
                     .width(5);
             mMap.addPolyline(polylineOptions);
         }
-        mMap.addMarker(new MarkerOptions().position(mCurrentLocation).title("TITLE"));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, 21f));
         if (mStreetViewPanorama != null) {
             mStreetViewPanorama.setPosition(mCurrentLocation);
@@ -292,6 +291,7 @@ public class MapsActivity extends FragmentActivity implements
         UiSettings uiSettings = mMap.getUiSettings();
         uiSettings.setMapToolbarEnabled(true);
         uiSettings.setZoomControlsEnabled(true);
+
         if (mLocationsList != null) {
             updateMap(mLocationsList);
         }
