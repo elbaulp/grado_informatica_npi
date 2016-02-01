@@ -90,7 +90,8 @@ public class LocationUpdaterService extends Service implements
      */
     @Override
     public void onDestroy() {
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
+
+        if (BuildConfig.DEBUG) {
             Log.d(TAG, "Stopping Service");
         }
 
@@ -108,7 +109,7 @@ public class LocationUpdaterService extends Service implements
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
+        if (BuildConfig.DEBUG) {
             Log.d(TAG, "OnStartCommand");
         }
 
@@ -126,7 +127,7 @@ public class LocationUpdaterService extends Service implements
      * LocationServices API.
      */
     protected synchronized void buildGoogleApiClient() {
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
+        if (BuildConfig.DEBUG) {
             Log.d(TAG, "Building GoogleApiClient");
         }
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -209,7 +210,7 @@ public class LocationUpdaterService extends Service implements
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
+        if (BuildConfig.DEBUG) {
             Log.d(TAG, "Connected to GoogleApiClient");
         }
 
@@ -238,7 +239,7 @@ public class LocationUpdaterService extends Service implements
             mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
             if (mCurrentLocation != null) {
                 sendResult(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
-                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                if (BuildConfig.DEBUG) {
                     Log.d(TAG, mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
                 }
             }
@@ -266,7 +267,7 @@ public class LocationUpdaterService extends Service implements
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
         sendResult(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
 
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
+        if (BuildConfig.DEBUG) {
             Log.d(TAG, mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
         }
     }
