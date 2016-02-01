@@ -92,12 +92,13 @@ public class LocationUpdaterService extends Service implements
     public void onDestroy() {
         Log.e(TAG, "Stopping Service");
 
+        stopLocationUpdates();
+
         if (mGoogleApiClient != null) {
             mGoogleApiClient.unregisterConnectionCallbacks(this);
             mGoogleApiClient.unregisterConnectionFailedListener(this);
             mGoogleApiClient.disconnect();
         }
-        stopLocationUpdates();
 
         super.onDestroy();
     }

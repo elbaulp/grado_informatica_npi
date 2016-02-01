@@ -61,12 +61,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Represents a geographical location.
      */
-    protected Location mCurrentLocation;
+    private Location mCurrentLocation;
 
     /**
      * Last known location, used for drawing path between two Locations
      */
-    protected Location mPreviousLocation;
+    private Location mPreviousLocation;
+
+    /**
+     * Used to restore the map state when restoring from a configuration change
+     */
+    private ArrayList<Location> mLocationsList;
 
     /**
      * UI things
@@ -89,7 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private Intent mRequestLocationIntent;
 
-    public void updateMap() {
+    private void updateMap() {
         if (mPreviousLocation != null) {
             PolylineOptions polylineOptions = new PolylineOptions()
                     .add(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()))
@@ -101,6 +106,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng ll = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
         mMap.addMarker(new MarkerOptions().position(ll).title("TITLE"));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ll, 21f));
+    }
+
+    private void updateMap(ArrayList<Location> loc) {
+
+        Location current;
+        Location previous;
+
+        for (int i = 0; i < loc.size() - 1; i++) {
+            current = loc.get(i);
+            previous = loc.get(i + 1);
+
+            PolylineOptions polylineOptions = new PolylineOptions()
+                    .add(new LatLng(current.getLatitude(), current.getLongitude()))
+                    .add(new LatLng(previous.getLatitude(), previous.getLongitude()))
+                    .color(Color.RED)
+                    .width(5);
+            mMap.addPolyline(polylineOptions);
+
+            LatLng ll = new LatLng(current.getLatitude(), current.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(ll).title("TITLE"));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ll, 21f));
+        }
     }
 
     @Override
@@ -137,13 +164,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        // TODO:
         mLocationReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 mPreviousLocation = mCurrentLocation;
                 mCurrentLocation = intent.getParcelableExtra(LocationUpdaterService.COPA_MESSAGE);
                 updateMap();
+                mLocationsList.add(mCurrentLocation);
+                Log.e(TAG, "LocationList size: " + mLocationsList.size());
             }
         };
 
@@ -151,52 +179,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startService(mRequestLocationIntent);
 
         // Update values using data stored in the Bundle.
-//        updateValuesFromBundle(savedInstanceState);
-
+        updateValuesFromBundle(savedInstanceState);
     }
 
-//    /**
-//     * Updates fields based on data stored in the bundle.
-//     *
-//     * @param savedInstanceState The activity state saved in the Bundle.
-//     */
-//    private void updateValuesFromBundle(Bundle savedInstanceState) {
-//        Log.i(TAG, "Updating values from bundle");
-//        if (savedInstanceState != null) {
-//            // Update the value of mRequestingLocationUpdates from the Bundle, and make sure that
-//            // the Start Updates and Stop Updates buttons are correctly enabled or disabled.
-//            if (savedInstanceState.keySet().contains(REQUESTING_LOCATION_UPDATES_KEY)) {
-//                mRequestingLocationUpdates = savedInstanceState.getBoolean(
-//                        REQUESTING_LOCATION_UPDATES_KEY);
-////          TODO:      setButtonsEnabledState();
-//            }
-//
-//            // Update the value of mCurrentLocation from the Bundle and update the UI to show the
-//            // correct latitude and longitude.
-//            if (savedInstanceState.keySet().contains(LOCATION_KEY)) {
-//                // Since LOCATION_KEY was found in the Bundle, we can be sure that mCurrentLocation
-//                // is not null.
-//                mPreviousLocation = mCurrentLocation;
-//                mCurrentLocation = savedInstanceState.getParcelable(LOCATION_KEY);
-//            }
-//
-//            // Update the value of mLastUpdateTime from the Bundle and update the UI.
+    /**
+     * Updates fields based on data stored in the bundle.
+     *
+     * @param savedInstanceState The activity state saved in the Bundle.
+     */
+    private void updateValuesFromBundle(Bundle savedInstanceState) {
+        Log.i(TAG, "Updating values from bundle");
+        if (savedInstanceState != null) {
+            // Update the value of mLocationsList from the Bundle and update the UI to show the
+            // correct latitude and longitude.
+            if (savedInstanceState.keySet().contains(LOCATION_KEY)) {
+                // Since LOCATION_KEY was found in the Bundle, we can be sure that mLocationsList
+                // is not null.
+                mLocationsList = savedInstanceState.getParcelableArrayList(LOCATION_KEY);
+                mCurrentLocation = mLocationsList.get(mLocationsList.size() - 1);
+                if (mLocationsList.size() >= 2) {
+                    mPreviousLocation = mLocationsList.get(mLocationsList.size() - 2);
+                }
+            }
+
+            // Update the value of mLastUpdateTime from the Bundle and update the UI.
 //            if (savedInstanceState.keySet().contains(LAST_UPDATED_TIME_STRING_KEY)) {
 //                mLastUpdateTime = savedInstanceState.getString(LAST_UPDATED_TIME_STRING_KEY);
 //            }
-//            updateMap();
-//        }
-//    }
+
+        } else {
+            mLocationsList = new ArrayList<>(2);
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
             if (result.getContents() == null) {
-                Log.d("MainActivity", "Cancelled scan");
+                Log.d(TAG, "Cancelled scan");
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
-                Log.d("MainActivity", "Scanned");
+                Log.d(TAG, "Scanned");
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 Matcher m = pat.matcher(result.getContents());
                 int i = 0;
@@ -255,7 +279,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         UiSettings uiSettings = mMap.getUiSettings();
         uiSettings.setMapToolbarEnabled(true);
         uiSettings.setZoomControlsEnabled(true);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-1, -1), 12.0f));
+        if (mLocationsList != null) {
+            updateMap(mLocationsList);
+        }
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-1, -1), 12.0f));
     }
 
     @Override
@@ -264,21 +291,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Within {@code onPause()}, we pause location updates, but leave the
         // connection to GoogleApiClient intact.  Here, we resume receiving
         // location updates if the user has requested them.
-
         LocalBroadcastManager.getInstance(this).registerReceiver(mLocationReceiver, new IntentFilter(LocationUpdaterService.COPA_RESULT));
-
-//        if (!mIsReceiverRegistered) {
-//            if (mLocationReceiver == null)
-//                mLocationReceiver = new LocationReceiver();
-//            IntentFilter filter = new IntentFilter(LocationReceiver.ACTION);
-//            this.registerReceiver(mLocationReceiver, filter);
-//            mIsReceiverRegistered = true;
-//        }
-
-        // TODO: STop serice here or in ondestroy
-//        if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
-//            startLocationUpdates();
-//        }
     }
 
     @Override
@@ -294,14 +307,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onStop();
     }
 
-//    /**
-//     * Stores activity data in the Bundle.
-//     */
-//    public void onSaveInstanceState(Bundle savedInstanceState) {
-//        savedInstanceState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY, mRequestingLocationUpdates);
-//        savedInstanceState.putParcelable(LOCATION_KEY, mCurrentLocation);
+    /**
+     * Stores activity data in the Bundle.
+     */
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY, mRequestingLocationUpdates);
+
+        savedInstanceState.putParcelableArrayList(LOCATION_KEY, mLocationsList);
 //        savedInstanceState.putString(LAST_UPDATED_TIME_STRING_KEY, mLastUpdateTime);
-//        super.onSaveInstanceState(savedInstanceState);
-//    }
+        super.onSaveInstanceState(savedInstanceState);
+    }
 
 }
