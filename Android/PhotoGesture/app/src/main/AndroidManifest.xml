@@ -5,9 +5,8 @@
   ~ All Rights Reserved.
   -->
 
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.elbauldelprogramador.photogesture">
+<manifest package="com.elbauldelprogramador.photogesture"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"

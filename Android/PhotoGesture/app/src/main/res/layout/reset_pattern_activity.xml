@@ -5,8 +5,7 @@
   ~ All Rights Reserved.
   -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,16 +18,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:paddingBottom="@dimen/screen_edge_vertical_margin"
         android:paddingLeft="@dimen/screen_edge_horizontal_margin"
         android:paddingRight="@dimen/screen_edge_horizontal_margin"
-        android:paddingTop="@dimen/screen_edge_vertical_margin"
-        android:paddingBottom="@dimen/screen_edge_vertical_margin">
+        android:paddingTop="@dimen/screen_edge_vertical_margin">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/reset_pattern_message"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </FrameLayout>
 
     <LinearLayout
@@ -38,18 +37,18 @@
 
         <Button
             android:id="@+id/cancel_button"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@android:string/cancel"
-            style="?android:attr/borderlessButtonStyle" />
+            android:text="@android:string/cancel" />
 
         <Button
             android:id="@+id/ok_button"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@android:string/ok"
-            style="?android:attr/borderlessButtonStyle" />
+            android:text="@android:string/ok" />
     </LinearLayout>
 </LinearLayout>

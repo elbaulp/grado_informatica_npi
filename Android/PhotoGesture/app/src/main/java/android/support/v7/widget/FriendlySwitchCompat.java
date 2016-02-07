@@ -22,10 +22,6 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.text.AllCapsTransformationMethod;
-import android.support.v7.widget.DrawableUtils;
-import android.support.v7.widget.TintManager;
-import android.support.v7.widget.TintTypedArray;
-import android.support.v7.widget.ViewUtils;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -76,7 +72,12 @@ public class FriendlySwitchCompat extends CompoundButton {
     private static final int SANS = 1;
     private static final int SERIF = 2;
     private static final int MONOSPACE = 3;
-
+    private static final int[] CHECKED_STATE_SET = {
+            android.R.attr.state_checked
+    };
+    @SuppressWarnings("hiding")
+    private final Rect mTempRect = new Rect();
+    private final TintManager mTintManager;
     private Drawable mThumbDrawable;
     private Drawable mTrackDrawable;
     private int mThumbTextPadding;
@@ -86,61 +87,42 @@ public class FriendlySwitchCompat extends CompoundButton {
     private CharSequence mTextOn;
     private CharSequence mTextOff;
     private boolean mShowText;
-
     private int mTouchMode;
     private int mTouchSlop;
     private float mTouchX;
     private float mTouchY;
     private VelocityTracker mVelocityTracker = VelocityTracker.obtain();
     private int mMinFlingVelocity;
-
     private float mThumbPosition;
-
     /**
      * Width required to draw the switch track and thumb. Includes padding and
      * optical bounds for both the track and thumb.
      */
     private int mSwitchWidth;
-
     /**
      * Height required to draw the switch track and thumb. Includes padding and
      * optical bounds for both the track and thumb.
      */
     private int mSwitchHeight;
-
     /**
      * Width of the thumb's content region. Does not include padding or
      * optical bounds.
      */
     private int mThumbWidth;
-
     /** Left bound for drawing the switch track and thumb. */
     private int mSwitchLeft;
-
     /** Top bound for drawing the switch track and thumb. */
     private int mSwitchTop;
-
     /** Right bound for drawing the switch track and thumb. */
     private int mSwitchRight;
-
     /** Bottom bound for drawing the switch track and thumb. */
     private int mSwitchBottom;
-
     private TextPaint mTextPaint;
     private ColorStateList mTextColors;
     private Layout mOnLayout;
     private Layout mOffLayout;
     private TransformationMethod mSwitchTransformationMethod;
     private ThumbAnimation mPositionAnimator;
-
-    @SuppressWarnings("hiding")
-    private final Rect mTempRect = new Rect();
-
-    private final TintManager mTintManager;
-
-    private static final int[] CHECKED_STATE_SET = {
-            android.R.attr.state_checked
-    };
 
     /**
      * Construct a new Switch with default styling.
@@ -156,7 +138,7 @@ public class FriendlySwitchCompat extends CompoundButton {
      * attributes as requested.
      *
      * @param context The Context that will determine this widget's theming.
-     * @param attrs Specification of attributes that should deviate from default styling.
+     * @param attrs   Specification of attributes that should deviate from default styling.
      */
     public FriendlySwitchCompat(Context context, AttributeSet attrs) {
         this(context, attrs, android.support.v7.appcompat.R.attr.switchStyle);
@@ -166,11 +148,12 @@ public class FriendlySwitchCompat extends CompoundButton {
      * Construct a new Switch with a default style determined by the given theme attribute,
      * overriding specific style attributes as requested.
      *
-     * @param context The Context that will determine this widget's theming.
-     * @param attrs Specification of attributes that should deviate from the default styling.
+     * @param context      The Context that will determine this widget's theming.
+     * @param attrs        Specification of attributes that should deviate from the default
+     *                     styling.
      * @param defStyleAttr An attribute in the current theme that contains a
-     *        reference to a style resource that supplies default values for
-     *        the view. Can be 0 to not look for defaults.
+     *                     reference to a style resource that supplies default values for
+     *                     the view. Can be 0 to not look for defaults.
      */
     public FriendlySwitchCompat(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -218,6 +201,13 @@ public class FriendlySwitchCompat extends CompoundButton {
         // Refresh display with current params
         refreshDrawableState();
         setChecked(isChecked());
+    }
+
+    /**
+     * Taken from android.util.MathUtils
+     */
+    private static float constrain(float amount, float low, float high) {
+        return amount < low ? low : (amount > high ? high : amount);
     }
 
     /**
@@ -325,16 +315,6 @@ public class FriendlySwitchCompat extends CompoundButton {
     }
 
     /**
-     * Set the amount of horizontal padding between the switch and the associated text.
-     *
-     * @param pixels Amount of padding in pixels
-     */
-    public void setSwitchPadding(int pixels) {
-        mSwitchPadding = pixels;
-        requestLayout();
-    }
-
-    /**
      * Get the amount of horizontal padding between the switch and the associated text.
      *
      * @return Amount of padding in pixels
@@ -344,13 +324,12 @@ public class FriendlySwitchCompat extends CompoundButton {
     }
 
     /**
-     * Set the minimum width of the switch in pixels. The switch's width will be the maximum
-     * of this value and its measured width as determined by the switch drawables and text used.
+     * Set the amount of horizontal padding between the switch and the associated text.
      *
-     * @param pixels Minimum width of the switch in pixels
+     * @param pixels Amount of padding in pixels
      */
-    public void setSwitchMinWidth(int pixels) {
-        mSwitchMinWidth = pixels;
+    public void setSwitchPadding(int pixels) {
+        mSwitchPadding = pixels;
         requestLayout();
     }
 
@@ -365,12 +344,13 @@ public class FriendlySwitchCompat extends CompoundButton {
     }
 
     /**
-     * Set the horizontal padding around the text drawn on the switch itself.
+     * Set the minimum width of the switch in pixels. The switch's width will be the maximum
+     * of this value and its measured width as determined by the switch drawables and text used.
      *
-     * @param pixels Horizontal padding for switch thumb text in pixels
+     * @param pixels Minimum width of the switch in pixels
      */
-    public void setThumbTextPadding(int pixels) {
-        mThumbTextPadding = pixels;
+    public void setSwitchMinWidth(int pixels) {
+        mSwitchMinWidth = pixels;
         requestLayout();
     }
 
@@ -384,12 +364,12 @@ public class FriendlySwitchCompat extends CompoundButton {
     }
 
     /**
-     * Set the drawable used for the track that the switch slides within.
+     * Set the horizontal padding around the text drawn on the switch itself.
      *
-     * @param track Track drawable
+     * @param pixels Horizontal padding for switch thumb text in pixels
      */
-    public void setTrackDrawable(Drawable track) {
-        mTrackDrawable = track;
+    public void setThumbTextPadding(int pixels) {
+        mThumbTextPadding = pixels;
         requestLayout();
     }
 
@@ -412,13 +392,12 @@ public class FriendlySwitchCompat extends CompoundButton {
     }
 
     /**
-     * Set the drawable used for the switch "thumb" - the piece that the user
-     * can physically touch and drag along the track.
+     * Set the drawable used for the track that the switch slides within.
      *
-     * @param thumb Thumb drawable
+     * @param track Track drawable
      */
-    public void setThumbDrawable(Drawable thumb) {
-        mThumbDrawable = thumb;
+    public void setTrackDrawable(Drawable track) {
+        mTrackDrawable = track;
         requestLayout();
     }
 
@@ -443,6 +422,24 @@ public class FriendlySwitchCompat extends CompoundButton {
     }
 
     /**
+     * Set the drawable used for the switch "thumb" - the piece that the user
+     * can physically touch and drag along the track.
+     *
+     * @param thumb Thumb drawable
+     */
+    public void setThumbDrawable(Drawable thumb) {
+        mThumbDrawable = thumb;
+        requestLayout();
+    }
+
+    /**
+     * Returns whether the track should be split by the thumb.
+     */
+    public boolean getSplitTrack() {
+        return mSplitTrack;
+    }
+
+    /**
      * Specifies whether the track should be split by the thumb. When true,
      * the thumb's optical bounds will be clipped out of the track drawable,
      * then the thumb will be drawn into the resulting gap.
@@ -452,13 +449,6 @@ public class FriendlySwitchCompat extends CompoundButton {
     public void setSplitTrack(boolean splitTrack) {
         mSplitTrack = splitTrack;
         invalidate();
-    }
-
-    /**
-     * Returns whether the track should be split by the thumb.
-     */
-    public boolean getSplitTrack() {
-        return mSplitTrack;
     }
 
     /**
@@ -492,6 +482,13 @@ public class FriendlySwitchCompat extends CompoundButton {
     }
 
     /**
+     * @return whether the on/off text should be displayed
+     */
+    public boolean getShowText() {
+        return mShowText;
+    }
+
+    /**
      * Sets whether the on/off text should be displayed.
      *
      * @param showText {@code true} to display on/off text
@@ -501,13 +498,6 @@ public class FriendlySwitchCompat extends CompoundButton {
             mShowText = showText;
             requestLayout();
         }
-    }
-
-    /**
-     * @return whether the on/off text should be displayed
-     */
-    public boolean getShowText() {
-        return mShowText;
     }
 
     @Override
@@ -749,7 +739,8 @@ public class FriendlySwitchCompat extends CompoundButton {
         mPositionAnimator.setDuration(THUMB_ANIMATION_DURATION);
         mPositionAnimator.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {}
+            public void onAnimationStart(Animation animation) {
+            }
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -761,7 +752,8 @@ public class FriendlySwitchCompat extends CompoundButton {
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationRepeat(Animation animation) {
+            }
         });
         startAnimation(mPositionAnimator);
     }
@@ -1145,13 +1137,6 @@ public class FriendlySwitchCompat extends CompoundButton {
                 }
             }
         }
-    }
-
-    /**
-     * Taken from android.util.MathUtils
-     */
-    private static float constrain(float amount, float low, float high) {
-        return amount < low ? low : (amount > high ? high : amount);
     }
 
     private class ThumbAnimation extends Animation {

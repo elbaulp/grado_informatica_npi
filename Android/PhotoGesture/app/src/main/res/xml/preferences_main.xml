@@ -5,29 +5,26 @@
   ~ All Rights Reserved.
   -->
 
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Preference
-        android:title="@string/pref_title_pattern_lock">
+    <Preference android:title="@string/pref_title_pattern_lock">
         <intent
-            android:targetPackage="com.elbauldelprogramador.photogesture"
-            android:targetClass="com.elbauldelprogramador.photogesture.app.PatternLockActivity" />
+            android:targetClass="com.elbauldelprogramador.photogesture.app.PatternLockActivity"
+            android:targetPackage="com.elbauldelprogramador.photogesture" />
     </Preference>
 
     <ListPreference
-        android:key="pref_key_theme"
         android:defaultValue="0"
         android:dialogTitle="@string/pref_dialog_title_theme"
         android:entries="@array/pref_entries_theme"
         android:entryValues="@array/pref_entry_values_theme"
+        android:key="pref_key_theme"
         android:summary="@string/pref_summary_theme"
         android:title="@string/pref_title_theme" />
 
-    <Preference
-        android:title="@string/pref_title_about">
+    <Preference android:title="@string/pref_title_about">
         <intent
-            android:targetPackage="com.elbauldelprogramador.photogesture"
-            android:targetClass="com.elbauldelprogramador.photogesture.app.AboutActivity" />
+            android:targetClass="com.elbauldelprogramador.photogesture.app.AboutActivity"
+            android:targetPackage="com.elbauldelprogramador.photogesture" />
     </Preference>
 </PreferenceScreen>

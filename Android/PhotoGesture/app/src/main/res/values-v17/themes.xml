@@ -8,7 +8,8 @@
 <resources>
 
     <style name="ThemeOverlay.Preference" parent="Base.ThemeOverlay.Preference">
-        <item name="android:listPreferredItemPaddingStart">@dimen/screen_edge_horizontal_margin</item>
+        <item name="android:listPreferredItemPaddingStart">@dimen/screen_edge_horizontal_margin
+        </item>
         <item name="android:listPreferredItemPaddingEnd">@dimen/screen_edge_horizontal_margin</item>
     </style>
 </resources>
