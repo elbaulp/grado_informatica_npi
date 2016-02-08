@@ -107,6 +107,11 @@ public class MakePhotoActivity extends Activity {
         ButterKnife.bind(this);
 
 
+        if (!checkCameraHardware(this)){
+            ToastUtils.show(R.string.no_camera, this);
+            finish();
+        }
+
         // Create an instance of Camera
         mCamera = getCameraInstance();
         Camera.Parameters params = mCamera.getParameters();
@@ -160,7 +165,6 @@ public class MakePhotoActivity extends Activity {
             public void onFinish() {
                 ToastUtils.show(R.string.make_photo, Toast.LENGTH_SHORT, getApplicationContext());
                 mCamera.takePicture(null, null, mPicture);
-//                mCamera.startPreview();
                 finish();
             }
         }.start();

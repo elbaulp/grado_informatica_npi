@@ -56,4 +56,5 @@
     <string name="about_github"><a href="https://github.com/DreaminginCodeZH/PatternLock">View on GitHub</a></string>
 
     <string name="make_photo">¡Fotografía echada!</string>
+    <string name="no_camera">Este dispositivo no dispone de cámara</string>
 </resources>
