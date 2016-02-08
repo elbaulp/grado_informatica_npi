@@ -7,7 +7,8 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Preference android:title="@string/pref_title_pattern_lock">
+    <Preference
+        android:key="pl">
         <intent
             android:targetClass="com.elbauldelprogramador.photogesture.app.PatternLockActivity"
             android:targetPackage="com.elbauldelprogramador.photogesture" />
