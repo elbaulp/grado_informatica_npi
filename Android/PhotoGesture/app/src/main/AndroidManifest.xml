@@ -53,10 +53,6 @@
             android:name=".app.ConfirmPatternActivity"
             android:label="@string/confirm_pattern_title"
             android:launchMode="singleTop" />
-        <activity
-            android:name=".app.CountDownActivity"
-            android:label="@string/confirm_pattern_title"
-            android:launchMode="singleTop" />
 
         <activity
             android:name=".app.ResetPatternActivity"
