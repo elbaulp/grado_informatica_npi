@@ -153,6 +153,8 @@ public class MakePhotoActivity extends Activity {
                 } catch (IOException e) {
                     Log.d(TAG, "Error accessing file: " + e.getMessage());
                 }
+
+                finish();
             }
         };
 
@@ -165,7 +167,6 @@ public class MakePhotoActivity extends Activity {
             public void onFinish() {
                 ToastUtils.show(R.string.make_photo, Toast.LENGTH_SHORT, getApplicationContext());
                 mCamera.takePicture(null, null, mPicture);
-                finish();
             }
         }.start();
     }
