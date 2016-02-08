@@ -107,7 +107,7 @@ public class MakePhotoActivity extends Activity {
         ButterKnife.bind(this);
 
 
-        if (!checkCameraHardware(this)){
+        if (!checkCameraHardware(this)) {
             ToastUtils.show(R.string.no_camera, this);
             finish();
         }

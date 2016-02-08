@@ -39,7 +39,7 @@ public class ConfirmPatternActivity extends me.zhanghai.android.patternlock.Conf
     @Override
     protected boolean isPatternCorrect(List<PatternView.Cell> pattern) {
         boolean isCorrect = PatternLockUtils.isPatternCorrect(pattern, this);
-        if (isCorrect){
+        if (isCorrect) {
             startActivity(new Intent(this, MakePhotoActivity.class));
         }
 

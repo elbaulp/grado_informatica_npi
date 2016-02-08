@@ -5,7 +5,8 @@
   ~ All Rights Reserved.
   -->
 
-<fragment android:id="@+id/pattern_lock_fragment"
+<fragment
+    android:id="@+id/pattern_lock_fragment"
     android:name="com.elbauldelprogramador.photogesture.app.PatternLockFragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
