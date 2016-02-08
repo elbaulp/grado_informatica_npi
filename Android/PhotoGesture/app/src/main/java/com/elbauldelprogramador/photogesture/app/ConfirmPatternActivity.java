@@ -5,6 +5,7 @@
 
 package com.elbauldelprogramador.photogesture.app;
 
+import com.elbauldelprogramador.photogesture.camera.MakePhotoActivity;
 import com.elbauldelprogramador.photogesture.util.PatternLockUtils;
 import com.elbauldelprogramador.photogesture.util.PreferenceContract;
 import com.elbauldelprogramador.photogesture.util.PreferenceUtils;
@@ -26,6 +27,7 @@ public class ConfirmPatternActivity extends me.zhanghai.android.patternlock.Conf
         ThemeUtils.applyTheme(this);
 
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -36,7 +38,12 @@ public class ConfirmPatternActivity extends me.zhanghai.android.patternlock.Conf
 
     @Override
     protected boolean isPatternCorrect(List<PatternView.Cell> pattern) {
-        return PatternLockUtils.isPatternCorrect(pattern, this);
+        boolean isCorrect = PatternLockUtils.isPatternCorrect(pattern, this);
+        if (isCorrect){
+            startActivity(new Intent(this, MakePhotoActivity.class));
+        }
+
+        return isCorrect;
     }
 
     @Override

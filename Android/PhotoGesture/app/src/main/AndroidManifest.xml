@@ -5,8 +5,14 @@
   ~ All Rights Reserved.
   -->
 
-<manifest package="com.elbauldelprogramador.photogesture"
+<manifest
+    package="com.elbauldelprogramador.photogesture"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -47,6 +53,10 @@
             android:name=".app.ConfirmPatternActivity"
             android:label="@string/confirm_pattern_title"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".app.CountDownActivity"
+            android:label="@string/confirm_pattern_title"
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".app.ResetPatternActivity"
@@ -55,6 +65,11 @@
 
         <activity
             android:name=".app.AboutActivity"
+            android:label="@string/about_title"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".camera.MakePhotoActivity"
             android:label="@string/about_title"
             android:launchMode="singleTop" />
     </application>
