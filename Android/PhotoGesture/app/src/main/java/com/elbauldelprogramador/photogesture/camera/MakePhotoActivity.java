@@ -166,7 +166,7 @@ public class MakePhotoActivity extends Activity {
                 } catch (IOException e) {
                     Log.d(TAG, "Error accessing file: " + e.getMessage());
                 }
-                finish();
+
             }
         };
 
@@ -176,6 +176,7 @@ public class MakePhotoActivity extends Activity {
             @Override
             public void onShutter() {
                 mShutterSound.start();
+                finish();
             }
         };
 
