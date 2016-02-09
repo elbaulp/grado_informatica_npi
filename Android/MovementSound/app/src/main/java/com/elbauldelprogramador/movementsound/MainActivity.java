@@ -23,19 +23,44 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+/**
+ * Created by:
+ *
+ * Alejandro Alcalde (elbauldelprogramador.com)
+ * Cristina Heredia
+ *
+ * on 2/9/16.
+ *
+ * This file is part of MovementSound
+ */
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
+    /**
+     * Constants for sensors
+     */
     private static final float SHAKE_THRESHOLD = 1.1f;
     private static final int SHAKE_WAIT_TIME_MS = 250;
     private static final float ROTATION_THRESHOLD = 2.0f;
     private static final int ROTATION_WAIT_TIME_MS = 100;
+
+    /**
+     * The sounds to play when a pattern is detected
+     */
     private static MediaPlayer soundAcc;
     private static MediaPlayer soundGyro;
+
+    /**
+     * Sensors
+     */
     private SensorManager mSensorManager;
     private Sensor mSensorAcc;
     private Sensor mSensorGyr;
     private long mShakeTime = 0;
     private long mRotationTime = 0;
+
+    /**
+     * UI
+     */
     private TextView mGyrox;
     private TextView mGyroy;
     private TextView mGyroz;
@@ -48,9 +73,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Get the sensors to use
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorAcc = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorGyr = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+
+        // Instanciate the sound to use
         soundAcc = MediaPlayer.create(this, R.raw.acc);
         soundGyro = MediaPlayer.create(this, R.raw.gyro);
 
@@ -99,6 +127,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     // References:
     //  - http://jasonmcreynolds.com/?p=388
     //  - http://code.tutsplus.com/tutorials/using-the-accelerometer-on-android--mobile-22125
+
+    /**
+     * Detect a shake based on the ACCELEROMETER sensor
+     *
+     * @param event
+     */
     private void detectShake(SensorEvent event) {
         long now = System.currentTimeMillis();
 
@@ -120,6 +154,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    /**
+     * Detect a rotation in on the GYROSCOPE sensor
+     *
+     * @param event
+     */
     private void detectRotation(SensorEvent event) {
         long now = System.currentTimeMillis();
 
