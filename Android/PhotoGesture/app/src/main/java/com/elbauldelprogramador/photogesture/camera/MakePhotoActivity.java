@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -44,7 +45,17 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by Alejandro Alcalde (elbauldelprogramador.com) on 2/8/16.
+ * Created by:
+ *
+ * Alejandro Alcalde (elbauldelprogramador.com)
+ * Cristina Heredia
+ *
+ * on 2/9/16.
+ *
+ * This file is part of PhotoGesture
+ *
+ * This class takes care of showing the countdown and take a photo, then it store the phot in the
+ * SD card.
  */
 public class MakePhotoActivity extends Activity {
 
@@ -56,6 +67,8 @@ public class MakePhotoActivity extends Activity {
     private Camera mCamera;
     private CameraPreview mPreview;
     private Camera.PictureCallback mPicture;
+    private Camera.ShutterCallback mShutter;
+    private MediaPlayer mShutterSound;
 
     /** Create a File for saving an image or video */
     private static File getOutputMediaFile(int type) {
@@ -157,6 +170,15 @@ public class MakePhotoActivity extends Activity {
             }
         };
 
+        mShutterSound = MediaPlayer.create(this, R.raw.shut);
+
+        mShutter = new Camera.ShutterCallback() {
+            @Override
+            public void onShutter() {
+                mShutterSound.start();
+            }
+        };
+
         new CountDownTimer(4000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -165,7 +187,7 @@ public class MakePhotoActivity extends Activity {
 
             public void onFinish() {
                 ToastUtils.show(R.string.make_photo, Toast.LENGTH_SHORT, getApplicationContext());
-                mCamera.takePicture(null, null, mPicture);
+                mCamera.takePicture(mShutter, null, mPicture);
             }
         }.start();
     }
@@ -193,6 +215,4 @@ public class MakePhotoActivity extends Activity {
             mCamera = null;
         }
     }
-
-
 }

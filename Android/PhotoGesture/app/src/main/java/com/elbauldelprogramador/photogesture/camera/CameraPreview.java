@@ -17,7 +17,14 @@
 package com.elbauldelprogramador.photogesture.camera;
 
 /**
- * Created by Alejandro Alcalde (elbauldelprogramador.com) on 2/8/16.
+ * Created by:
+ *
+ * Alejandro Alcalde (elbauldelprogramador.com)
+ * Cristina Heredia
+ *
+ * on 2/9/16.
+ *
+ * This file is part of PhotoGesture
  */
 
 import android.content.Context;
@@ -59,6 +66,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     public void surfaceDestroyed(SurfaceHolder holder) {
         // empty. Take care of releasing the Camera preview in your activity.
+        mCamera.release();
     }
 
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
