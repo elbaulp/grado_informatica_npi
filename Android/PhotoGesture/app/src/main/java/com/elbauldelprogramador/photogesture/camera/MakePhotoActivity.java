@@ -138,7 +138,7 @@ public class MakePhotoActivity extends Activity {
 
                 File pictureFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
                 if (pictureFile == null) {
-                    Log.d(TAG, "Error creating media file, check storage permissions: ");
+                    Log.e(TAG, "Error creating media file, check storage permissions: ");
                     return;
                 }
 
@@ -153,7 +153,6 @@ public class MakePhotoActivity extends Activity {
                 } catch (IOException e) {
                     Log.d(TAG, "Error accessing file: " + e.getMessage());
                 }
-
                 finish();
             }
         };
