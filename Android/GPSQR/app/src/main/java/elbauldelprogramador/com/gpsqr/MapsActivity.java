@@ -56,6 +56,16 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Created by:
+ *
+ * Alejandro Alcalde (elbauldelprogramador.com)
+ * Cristina Heredia
+ *
+ * on 2/9/16.
+ *
+ * This file is part of GPSQR
+ */
 public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback,
         StreetViewPanorama.OnStreetViewPanoramaChangeListener,
@@ -117,6 +127,10 @@ public class MapsActivity extends FragmentActivity implements
      */
     private Intent mRequestLocationIntent;
 
+    /**
+     * Change the current location in the map. Draws a line between the last location and the
+     * current to show the path taken.
+     */
     private void updateMap() {
         if (mPreviousLocation != null) {
             PolylineOptions polylineOptions = new PolylineOptions()
@@ -132,6 +146,11 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
+    /**
+     * Overloaded updateMap method. Used when the activity is restored from a saved instance state.
+     *
+     * @param loc: All the locations in which the user have been.
+     */
     private void updateMap(ArrayList<LatLng> loc) {
 
         LatLng current;

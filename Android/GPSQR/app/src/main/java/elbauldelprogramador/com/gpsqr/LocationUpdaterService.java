@@ -39,7 +39,17 @@ import java.text.DateFormat;
 import java.util.Date;
 
 /**
- * Created by Alejandro Alcalde (elbauldelprogramador.com) on 1/31/16.
+ * Created by:
+ *
+ * Alejandro Alcalde (elbauldelprogramador.com)
+ * Cristina Heredia
+ *
+ * on 2/9/16.
+ *
+ * This file is part of GPSQR
+ *
+ * This class is a service which intent is to update at a regular interval the location of
+ * the user.
  */
 public class LocationUpdaterService extends Service implements
         GoogleApiClient.ConnectionCallbacks,
@@ -130,6 +140,46 @@ public class LocationUpdaterService extends Service implements
         super.onDestroy();
     }
 
+    /**
+     * Called by the system every time a client explicitly starts the service by calling
+     * {@link android.content.Context#startService}, providing the arguments it supplied and a
+     * unique integer token representing the start request.  Do not call this method directly.
+     *
+     * <p>For backwards compatibility, the default implementation calls
+     * {@link #onStart} and returns either {@link #START_STICKY}
+     * or {@link #START_STICKY_COMPATIBILITY}.
+     *
+     * <p>If you need your application to run on platform versions prior to API
+     * level 5, you can use the following model to handle the older {@link #onStart}
+     * callback in that case.  The <code>handleCommand</code> method is implemented by
+     * you as appropriate:
+     *
+     * {@sample development/samples/ApiDemos/src/com/example/android/apis/app/ForegroundService.java
+     *   start_compatibility}
+     *
+     * <p class="caution">Note that the system calls this on your
+     * service's main thread.  A service's main thread is the same
+     * thread where UI operations take place for Activities running in the
+     * same process.  You should always avoid stalling the main
+     * thread's event loop.  When doing long-running operations,
+     * network calls, or heavy disk I/O, you should kick off a new
+     * thread, or use {@link android.os.AsyncTask}.</p>
+     *
+     * @param intent The Intent supplied to {@link android.content.Context#startService},
+     * as given.  This may be null if the service is being restarted after
+     * its process has gone away, and it had previously returned anything
+     * except {@link #START_STICKY_COMPATIBILITY}.
+     * @param flags Additional data about this start request.  Currently either
+     * 0, {@link #START_FLAG_REDELIVERY}, or {@link #START_FLAG_RETRY}.
+     * @param startId A unique integer representing this specific request to
+     * start.  Use with {@link #stopSelfResult(int)}.
+     *
+     * @return The return value indicates what semantics the system should
+     * use for the service's current started state.  It may be one of the
+     * constants associated with the {@link #START_CONTINUATION_MASK} bits.
+     *
+     * @see #stopSelfResult(int)
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
@@ -225,6 +275,12 @@ public class LocationUpdaterService extends Service implements
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
+    /**
+     * This method send the current location to the activity who called the service, This way the
+     * location can be used in the UI.
+     *
+     * @param message The location
+     */
     private void sendResult(LatLng message) {
         Intent intent = new Intent(COPA_RESULT);
         if (message != null)

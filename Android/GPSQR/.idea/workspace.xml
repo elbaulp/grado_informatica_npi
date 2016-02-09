@@ -29,20 +29,14 @@
     <favorites_list name="GPSQR" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="LocationUpdaterService.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/elbauldelprogramador/com/gpsqr/LocationUpdaterService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6596558">
-              <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#12534#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="availableProjects">
@@ -1939,6 +1933,7 @@
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/debug/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/elbauldelprogramador/com/gpsqr/a.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/elbauldelprogramador/com/gpsqr/LocationUpdaterService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/elbauldelprogramador/com/gpsqr/MapsActivity.java" />
       </list>
@@ -2175,6 +2170,11 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -2262,7 +2262,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1067" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32983193" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2272,14 +2272,15 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4222689" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4222689" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12184874" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22683705" sideWeight="0.493007" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22683705" sideWeight="0.493007" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32983193" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -2292,7 +2293,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -2311,19 +2311,19 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/elbauldelprogramador/com/gpsqr/MapsActivity.java</url>
-          <line>325</line>
+          <line>344</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/elbauldelprogramador/com/gpsqr/MapsActivity.java</url>
-          <line>311</line>
+          <line>330</line>
           <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/elbauldelprogramador/com/gpsqr/MapsActivity.java</url>
-          <line>155</line>
+          <line>174</line>
           <properties />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
@@ -2338,8 +2338,15 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#15075#0" expanded="true" />
+            <element signature="e#0#15557#0" expanded="true" />
             <element signature="imports" expanded="true" />
+            <element signature="e#7297#7714#0" expanded="true" />
+            <element signature="e#7521#7682#0" expanded="true" />
+            <element signature="e#7681#7682#0" expanded="true" />
+            <element signature="e#7713#7714#0" expanded="true" />
+            <element signature="e#7746#8260#0" expanded="true" />
+            <element signature="e#8259#8260#0" expanded="true" />
+            <element signature="e#10978#11020#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2349,7 +2356,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#12534#0" expanded="true" />
+            <element signature="e#0#15130#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2358,6 +2365,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2366,8 +2374,15 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="105" column="4" selection-start-line="105" selection-start-column="4" selection-end-line="105" selection-end-column="4" />
           <folding>
-            <element signature="e#0#15075#0" expanded="true" />
+            <element signature="e#0#15557#0" expanded="true" />
             <element signature="imports" expanded="true" />
+            <element signature="e#7297#7714#0" expanded="true" />
+            <element signature="e#7521#7682#0" expanded="true" />
+            <element signature="e#7681#7682#0" expanded="true" />
+            <element signature="e#7713#7714#0" expanded="true" />
+            <element signature="e#7746#8260#0" expanded="true" />
+            <element signature="e#8259#8260#0" expanded="true" />
+            <element signature="e#10978#11020#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2377,7 +2392,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#12534#0" expanded="true" />
+            <element signature="e#0#15130#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2386,6 +2401,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2394,8 +2410,15 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="105" column="4" selection-start-line="105" selection-start-column="4" selection-end-line="105" selection-end-column="4" />
           <folding>
-            <element signature="e#0#15075#0" expanded="true" />
+            <element signature="e#0#15557#0" expanded="true" />
             <element signature="imports" expanded="true" />
+            <element signature="e#7297#7714#0" expanded="true" />
+            <element signature="e#7521#7682#0" expanded="true" />
+            <element signature="e#7681#7682#0" expanded="true" />
+            <element signature="e#7713#7714#0" expanded="true" />
+            <element signature="e#7746#8260#0" expanded="true" />
+            <element signature="e#8259#8260#0" expanded="true" />
+            <element signature="e#10978#11020#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2405,7 +2428,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
-            <element signature="e#0#12534#0" expanded="true" />
+            <element signature="e#0#15130#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2414,6 +2437,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2422,8 +2446,15 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="105" column="4" selection-start-line="105" selection-start-column="4" selection-end-line="105" selection-end-column="4" />
           <folding>
-            <element signature="e#0#15075#0" expanded="true" />
+            <element signature="e#0#15557#0" expanded="true" />
             <element signature="imports" expanded="true" />
+            <element signature="e#7297#7714#0" expanded="true" />
+            <element signature="e#7521#7682#0" expanded="true" />
+            <element signature="e#7681#7682#0" expanded="true" />
+            <element signature="e#7713#7714#0" expanded="true" />
+            <element signature="e#7746#8260#0" expanded="true" />
+            <element signature="e#8259#8260#0" expanded="true" />
+            <element signature="e#10978#11020#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2433,7 +2464,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding>
-            <element signature="e#0#12534#0" expanded="true" />
+            <element signature="e#0#15130#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2442,6 +2473,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2450,8 +2482,15 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="105" column="4" selection-start-line="105" selection-start-column="4" selection-end-line="105" selection-end-column="4" />
           <folding>
-            <element signature="e#0#15075#0" expanded="true" />
+            <element signature="e#0#15557#0" expanded="true" />
             <element signature="imports" expanded="true" />
+            <element signature="e#7297#7714#0" expanded="true" />
+            <element signature="e#7521#7682#0" expanded="true" />
+            <element signature="e#7681#7682#0" expanded="true" />
+            <element signature="e#7713#7714#0" expanded="true" />
+            <element signature="e#7746#8260#0" expanded="true" />
+            <element signature="e#8259#8260#0" expanded="true" />
+            <element signature="e#10978#11020#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2461,7 +2500,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
-            <element signature="e#0#12534#0" expanded="true" />
+            <element signature="e#0#15130#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2470,6 +2509,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2478,8 +2518,15 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="105" column="4" selection-start-line="105" selection-start-column="4" selection-end-line="105" selection-end-column="4" />
           <folding>
-            <element signature="e#0#15075#0" expanded="true" />
+            <element signature="e#0#15557#0" expanded="true" />
             <element signature="imports" expanded="true" />
+            <element signature="e#7297#7714#0" expanded="true" />
+            <element signature="e#7521#7682#0" expanded="true" />
+            <element signature="e#7681#7682#0" expanded="true" />
+            <element signature="e#7713#7714#0" expanded="true" />
+            <element signature="e#7746#8260#0" expanded="true" />
+            <element signature="e#8259#8260#0" expanded="true" />
+            <element signature="e#10978#11020#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2489,7 +2536,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="83" column="4" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="4" />
           <folding>
-            <element signature="e#0#12534#0" expanded="true" />
+            <element signature="e#0#15130#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2498,6 +2545,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2506,8 +2554,15 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
           <folding>
-            <element signature="e#0#15075#0" expanded="true" />
+            <element signature="e#0#15557#0" expanded="true" />
             <element signature="imports" expanded="true" />
+            <element signature="e#7297#7714#0" expanded="true" />
+            <element signature="e#7521#7682#0" expanded="true" />
+            <element signature="e#7681#7682#0" expanded="true" />
+            <element signature="e#7713#7714#0" expanded="true" />
+            <element signature="e#7746#8260#0" expanded="true" />
+            <element signature="e#8259#8260#0" expanded="true" />
+            <element signature="e#10978#11020#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2590,17 +2645,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/elbauldelprogramador/com/gpsqr/MapsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15075#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14340344">
@@ -2616,6 +2660,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4477612">
           <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2623,16 +2668,43 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36902484">
           <caret line="33" column="9" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/elbauldelprogramador/com/gpsqr/LocationUpdaterService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6596558">
-          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="281" column="34" selection-start-line="281" selection-start-column="34" selection-end-line="281" selection-end-column="34" />
           <folding>
-            <element signature="e#0#12534#0" expanded="true" />
+            <element signature="e#0#15130#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/elbauldelprogramador/com/gpsqr/MapsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.11293">
+          <caret line="151" column="65" selection-start-line="151" selection-start-column="65" selection-end-line="151" selection-end-column="65" />
+          <folding>
+            <element signature="e#0#15557#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#7297#7714#0" expanded="true" />
+            <element signature="e#7521#7682#0" expanded="true" />
+            <element signature="e#7681#7682#0" expanded="true" />
+            <element signature="e#7713#7714#0" expanded="true" />
+            <element signature="e#7746#8260#0" expanded="true" />
+            <element signature="e#8259#8260#0" expanded="true" />
+            <element signature="e#10978#11020#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-23/android/app/Service.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38134205">
+          <caret line="417" column="0" selection-start-line="417" selection-start-column="0" selection-end-line="456" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>
