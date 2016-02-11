@@ -20,9 +20,236 @@ Para dar nuevas instrucciones de voz basta con tocar la brújula.
 
 En la parte inferior de la pantalla, aparece el comando de voz reconocido.
 
+### Implementación
+
+Se han necesitado de tres clases, La principal que implementa la actividad (`CompassActivity`), donde reside prácticamente toda la lógica de la aplicación. En ella se hace uso de los sensores magnético y el acelerómetro. Las otras dos clases ha sido extensiones de la clase `ImageVew` para crear nuestras propias vistas, en este caso el compás y el indicador de la dirección indicada por el usuario.
+
+#### Clase CompassActivity.java
+
+Esta clase es la principal y en la que se realiza toda la lógica, en ella se declarar y registran los sensores a usar (El magnético y el acelerómetro). Ambos se obtienen en el método `onCreate` del siguiente modo:
+
+```java
+private SensorManager mSensorManager;
+private Sensor mMagneticSensor;
+private Sensor mAccelerometer;
+
+//...
+
+mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+mMagneticSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+```
+
+Para poder obtener actualizaciones frecuentes de los datos de los sensores es necesario declarar un `SensorEventListener` y registrarlo en el sistema, declararemos un único _listener_ que será usado por los dos sensores:
+
+```java
+private SensorEventListener mMagneticSensorEventListener = new SensorEventListener() {
+
+		@Override
+		public void onSensorChanged(SensorEvent event) {
+
+				if (event.sensor == mMagneticSensor) {
+						System.arraycopy(event.values, 0, mLastMagnetometer, 0, event.values.length);
+						mLastMagnetometerSet = true;
+				} else if (event.sensor == mAccelerometer) {
+						System.arraycopy(event.values, 0, mLastAccelerometer, 0, event.values.length);
+						mLastAccelerometerSet = true;
+				}
+
+				if (mLastAccelerometerSet && mLastMagnetometerSet) {
+						SensorManager.getRotationMatrix(mR, null, mLastAccelerometer, mLastMagnetometer);
+						SensorManager.getOrientation(mR, mOrientation);
+						float azimuthInRadians = mOrientation[0];
+						float azimuthInDegress = (float) (Math.toDegrees(azimuthInRadians) + 360) % 360;
+
+						mTargetDirection = -azimuthInDegress;
+				}
+		}
+
+		@Override
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		}
+};
+```
+
+La función `onSensorChanged` será llamada cada vez que se actualicen los datos de los sensores.
+
+Una vez tenemos una referencia a los sensores y el _listener_ creado, hay que registrarlos en el método `onResume` y des-registrarlos en el `onPause`:
+
+```java
+@Override
+protected void onResume() {
+		super.onResume();
+
+		if (mMagneticSensor != null) {
+				mSensorManager.registerListener(mMagneticSensorEventListener, mMagneticSensor,
+								SensorManager.SENSOR_DELAY_GAME);
+		}
+		if (mAccelerometer != null) {
+				mSensorManager.registerListener(mMagneticSensorEventListener, mAccelerometer,
+								SensorManager.SENSOR_DELAY_GAME);
+		}
+		// ...
+}
+
+@Override
+protected void onPause() {
+		super.onPause();
+
+		if (mMagneticSensor != null) {
+				mSensorManager.unregisterListener(mMagneticSensorEventListener);
+		}
+		if (mAccelerometer != null) {
+				mSensorManager.unregisterListener(mMagneticSensorEventListener);
+		}
+
+		// ...
+}
+```
+
+El reconocimiento de voz se inicializa en el siguiente método:
+
+```java
+/**
+ * Starts listening for any user input.
+ * When it recognizes something, the <code>processAsrResult</code> method is invoked.
+ * If there is any error, the <code>processAsrError</code> method is invoked.
+ */
+private void startListening() {
+		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+		intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.asr_prompt));
+		intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 2);
+
+		try {
+				startActivityForResult(intent, REQUEST_RECOGNIZE);
+		} catch (ActivityNotFoundException e) {
+				//If no recognizer exists, download from Google Play
+				showDownloadDialog();
+		}
+}
+```
+
+Esto intentará lanzar el reconocedor de voz, si el dispositivo no lo tiene instalado lanzará un diálogo pidiendo al usuario que lo instale:
+
+```java
+private void showDownloadDialog() {
+		AlertDialog.Builder builder =
+						new AlertDialog.Builder(this);
+		builder.setTitle(R.string.asr_download_title);
+		builder.setMessage(R.string.asr_download_msg);
+		builder.setPositiveButton(android.R.string.yes,
+						new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+																		int which) {
+										//Download, for example, Google Voice Search
+										Intent marketIntent =
+														new Intent(Intent.ACTION_VIEW);
+										marketIntent.setData(
+														Uri.parse("market://details?"
+																		+ "id=com.google.android.voicesearch"));
+								}
+						});
+		builder.setNegativeButton(android.R.string.no, null);
+		builder.create().show();
+}
+```
+
+Una vez que el usuario habla, se recoge el resultado en el `onActivityResult` y decidimos cómo interpretarlo, en este caso se parsea de forma bastante primitiva si el usuario dijo _este, norte, sur u oeste_ junto al número de grados:
+
+```java
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == REQUEST_RECOGNIZE &&
+						resultCode == Activity.RESULT_OK) {
+				ArrayList<String> matches =
+								data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+				String[] tokens = matches.get(0).split(" ");
+
+				if (tokens.length == 2) {
+						mHeadedDirection = Float.parseFloat(tokens[1]);
+						mLocationTextView.setText(String.format(getString(R.string.heading_text), matches.get(0)));
+
+						switch (tokens[0].toLowerCase()) {
+								case "este":
+										mHeadedDirection += 90;
+										break;
+								case "sur":
+								case "surf":
+										mHeadedDirection += 180;
+										break;
+								case "oeste":
+										mHeadedDirection += 270;
+										break;
+						}
+
+						Toast.makeText(this, R.string.asr_ask_again,
+										Toast.LENGTH_LONG).show();
+
+				} else {
+						Toast.makeText(this, R.string.asr_error,
+										Toast.LENGTH_LONG).show();
+				}
+		}
+}
+```
+
+El punto cardinal junto con los grados servirán para situar el indicador que muestre al usuario hacia dónde debe dirigirse.
+
+Para lograr el efecto de giro de la brújula, se rota la imagen con cada actualización de los sensores:
+
+```java
+protected Runnable mCompassViewUpdater = new Runnable() {
+		@Override
+		public void run() {
+				if (mPointer != null && !mStopDrawing) {
+						if (mDirection != mTargetDirection) {
+
+								// calculate the short routine
+								float to = mTargetDirection;
+								if (to - mDirection > 180) {
+										to -= 360;
+								} else if (to - mDirection < -180) {
+										to += 360;
+								}
+
+								// limit the max speed to MAX_ROTATE_DEGREE
+								float distance = to - mDirection;
+								float MAX_ROATE_DEGREE = 1.0f;
+								if (Math.abs(distance) > MAX_ROATE_DEGREE) {
+										distance = distance > 0 ? MAX_ROATE_DEGREE : (-1.0f * MAX_ROATE_DEGREE);
+								}
+
+								// need to slow down if the distance is short
+								mDirection = normalizeDegree(mDirection
+												+ ((to - mDirection) * mInterpolator.getInterpolation(Math
+												.abs(distance) > MAX_ROATE_DEGREE ? 0.4f : 0.3f)));
+								mPointer.updateDirection(mDirection);
+
+								if (mHeadedDirection != -1) {
+										mUserHint.updateDirection(mDirection + mHeadedDirection);
+								}
+						}
+						updateDirection();
+						mHandlerCompass.postDelayed(mCompassViewUpdater, 20);
+				}
+		}
+};
+```
+
+Como vemos, el `Runnable` se llama a sí mismo para mantenerse en ejecución `mHandlerCompass.postDelayed(mCompassViewUpdater, 20);`, de igual modo, habrá que escibir esta línea en el método `onResume`.
+
+Los métodos `updateDirection` son métodos definidos en las clases que veremos ahora, que representan la brujula y el indicador.
+
+#### Clase UserDirectionView.java y CompassView.java
+
+Ambas son exáctamente iguales
+
 ## GPSQR
 
-En esta aplicación se lee un destino mediante códigos QR, tras esto, se puede iniciar la navegación con _Google Maps_. En la aplicación se muestran dos mapas. En el de abajo aparece el destino al que debemos llegar, además, se va dibujando un camino por el que el usuario va pasando. En el mapa de arriba se ve el mapa desde el punto de vista _StreetView_. Veamos la aplicación:
+En esta aplicación se lee un destino mediante códigos QR, tras esto, se puede iniciar la navegación con _Google Maps_ (Usando la librería [Android-GoogleDirectionLibrary](https://github.com/akexorcist/Android-GoogleDirectionLibrary)). En la aplicación se muestran dos mapas. En el de abajo aparece el destino al que debemos llegar, además, se va dibujando un camino por el que el usuario va pasando. En el mapa de arriba se ve el mapa desde el punto de vista _StreetView_. Veamos la aplicación:
 
 ![GPSQR](./img/gpsQr.png)
 

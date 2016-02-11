@@ -51,7 +51,7 @@ public class CompassActivity extends Activity {
     protected final Handler mHandlerCompass = new Handler();
     View mCompassView;
     CompassView mPointer;
-    UserDirectionView mUserHint;
+    CompassView mUserHint;
     TextView mLocationTextView;
     LinearLayout mDirectionLayout;
     LinearLayout mAngleLayout;
@@ -190,7 +190,7 @@ public class CompassActivity extends Activity {
 
         mCompassView = findViewById(R.id.view_compass);
         mPointer = (CompassView) findViewById(R.id.compass_pointer);
-        mUserHint = (UserDirectionView) findViewById(R.id.user_direction);
+        mUserHint = (CompassView) findViewById(R.id.user_direction);
         mLocationTextView = (TextView) findViewById(R.id.textview_location);
         mDirectionLayout = (LinearLayout) findViewById(R.id.layout_direction);
         mAngleLayout = (LinearLayout) findViewById(R.id.layout_angle);

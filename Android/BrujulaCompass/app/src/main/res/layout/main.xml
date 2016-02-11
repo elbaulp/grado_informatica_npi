@@ -92,7 +92,7 @@
                             android:layout_gravity="center"
                             android:src="@drawable/background_compass"/>
 
-                        <elbauldelprogramador.com.compass.UserDirectionView
+                        <elbauldelprogramador.com.compass.CompassView
                             android:id="@+id/user_direction"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
