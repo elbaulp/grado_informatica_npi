@@ -287,6 +287,83 @@ El _Floating Action Button_ de abajo a la izquierda lanza el lector de QRs, que 
 
 Una vez leido el QR, solo resta pulsar el marcador rojo para iniciar la navegación con _Google Maps_. La ruta calculada por la _API_ de _Google_ es la azul, mientras que la ruta real tomada por el usuario aparecerá en rojo.
 
+### Implementación
+
+Esta aplicación tiene dos clases, una para la primera y única pantalla y otra es un servicio que se ejecuta en segundo plano, encargado de obtener la localicación del usuario a un intervalo regular. Echemos primero un vistazo al Servicio.
+
+#### Clase LocationUpdaterService.java
+
+Extiende de `Service` e implementa las siguientes interfaces:
+
+```java
+public class LocationUpdaterService extends Service implements
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener {
+					// ....
+				}
+```
+
+Con nombres bastantes descriptivos. Al iniciar el servicio, en su método `onCreate` se construye el cliente para la API de google del siguiente modo:
+
+```java
+/**
+ * Builds a GoogleApiClient. Uses the {@code #addApi} method to request the
+ * LocationServices API.
+ */
+protected synchronized void buildGoogleApiClient() {
+		if (BuildConfig.DEBUG) {
+				Log.d(TAG, "Building GoogleApiClient");
+		}
+		mGoogleApiClient = new GoogleApiClient.Builder(this)
+						.addConnectionCallbacks(this)
+						.addOnConnectionFailedListener(this)
+						.addApi(LocationServices.API)
+						.build();
+		createLocationRequest();
+}
+```
+
+También se inicializa el `BroadcastManager` que usaremos para enviar las actualizaciones de la posición a la pantalla principal.
+
+```java
+mBroadcaster = LocalBroadcastManager.getInstance(this);
+```
+
+El método `onCreate` se llama una única vez, al crear el servicio. Los comandos a ejecutar se colocan en el método `onStartCommand`, este metodo lo crearemos como _Sticky_, de modo que si el sistema finaliza el proceso del servicio, se volverá a ejecutar, volviendo así a obtener actualizaciones de localización:
+
+```java
+@Override
+public int onStartCommand(Intent intent, int flags, int startId) {
+		super.onStartCommand(intent, flags, startId);
+		if (BuildConfig.DEBUG) {
+				Log.d(TAG, "OnStartCommand");
+		}
+
+		if (mGoogleApiClient.isConnected()) {
+			LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+							mLocationRequest, this);
+		}
+
+		return START_STICKY;
+}
+```
+
+Una vez hecho esto, se llamarán a las interfaces implementadas con los datos necesarios para obtener la localización actual, en este caso la interfaz que nos interesa es `onLocationChanged`:
+
+```java
+@Override
+public void onLocationChanged(Location location) {
+		mCurrentLocation = location;
+		mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+		sendResult(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
+
+		if (BuildConfig.DEBUG) {
+				Log.d(TAG, mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
+		}
+}
+```
+
 <!--Fotos de la ruta-->
 
 ## Photo Gesture
