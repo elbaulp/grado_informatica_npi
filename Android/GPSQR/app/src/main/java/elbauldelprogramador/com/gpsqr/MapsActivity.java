@@ -167,7 +167,6 @@ public class MapsActivity extends FragmentActivity implements
                     .width(5);
             mMap.addPolyline(polylineOptions);
 
-            mMap.addMarker(new MarkerOptions().position(current).title("TITLE"));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 21f));
         }
 
@@ -371,7 +370,7 @@ public class MapsActivity extends FragmentActivity implements
 
     @Override
     protected void onStop() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mLocationReceiver);
+//        LocalBroadcastManager.getInstance(this).unregisterReceiver(mLocationReceiver);
         super.onStop();
     }
 
