@@ -22,7 +22,7 @@ En la parte inferior de la pantalla, aparece el comando de voz reconocido.
 
 ### Implementación
 
-Se han necesitado de tres clases, La principal que implementa la actividad (`CompassActivity`), donde reside prácticamente toda la lógica de la aplicación. En ella se hace uso de los sensores magnético y el acelerómetro. Las otras dos clases ha sido extensiones de la clase `ImageVew` para crear nuestras propias vistas, en este caso el compás y el indicador de la dirección indicada por el usuario.
+Se han necesitado de tres clases, La principal que implementa la actividad (`CompassActivity`), donde reside prácticamente toda la lógica de la aplicación. En ella se hace uso de los sensores magnético y el acelerómetro. La otra clase ha es una extensión de la clase `ImageVew` para crear nuestra propia vista, en este caso el compás y el indicador de la dirección indicada por el usuario.
 
 #### Clase CompassActivity.java
 
@@ -243,9 +243,37 @@ Como vemos, el `Runnable` se llama a sí mismo para mantenerse en ejecución `mH
 
 Los métodos `updateDirection` son métodos definidos en las clases que veremos ahora, que representan la brujula y el indicador.
 
-#### Clase UserDirectionView.java y CompassView.java
+#### Clase CompassView.java
 
-Ambas son exáctamente iguales
+Los dos métodos más importantes de esta clase son:
+
+```java
+@Override
+protected void onDraw(Canvas canvas) {
+		if (compass == null) {
+				compass = getDrawable();
+				compass.setBounds(0, 0, getWidth(), getHeight());
+		}
+
+		canvas.save();
+		canvas.rotate(mDirection, getWidth() / 2, getHeight() / 2);
+		compass.draw(canvas);
+		canvas.restore();
+}
+
+public void updateDirection(float direction) {
+		mDirection = direction;
+		invalidate();
+}
+```
+
+que se encargan de rotar la brújula cada vez que se llama al método `updateDirection` desde el `Runnable` visto anteriormente.
+
+### Referencias
+
+- Comass de MIUI \| [github.com/MiCode](https://github.com/MiCode/Compass "Código en github")
+- Pro Android 5 \| [amazon.es](http://www.amazon.es/gp/product/1430246804/ref=as_li_ss_tl?ie=UTF8&camp=3626&creative=24822&creativeASIN=1430246804&linkCode=as2&tag=bmab-21 "Ver libro en Amazon")
+- Código de la aplicación \| [github.com/algui91/BrujulaCompass](https://github.com/algui91/grado_informatica_npi/tree/master/Android/BrujulaCompass "Código en Github para BrujulaCompass")
 
 ## GPSQR
 
