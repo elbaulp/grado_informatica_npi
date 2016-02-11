@@ -155,7 +155,10 @@ public class MapsActivity extends FragmentActivity implements
 
         LatLng current;
         LatLng previous;
-
+//      geo fix -3.7038395 40.416745
+//      geo fix -3.7036161 40.4166984
+//      geo fix -3.7039319 40.416653
+//      geo fix -3.7042343 40.4165733
         for (int i = 0; i < loc.size() - 1; i++) {
             current = loc.get(i);
             previous = loc.get(i + 1);
@@ -165,8 +168,9 @@ public class MapsActivity extends FragmentActivity implements
                     .add(previous)
                     .color(Color.RED)
                     .width(5);
-            mMap.addPolyline(polylineOptions);
 
+            mMap.addPolyline(polylineOptions);
+//            mMap.addMarker(new MarkerOptions().position(current).title(current.toString()));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 21f));
         }
 
@@ -359,6 +363,10 @@ public class MapsActivity extends FragmentActivity implements
         // connection to GoogleApiClient intact.  Here, we resume receiving
         // location updates if the user has requested them.
         LocalBroadcastManager.getInstance(this).registerReceiver(mLocationReceiver, new IntentFilter(LocationUpdaterService.COPA_RESULT));
+        if (mLocationsList != null && mMap != null) {
+//            mMap.clear();
+            updateMap(mLocationsList);
+        }
     }
 
     @Override
