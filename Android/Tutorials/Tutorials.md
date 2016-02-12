@@ -500,7 +500,14 @@ GoogleDirection.withServerKey(getString(R.string.google_maps_server_key))
 				});
 ```
 
-<!--Fotos de la ruta-->
+### Referencias y agradecimientos
+
+- [stackoverflow.com](http://stackoverflow.com/a/14695943/1612432 "Android update activity UI from service")
+- [github.com/googlesamples/android-play-location](https://github.com/googlesamples/android-play-location/tree/master/LocationUpdates "Ejemplos de Google")
+- [github.com/akexorcist/Android-GoogleDirectionLibrary](https://github.com/akexorcist/Android-GoogleDirectionLibrary "Android-GoogleDirectionLibrary")
+- [gist.github.com/blackcj](https://gist.github.com/blackcj/20efe2ac885c7297a676#gistcomment-1666537)
+- [github.com/googlemaps/android-samples](https://github.com/googlemaps/android-samples "Ejemplos de google Maps de Google")
+- [Icono QR](http://www.iconarchive.com/show/windows-8-icons-by-icons8/Ecommerce-Qr-Code-icon.html)
 
 ## Photo Gesture
 
@@ -525,6 +532,23 @@ Hecho esto, cuando volvamos a la pantalla principal, en lugar de “Establecer p
 ![Cuenta atrás para echar la foto](./img/countdown.png)
 
 La foto se guardará en la galería.
+
+### Implementación
+
+Se ha reutilizado el ejemplo que el autor de la librería creo para demostar su uso, y se ha modificado para ajustarlo a los requisitos de la práctica. Para ello, cuando se introduce correctamente el parón, se incia la actividad de hacer una foto:
+
+```java
+@Override
+protected boolean isPatternCorrect(List<PatternView.Cell> pattern) {
+
+		boolean isCorrect = PatternLockUtils.isPatternCorrect(pattern, this);
+		if (isCorrect) {
+				startActivity(new Intent(this, MakePhotoActivity.class));
+		}
+
+		return isCorrect;
+}
+```
 
 ## Movement Sound
 
