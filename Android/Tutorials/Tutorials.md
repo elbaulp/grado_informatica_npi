@@ -364,6 +364,142 @@ public void onLocationChanged(Location location) {
 }
 ```
 
+El método `sendResult` se usa para emitir un `Broadcast` al sistema y que la aplicación sea capaz de recibir el mensaje, incluso si no está en primer plano:
+
+```java
+/**
+ * This method send the current location to the activity who called the service, This way the
+ * location can be used in the UI.
+ *
+ * @param message The location
+ */
+private void sendResult(LatLng message) {
+		Intent intent = new Intent(COPA_RESULT);
+		if (message != null)
+				intent.putExtra(COPA_MESSAGE, message);
+		mBroadcaster.sendBroadcast(intent);
+}
+```
+
+Por último para que el Servicio funcione debemos registrarlo en el _Manifest_ añadiendo la siguiente etiqueta:
+
+```xml
+<application>
+	<!--//....-->
+	<service android:name=".LocationUpdaterService"/>
+	<!--//....-->
+</application>
+```
+
+#### Clase MapsActivity.java
+
+Esta clase es la interfaz gráfica de la aplicación y donde se muestran los dos mapas, para poder trabajar con ellos se implementan las siguientes interfaces:
+
+```java
+public class MapsActivity extends FragmentActivity implements
+        OnMapReadyCallback,
+        StreetViewPanorama.OnStreetViewPanoramaChangeListener,
+        OnStreetViewPanoramaReadyCallback {
+
+			private GoogleMap mMap;
+	    private StreetViewPanorama mStreetViewPanorama;
+
+			// ...
+}
+```
+
+Antes de poder trabajar con cualquiera de los mapas hemos de esperar a que estén inicializados, el momento de hacer esta inicialización es cuando el sistema llama a `OnMapReadyCallback, OnStreetViewPanoramaReadyCallback`:
+
+```java
+/**
+ * Manipulates the map once available.
+ * This callback is triggered when the map is ready to be used.
+ * This is where we can add markers or lines, add listeners or move the camera.
+ * If Google Play services is not installed on the device, the user will be prompted to install
+ * it inside the SupportMapFragment. This method will only be triggered once the user has
+ * installed Google Play services and returned to the app.
+ */
+@Override
+public void onMapReady(GoogleMap googleMap) {
+		mMap = googleMap;
+		mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+		UiSettings uiSettings = mMap.getUiSettings();
+		uiSettings.setMapToolbarEnabled(true);
+		uiSettings.setZoomControlsEnabled(true);
+}
+
+@Override
+public void onStreetViewPanoramaReady(StreetViewPanorama panorama) {
+		mStreetViewPanorama = panorama;
+		mStreetViewPanorama.setOnStreetViewPanoramaChangeListener(this);
+		mStreetViewPanorama.setStreetNamesEnabled(true);
+}
+```
+
+Entre otras cosas, en el método `onCreate` inicializamos el `BroadcastReceiver` que nos permitirá recibir actualizaciones desde el servicio, e iniciamos el servicio:
+
+```java
+@Override
+protected void onCreate(final Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_maps);
+//  ...
+		mLocationReceiver = new BroadcastReceiver() {
+				@Override
+				public void onReceive(Context context, Intent intent) {
+						mPreviousLocation = mCurrentLocation;
+						mCurrentLocation = intent.getParcelableExtra(LocationUpdaterService.COPA_MESSAGE);
+						updateMap();
+						mLocationsList.add(mCurrentLocation);
+
+						if (BuildConfig.DEBUG) {
+								Log.d(TAG, "LocationList size: " + mLocationsList.size());
+						}
+				}
+		};
+
+		mRequestLocationIntent = new Intent(this, LocationUpdaterService.class);
+		startService(mRequestLocationIntent);
+// ...
+}
+```
+
+La función `updateMap` es la encargada de dibujar las líneas del camino seguido por el usuario.
+
+##### Iniciar la navegación hasta destino
+
+Cuando se lanza el lector QR y se obtiene el destino, se crea una ruta a seguir, en esta ruta es posible hacerla siguiendo el camino mostrado en el mapa, o lanzando la navegación con _Google Maps_. Para lo último, es neceario pulsar sobre el marcador de destino y posteriormente pulsar el icono de _Google Maps_:
+
+```java
+LatLng firstLocation = new LatLng(mCoord[0], mCoord[1]);
+mMap.addMarker(new MarkerOptions().position(firstLocation).title("Dest"));
+mMap.moveCamera(CameraUpdateFactory.newLatLng(firstLocation));
+mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(firstLocation, 21.0f));
+
+GoogleDirection.withServerKey(getString(R.string.google_maps_server_key))
+				.from(mCurrentLocation)
+				.to(new LatLng(mCoord[0], mCoord[1]))
+				.transportMode(TransportMode.WALKING)
+				.execute(new DirectionCallback() {
+						@Override
+						public void onDirectionSuccess(Direction direction) {
+								if (direction.isOK()) {
+										Toast.makeText(getApplicationContext(), "DIRECTION KOK", Toast.LENGTH_LONG).show();
+										ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
+										PolylineOptions polylineOptions = DirectionConverter.createPolyline(getApplicationContext(), directionPositionList, 5, Color.BLUE);
+										mMap.addPolyline(polylineOptions);
+								} else {
+										Toast.makeText(getApplicationContext(), "NOT OK" + direction.getStatus(), Toast.LENGTH_LONG).show();
+								}
+						}
+
+						@Override
+						public void onDirectionFailure(Throwable t) {
+								Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
+						}
+				});
+```
+
 <!--Fotos de la ruta-->
 
 ## Photo Gesture
