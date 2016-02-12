@@ -106,9 +106,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-//        if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
-//            return;
-//        }
+        if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
+
+            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+                mAccx.setText(R.string.act_main_no_acuracy);
+                mAccy.setText(R.string.act_main_no_acuracy);
+                mAccz.setText(R.string.act_main_no_acuracy);
+            } else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
+                mGyrox.setText(R.string.act_main_no_acuracy);
+                mGyroy.setText(R.string.act_main_no_acuracy);
+                mGyroz.setText(R.string.act_main_no_acuracy);
+            }
+            return;
+        }
 
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             mAccx.setText("x = " + Float.toString(event.values[0]));

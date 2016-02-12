@@ -267,7 +267,15 @@ public void updateDirection(float direction) {
 }
 ```
 
-que se encargan de rotar la brújula cada vez que se llama al método `updateDirection` desde el `Runnable` visto anteriormente.
+que se encargan de rotar la brújula cada vez que se llama al método `updateDirection` desde el `Runnable`  visto anteriormente.
+
+##### Permisos requeridos para el AndroidManifest
+
+```xml
+<uses-permission android:name="android.permission.VIBRATE"/>
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+```
 
 ### Referencias
 
@@ -500,6 +508,12 @@ GoogleDirection.withServerKey(getString(R.string.google_maps_server_key))
 				});
 ```
 
+##### Permisos requeridos para el AndroidManifest
+
+```xml
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+```
+
 ### Referencias y agradecimientos
 
 - [stackoverflow.com](http://stackoverflow.com/a/14695943/1612432 "Android update activity UI from service")
@@ -549,6 +563,136 @@ protected boolean isPatternCorrect(List<PatternView.Cell> pattern) {
 		return isCorrect;
 }
 ```
+
+En la actividad `MakePhotoActivity` se muestra la pantalla dividida en dos, arriba aparece la cámara y abajo una cuenta atrás de 3 segundos, cuando esta cuenta atrás llegue a cero, se hará la foto.
+
+En el método `onCreate` se inicializa la cámara se crean dos _callbacks_, uno que se ejecuta al hacer la foto y otro para reproducir un sonido al echar la foto:
+
+```java
+mPicture = new Camera.PictureCallback() {
+
+		@Override
+		public void onPictureTaken(byte[] data, Camera camera) {
+
+				File pictureFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
+				if (pictureFile == null) {
+						Log.e(TAG, "Error creating media file, check storage permissions: ");
+						return;
+				}
+
+				try {
+						FileOutputStream fos = new FileOutputStream(pictureFile);
+						fos.write(data);
+						fos.close();
+
+						new MediaScannerWrapper(getApplicationContext(), pictureFile.getPath(), "image/jpeg").scan();
+				} catch (FileNotFoundException e) {
+						Log.d(TAG, "File not found: " + e.getMessage());
+				} catch (IOException e) {
+						Log.d(TAG, "Error accessing file: " + e.getMessage());
+				}
+
+		}
+};
+
+mShutterSound = MediaPlayer.create(this, R.raw.shut);
+
+mShutter = new Camera.ShutterCallback() {
+		@Override
+		public void onShutter() {
+				mShutterSound.start();
+				finish();
+		}
+};
+```
+
+Al llegar la cuenta atrás a cero, se llama al método `takePicture` de la cámara y se le pasan los _callbacks anteriores_:
+
+```java
+mCamera.takePicture(mShutter, null, mPicture);
+```
+
+##### Mostrando una vista previa de la cámara
+
+Para crear la parte superior de la pantalla, en la que se muestra una vista previa de la cámara, hay que crear una clase extendiendo de `SurfaceView` que hemos llamado `CameraPreview`, esta clase implementa la interfaz `SurfaceHolder.Callback`:
+
+```java
+/** A basic Camera preview class */
+public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
+
+    private SurfaceHolder mHolder;
+    private Camera mCamera;
+
+    public CameraPreview(Context context, Camera camera) {
+        super(context);
+        mCamera = camera;
+
+        mCamera.setDisplayOrientation(90);
+        // Install a SurfaceHolder.Callback so we get notified when the
+        // underlying surface is created and destroyed.
+        mHolder = getHolder();
+        mHolder.addCallback(this);
+        // deprecated setting, but required on Android versions prior to 3.0
+        mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+    }
+
+    public void surfaceCreated(SurfaceHolder holder) {
+        // The Surface has been created, now tell the camera where to draw the preview.
+        try {
+            mCamera.setPreviewDisplay(holder);
+            mCamera.startPreview();
+        } catch (IOException e) {
+            Log.d("TAG", "Error setting camera preview: " + e.getMessage());
+        }
+    }
+
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        // empty. Take care of releasing the Camera preview in your activity.
+        mCamera.release();
+    }
+
+    public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
+        // If your preview can change or rotate, take care of those events here.
+        // Make sure to stop the preview before resizing or reformatting it.
+
+        if (mHolder.getSurface() == null) {
+            // preview surface does not exist
+            return;
+        }
+
+        // stop preview before making changes
+        try {
+            mCamera.stopPreview();
+        } catch (Exception e) {
+            // ignore: tried to stop a non-existent preview
+        }
+
+        // set preview size and make any resize, rotate or
+        // reformatting changes here
+
+        // start preview with new settings
+        try {
+            mCamera.setPreviewDisplay(mHolder);
+            mCamera.startPreview();
+
+        } catch (Exception e) {
+            Log.d("TAG", "Error starting camera preview: " + e.getMessage());
+        }
+    }
+}
+```
+
+##### Permisos requeridos para el AndroidManifest
+
+```xml
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+```
+
+### Referencias
+
+- Página oficial de Android \| [developer.android.com/guide/topics/media/camera](http://developer.android.com/guide/topics/media/camera.html)
+- Librería PatternLock \| [github.com/DreaminginCodeZH/PatternLock](https://github.com/DreaminginCodeZH/PatternLock)
 
 ## Movement Sound
 

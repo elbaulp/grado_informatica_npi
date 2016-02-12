@@ -162,9 +162,9 @@ public class MakePhotoActivity extends Activity {
 
                     new MediaScannerWrapper(getApplicationContext(), pictureFile.getPath(), "image/jpeg").scan();
                 } catch (FileNotFoundException e) {
-                    Log.d(TAG, "File not found: " + e.getMessage());
+                    Log.w(TAG, "File not found: " + e.getMessage());
                 } catch (IOException e) {
-                    Log.d(TAG, "Error accessing file: " + e.getMessage());
+                    Log.w(TAG, "Error accessing file: " + e.getMessage());
                 }
 
             }
