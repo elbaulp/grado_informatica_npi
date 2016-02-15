@@ -49,6 +49,7 @@ public class CompassActivity extends Activity {
     private static final int REQUEST_TTS = 101;
 
     protected final Handler mHandlerCompass = new Handler();
+    protected final Handler mHandlerVoice = new Handler();
     View mCompassView;
     CompassView mPointer;
     CompassView mUserHint;
@@ -70,8 +71,6 @@ public class CompassActivity extends Activity {
     private float mTargetDirection;
     private AccelerateInterpolator mInterpolator;
     private boolean mStopDrawing;
-    private TextToSpeech mTts;
-    private boolean mKeepStraight = false;
     protected Runnable mCompassViewUpdater = new Runnable() {
         @Override
         public void run() {
@@ -106,6 +105,32 @@ public class CompassActivity extends Activity {
                 updateDirection();
                 mHandlerCompass.postDelayed(mCompassViewUpdater, 20);
             }
+        }
+    };
+    private TextToSpeech mTts;
+    private boolean mKeepStraight = false;
+    protected Runnable mVoiceUpdater = new Runnable() {
+        @Override
+        public void run() {
+
+            int direction = (int) normalizeDegree(mTargetDirection * -1.0f);
+
+            float thresholdlow = -.1f * mHeadedDirection + mHeadedDirection;
+            float thresholdup = .1f * mHeadedDirection + mHeadedDirection;
+
+            if (thresholdlow <= direction && direction <= thresholdup) {
+                if (!mTts.isSpeaking() && !mKeepStraight) {
+                    mTts.speak("Sigue en esta dirección", TextToSpeech.QUEUE_FLUSH, null);
+                    mKeepStraight = true;
+                }
+            } else if (thresholdlow <= direction && !mTts.isSpeaking()) {
+                mTts.speak("Gira a la izquierda", TextToSpeech.QUEUE_FLUSH, null);
+                mKeepStraight = false;
+            } else if (direction <= thresholdup && !mTts.isSpeaking()) {
+                mTts.speak("Gira a la derecha", TextToSpeech.QUEUE_FLUSH, null);
+                mKeepStraight = false;
+            }
+            mHandlerVoice.postDelayed(mVoiceUpdater, 10000);
         }
     };
     private SensorEventListener mMagneticSensorEventListener = new SensorEventListener() {
@@ -158,7 +183,7 @@ public class CompassActivity extends Activity {
         }
         mStopDrawing = false;
         mHandlerCompass.postDelayed(mCompassViewUpdater, 20);
-
+        mHandlerVoice.postDelayed(mVoiceUpdater, 50000);
     }
 
     @Override
@@ -272,22 +297,6 @@ public class CompassActivity extends Activity {
         }
 
         int direction2 = (int) direction;
-
-        float thresholdlow = -.05f * mHeadedDirection + mHeadedDirection;
-        float thresholdup = .05f * mHeadedDirection + mHeadedDirection;
-
-        if (thresholdlow <= direction && direction <= thresholdup) {
-            if (!mTts.isSpeaking() && !mKeepStraight) {
-                mTts.speak("Sigue en esta dirección", TextToSpeech.QUEUE_FLUSH, null);
-                mKeepStraight = true;
-            }
-        } else if (thresholdlow <= direction && !mTts.isSpeaking()) {
-            mTts.speak("Gira a la izquierda", TextToSpeech.QUEUE_FLUSH, null);
-            mKeepStraight = false;
-        } else if (direction <= thresholdup && !mTts.isSpeaking()) {
-            mTts.speak("Gira a la derecha", TextToSpeech.QUEUE_FLUSH, null);
-            mKeepStraight = false;
-        }
 
         boolean show = false;
         if (direction2 >= 100) {
